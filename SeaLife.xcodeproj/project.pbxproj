@@ -1,0 +1,857 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 53;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03AC82F11974646000D4348C /* CreatureFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AC82EE1974646000D4348C /* CreatureFactory.m */; };
+		03B818EF197795BE0096FB77 /* Creature.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B818E9197795BE0096FB77 /* Creature.m */; };
+		03B818F0197795BE0096FB77 /* OrcaCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B818EC197795BE0096FB77 /* OrcaCreature.m */; };
+		03B818F1197795BE0096FB77 /* FishCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B818EE197795BE0096FB77 /* FishCreature.m */; };
+		03BFB090196EA4FC00DE912B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BFB08F196EA4FC00DE912B /* Foundation.framework */; };
+		03BFB092196EA4FC00DE912B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BFB091196EA4FC00DE912B /* CoreGraphics.framework */; };
+		03BFB094196EA4FC00DE912B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BFB093196EA4FC00DE912B /* UIKit.framework */; };
+		03BFB0A9196EA4FC00DE912B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BFB0A8196EA4FC00DE912B /* XCTest.framework */; };
+		03BFB0AA196EA4FC00DE912B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BFB08F196EA4FC00DE912B /* Foundation.framework */; };
+		03BFB0AB196EA4FC00DE912B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BFB093196EA4FC00DE912B /* UIKit.framework */; };
+		03BFB0B3196EA4FC00DE912B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03BFB0B1196EA4FC00DE912B /* InfoPlist.strings */; };
+		03BFB0B5196EA4FC00DE912B /* SeaLifeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BFB0B4196EA4FC00DE912B /* SeaLifeTests.m */; };
+		03C1328D1976BCFF00C19D03 /* Turn.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C132831976BCFF00C19D03 /* Turn.m */; };
+		03C1328E1976BCFF00C19D03 /* World.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C132851976BCFF00C19D03 /* World.m */; };
+		03C132901976BCFF00C19D03 /* WorldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C1328A1976BCFF00C19D03 /* WorldViewController.m */; };
+		03C132981976BD0600C19D03 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C132941976BD0600C19D03 /* MenuViewController.m */; };
+		03C132991976BD0600C19D03 /* WorldScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C132971976BD0600C19D03 /* WorldScreenViewController.m */; };
+		A513A9302A0E79CE00EF8E95 /* CreatureTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = A513A92F2A0E79CE00EF8E95 /* CreatureTimer.m */; };
+		A53E541D2A0EF04C006E2B90 /* SliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A53E541C2A0EF04C006E2B90 /* SliderView.xib */; };
+		A53E54202A0EF3F5006E2B90 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A53E541F2A0EF3F5006E2B90 /* SliderView.m */; };
+		A56178C02A0868F20027AC7C /* WorldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A56178BF2A0868F20027AC7C /* WorldCell.m */; };
+		A56C6EA72A0C04A600C66D0A /* AnimationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56C6EA62A0C04A600C66D0A /* AnimationsController.m */; };
+		A56C6EAD2A0C2CF700C66D0A /* WorldBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A56C6EAC2A0C2CF700C66D0A /* WorldBackgroundView.m */; };
+		A57B18832A1A20B4006E1AE9 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A57B18822A1A20B4006E1AE9 /* Utils.m */; };
+		A59883DB2A0ACC0F008B8763 /* TurnHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A59883DA2A0ACC0F008B8763 /* TurnHelper.m */; };
+		A59F3D9C2A1299160088A510 /* AnimationsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A59F3D9B2A1299160088A510 /* AnimationsFactory.m */; };
+		A59F3DA02A1391970088A510 /* CreaturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = A59F3D9F2A1391970088A510 /* CreaturesView.m */; };
+		A5BC10102A066B56003618E2 /* UIImage+Creature.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC100F2A066B56003618E2 /* UIImage+Creature.m */; };
+		A5BC10152A081AB8003618E2 /* NSValue+WorldPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC10142A081AB8003618E2 /* NSValue+WorldPosition.m */; };
+		A5E1CC792A1F87C3002CB927 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CC6A2A1F87C3002CB927 /* Localizable.strings */; };
+		A5E1CC7A2A1F87C3002CB927 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CC6C2A1F87C3002CB927 /* InfoPlist.strings */; };
+		A5E1CC7B2A1F87C3002CB927 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CC702A1F87C3002CB927 /* main.storyboard */; };
+		A5E1CC7D2A1F87C3002CB927 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CC762A1F87C3002CB927 /* Launch.storyboard */; };
+		A5E1CC812A1F87F8002CB927 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CC802A1F87F7002CB927 /* Images.xcassets */; };
+		A5E1CC8F2A1F8893002CB927 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CC8D2A1F8893002CB927 /* main.m */; };
+		A5E1CC902A1F8893002CB927 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CC8E2A1F8893002CB927 /* AppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03BFB0AC196EA4FC00DE912B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BFB084196EA4FC00DE912B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03BFB08B196EA4FC00DE912B;
+			remoteInfo = SeaLife;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03AC82ED1974646000D4348C /* CreatureFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatureFactory.h; sourceTree = "<group>"; };
+		03AC82EE1974646000D4348C /* CreatureFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatureFactory.m; sourceTree = "<group>"; };
+		03B818E8197795BE0096FB77 /* Creature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Creature.h; sourceTree = "<group>"; };
+		03B818E9197795BE0096FB77 /* Creature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Creature.m; sourceTree = "<group>"; };
+		03B818EB197795BE0096FB77 /* OrcaCreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrcaCreature.h; sourceTree = "<group>"; };
+		03B818EC197795BE0096FB77 /* OrcaCreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrcaCreature.m; sourceTree = "<group>"; };
+		03B818ED197795BE0096FB77 /* FishCreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishCreature.h; sourceTree = "<group>"; };
+		03B818EE197795BE0096FB77 /* FishCreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishCreature.m; sourceTree = "<group>"; };
+		03BFB08C196EA4FC00DE912B /* SeaLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeaLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03BFB08F196EA4FC00DE912B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		03BFB091196EA4FC00DE912B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		03BFB093196EA4FC00DE912B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		03BFB0A7196EA4FC00DE912B /* SeaLifeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeaLifeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03BFB0A8196EA4FC00DE912B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		03BFB0B0196EA4FC00DE912B /* SeaLifeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SeaLifeTests-Info.plist"; sourceTree = "<group>"; };
+		03BFB0B2196EA4FC00DE912B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		03BFB0B4196EA4FC00DE912B /* SeaLifeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeaLifeTests.m; sourceTree = "<group>"; };
+		03C132821976BCFF00C19D03 /* Turn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Turn.h; sourceTree = "<group>"; };
+		03C132831976BCFF00C19D03 /* Turn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Turn.m; sourceTree = "<group>"; };
+		03C132841976BCFF00C19D03 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
+		03C132851976BCFF00C19D03 /* World.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = World.m; sourceTree = "<group>"; };
+		03C132891976BCFF00C19D03 /* WorldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldViewController.h; sourceTree = "<group>"; };
+		03C1328A1976BCFF00C19D03 /* WorldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldViewController.m; sourceTree = "<group>"; };
+		03C1328B1976BCFF00C19D03 /* WorldViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldViewControllerDelegate.h; sourceTree = "<group>"; };
+		03C132931976BD0600C19D03 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		03C132941976BD0600C19D03 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		03C132961976BD0600C19D03 /* WorldScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldScreenViewController.h; sourceTree = "<group>"; };
+		03C132971976BD0600C19D03 /* WorldScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldScreenViewController.m; sourceTree = "<group>"; };
+		A513A92D2A0D00C000EF8E95 /* WorldProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldProtocol.h; sourceTree = "<group>"; };
+		A513A92E2A0E79CE00EF8E95 /* CreatureTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatureTimer.h; sourceTree = "<group>"; };
+		A513A92F2A0E79CE00EF8E95 /* CreatureTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreatureTimer.m; sourceTree = "<group>"; };
+		A513A9312A0E7A1C00EF8E95 /* CreatureTimerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatureTimerProtocol.h; sourceTree = "<group>"; };
+		A513A9322A0E800800EF8E95 /* TurnHelperProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurnHelperProtocol.h; sourceTree = "<group>"; };
+		A51EFD922A1C05160016182D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A51EFD9F2A1CE6360016182D /* Creature+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Creature+Private.h"; sourceTree = "<group>"; };
+		A53E541C2A0EF04C006E2B90 /* SliderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderView.xib; sourceTree = "<group>"; };
+		A53E541E2A0EF3F5006E2B90 /* SliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderView.h; sourceTree = "<group>"; };
+		A53E541F2A0EF3F5006E2B90 /* SliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderView.m; sourceTree = "<group>"; };
+		A56178BE2A0868F20027AC7C /* WorldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldCell.h; sourceTree = "<group>"; };
+		A56178BF2A0868F20027AC7C /* WorldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldCell.m; sourceTree = "<group>"; };
+		A56C6EA52A0C04A600C66D0A /* AnimationsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationsController.h; sourceTree = "<group>"; };
+		A56C6EA62A0C04A600C66D0A /* AnimationsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationsController.m; sourceTree = "<group>"; };
+		A56C6EAA2A0C1EDE00C66D0A /* WorldDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldDelegate.h; sourceTree = "<group>"; };
+		A56C6EAB2A0C2CF700C66D0A /* WorldBackgroundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldBackgroundView.h; sourceTree = "<group>"; };
+		A56C6EAC2A0C2CF700C66D0A /* WorldBackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldBackgroundView.m; sourceTree = "<group>"; };
+		A57B18812A1A20B4006E1AE9 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		A57B18822A1A20B4006E1AE9 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		A59883D92A0ACC0F008B8763 /* TurnHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurnHelper.h; sourceTree = "<group>"; };
+		A59883DA2A0ACC0F008B8763 /* TurnHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TurnHelper.m; sourceTree = "<group>"; };
+		A59F3D9A2A1299160088A510 /* AnimationsFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationsFactory.h; sourceTree = "<group>"; };
+		A59F3D9B2A1299160088A510 /* AnimationsFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationsFactory.m; sourceTree = "<group>"; };
+		A59F3D9E2A1391970088A510 /* CreaturesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreaturesView.h; sourceTree = "<group>"; };
+		A59F3D9F2A1391970088A510 /* CreaturesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreaturesView.m; sourceTree = "<group>"; };
+		A5B441762A14D4FA00B2C6CF /* WorldVisualDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldVisualDelegate.h; sourceTree = "<group>"; };
+		A5BC100E2A066B56003618E2 /* UIImage+Creature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Creature.h"; sourceTree = "<group>"; };
+		A5BC100F2A066B56003618E2 /* UIImage+Creature.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Creature.m"; sourceTree = "<group>"; };
+		A5BC10112A067D05003618E2 /* CreatureProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatureProtocol.h; sourceTree = "<group>"; };
+		A5BC10132A081AB8003618E2 /* NSValue+WorldPosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSValue+WorldPosition.h"; sourceTree = "<group>"; };
+		A5BC10142A081AB8003618E2 /* NSValue+WorldPosition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSValue+WorldPosition.m"; sourceTree = "<group>"; };
+		A5C224E22A24A77800C4C7A0 /* Direction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direction.h; sourceTree = "<group>"; };
+		A5C224E32A24A8BB00C4C7A0 /* WorldCompletionReason.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldCompletionReason.h; sourceTree = "<group>"; };
+		A5C224E42A24A91C00C4C7A0 /* TurnType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurnType.h; sourceTree = "<group>"; };
+		A5C224E52A24A9CA00C4C7A0 /* WorldInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldInfo.h; sourceTree = "<group>"; };
+		A5C224E62A24AC5B00C4C7A0 /* WorldPosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldPosition.h; sourceTree = "<group>"; };
+		A5E1CC692A1F87C3002CB927 /* SeaLife-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SeaLife-Info.plist"; sourceTree = "<group>"; };
+		A5E1CC6B2A1F87C3002CB927 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A5E1CC6D2A1F87C3002CB927 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A5E1CC702A1F87C3002CB927 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = main.storyboard; sourceTree = "<group>"; };
+		A5E1CC712A1F87C3002CB927 /* SeaLife-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SeaLife-Prefix.pch"; sourceTree = "<group>"; };
+		A5E1CC742A1F87C3002CB927 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A5E1CC752A1F87C3002CB927 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A5E1CC762A1F87C3002CB927 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		A5E1CC802A1F87F7002CB927 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A5E1CC8A2A1F8893002CB927 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A5E1CC8C2A1F8893002CB927 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		A5E1CC8D2A1F8893002CB927 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A5E1CC8E2A1F8893002CB927 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		03BFB089196EA4FC00DE912B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03BFB092196EA4FC00DE912B /* CoreGraphics.framework in Frameworks */,
+				03BFB094196EA4FC00DE912B /* UIKit.framework in Frameworks */,
+				03BFB090196EA4FC00DE912B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03BFB0A4196EA4FC00DE912B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03BFB0A9196EA4FC00DE912B /* XCTest.framework in Frameworks */,
+				03BFB0AB196EA4FC00DE912B /* UIKit.framework in Frameworks */,
+				03BFB0AA196EA4FC00DE912B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03AC82EC1974646000D4348C /* CreatureFactory */ = {
+			isa = PBXGroup;
+			children = (
+				03AC82ED1974646000D4348C /* CreatureFactory.h */,
+				03AC82EE1974646000D4348C /* CreatureFactory.m */,
+			);
+			path = CreatureFactory;
+			sourceTree = "<group>";
+		};
+		03B818E7197795BE0096FB77 /* Creatures */ = {
+			isa = PBXGroup;
+			children = (
+				A5BC10112A067D05003618E2 /* CreatureProtocol.h */,
+				A51EFD9F2A1CE6360016182D /* Creature+Private.h */,
+				03B818E8197795BE0096FB77 /* Creature.h */,
+				03B818E9197795BE0096FB77 /* Creature.m */,
+				03B818EB197795BE0096FB77 /* OrcaCreature.h */,
+				03B818EC197795BE0096FB77 /* OrcaCreature.m */,
+				03B818ED197795BE0096FB77 /* FishCreature.h */,
+				03B818EE197795BE0096FB77 /* FishCreature.m */,
+				A5BC100E2A066B56003618E2 /* UIImage+Creature.h */,
+				A5BC100F2A066B56003618E2 /* UIImage+Creature.m */,
+			);
+			path = Creatures;
+			sourceTree = "<group>";
+		};
+		03BFB083196EA4FC00DE912B = {
+			isa = PBXGroup;
+			children = (
+				03BFB095196EA4FC00DE912B /* SeaLife */,
+				03BFB0AE196EA4FC00DE912B /* SeaLifeTests */,
+				03BFB08E196EA4FC00DE912B /* Frameworks */,
+				03BFB08D196EA4FC00DE912B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		03BFB08D196EA4FC00DE912B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				03BFB08C196EA4FC00DE912B /* SeaLife.app */,
+				03BFB0A7196EA4FC00DE912B /* SeaLifeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		03BFB08E196EA4FC00DE912B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03BFB08F196EA4FC00DE912B /* Foundation.framework */,
+				03BFB091196EA4FC00DE912B /* CoreGraphics.framework */,
+				03BFB093196EA4FC00DE912B /* UIKit.framework */,
+				03BFB0A8196EA4FC00DE912B /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		03BFB095196EA4FC00DE912B /* SeaLife */ = {
+			isa = PBXGroup;
+			children = (
+				A5ACA5F72A18B78900FEE2FD /* Sources */,
+				A5E1CC7F2A1F87F7002CB927 /* Resources */,
+				A5E1CC682A1F87C3002CB927 /* SupportingFiles */,
+			);
+			path = SeaLife;
+			sourceTree = "<group>";
+		};
+		03BFB0AE196EA4FC00DE912B /* SeaLifeTests */ = {
+			isa = PBXGroup;
+			children = (
+				03BFB0B4196EA4FC00DE912B /* SeaLifeTests.m */,
+				03BFB0AF196EA4FC00DE912B /* Supporting Files */,
+			);
+			path = SeaLifeTests;
+			sourceTree = "<group>";
+		};
+		03BFB0AF196EA4FC00DE912B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				03BFB0B0196EA4FC00DE912B /* SeaLifeTests-Info.plist */,
+				03BFB0B1196EA4FC00DE912B /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		03BFB0C9196EAC5600DE912B /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				A5C224E12A24A75300C4C7A0 /* Common */,
+				03B818E7197795BE0096FB77 /* Creatures */,
+				A53E54192A0EDA93006E2B90 /* CreatureTimer */,
+				03AC82EC1974646000D4348C /* CreatureFactory */,
+				03C1327F1976BCFF00C19D03 /* Turn */,
+				03C1327E1976BCFF00C19D03 /* World */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		03C1327E1976BCFF00C19D03 /* World */ = {
+			isa = PBXGroup;
+			children = (
+				A513A92D2A0D00C000EF8E95 /* WorldProtocol.h */,
+				A5B441762A14D4FA00B2C6CF /* WorldVisualDelegate.h */,
+				03C132841976BCFF00C19D03 /* World.h */,
+				03C132851976BCFF00C19D03 /* World.m */,
+				A56C6EAA2A0C1EDE00C66D0A /* WorldDelegate.h */,
+				A56178BE2A0868F20027AC7C /* WorldCell.h */,
+				A56178BF2A0868F20027AC7C /* WorldCell.m */,
+				A5BC10132A081AB8003618E2 /* NSValue+WorldPosition.h */,
+				A5BC10142A081AB8003618E2 /* NSValue+WorldPosition.m */,
+				A5C224E52A24A9CA00C4C7A0 /* WorldInfo.h */,
+			);
+			path = World;
+			sourceTree = "<group>";
+		};
+		03C1327F1976BCFF00C19D03 /* Turn */ = {
+			isa = PBXGroup;
+			children = (
+				03C132821976BCFF00C19D03 /* Turn.h */,
+				03C132831976BCFF00C19D03 /* Turn.m */,
+				A59883D92A0ACC0F008B8763 /* TurnHelper.h */,
+				A59883DA2A0ACC0F008B8763 /* TurnHelper.m */,
+				A513A9322A0E800800EF8E95 /* TurnHelperProtocol.h */,
+				A5C224E42A24A91C00C4C7A0 /* TurnType.h */,
+			);
+			path = Turn;
+			sourceTree = "<group>";
+		};
+		03C132861976BCFF00C19D03 /* WorldViewController */ = {
+			isa = PBXGroup;
+			children = (
+				03C132891976BCFF00C19D03 /* WorldViewController.h */,
+				03C1328A1976BCFF00C19D03 /* WorldViewController.m */,
+				03C1328B1976BCFF00C19D03 /* WorldViewControllerDelegate.h */,
+				A5C224E32A24A8BB00C4C7A0 /* WorldCompletionReason.h */,
+			);
+			path = WorldViewController;
+			sourceTree = "<group>";
+		};
+		03C132911976BD0600C19D03 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03C132921976BD0600C19D03 /* MenuScreen */,
+				03C132951976BD0600C19D03 /* MainScreen */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		03C132921976BD0600C19D03 /* MenuScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A525393D2A23FB860037F97C /* MenuViewController */,
+				A5E1CC582A1F609B002CB927 /* SliderView */,
+			);
+			path = MenuScreen;
+			sourceTree = "<group>";
+		};
+		03C132951976BD0600C19D03 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A5ACA6682A18DFA200FEE2FD /* WorldScreenViewController */,
+				03C132861976BCFF00C19D03 /* WorldViewController */,
+				A53E541B2A0EDAE7006E2B90 /* AnimationsController */,
+				A59F3D9D2A13915E0088A510 /* CreaturesView */,
+				A53E541A2A0EDAB8006E2B90 /* WorldBackgroundView */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		A525393D2A23FB860037F97C /* MenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				03C132931976BD0600C19D03 /* MenuViewController.h */,
+				03C132941976BD0600C19D03 /* MenuViewController.m */,
+			);
+			path = MenuViewController;
+			sourceTree = "<group>";
+		};
+		A53E54192A0EDA93006E2B90 /* CreatureTimer */ = {
+			isa = PBXGroup;
+			children = (
+				A513A92E2A0E79CE00EF8E95 /* CreatureTimer.h */,
+				A513A92F2A0E79CE00EF8E95 /* CreatureTimer.m */,
+				A513A9312A0E7A1C00EF8E95 /* CreatureTimerProtocol.h */,
+			);
+			path = CreatureTimer;
+			sourceTree = "<group>";
+		};
+		A53E541A2A0EDAB8006E2B90 /* WorldBackgroundView */ = {
+			isa = PBXGroup;
+			children = (
+				A56C6EAB2A0C2CF700C66D0A /* WorldBackgroundView.h */,
+				A56C6EAC2A0C2CF700C66D0A /* WorldBackgroundView.m */,
+			);
+			path = WorldBackgroundView;
+			sourceTree = "<group>";
+		};
+		A53E541B2A0EDAE7006E2B90 /* AnimationsController */ = {
+			isa = PBXGroup;
+			children = (
+				A56C6EA52A0C04A600C66D0A /* AnimationsController.h */,
+				A56C6EA62A0C04A600C66D0A /* AnimationsController.m */,
+				A59F3D9A2A1299160088A510 /* AnimationsFactory.h */,
+				A59F3D9B2A1299160088A510 /* AnimationsFactory.m */,
+			);
+			path = AnimationsController;
+			sourceTree = "<group>";
+		};
+		A57B18842A1A20C1006E1AE9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A57B18812A1A20B4006E1AE9 /* Utils.h */,
+				A57B18822A1A20B4006E1AE9 /* Utils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A59F3D9D2A13915E0088A510 /* CreaturesView */ = {
+			isa = PBXGroup;
+			children = (
+				A59F3D9E2A1391970088A510 /* CreaturesView.h */,
+				A59F3D9F2A1391970088A510 /* CreaturesView.m */,
+			);
+			path = CreaturesView;
+			sourceTree = "<group>";
+		};
+		A5ACA5F72A18B78900FEE2FD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A5E1CC892A1F8893002CB927 /* AppRelated */,
+				A57B18842A1A20C1006E1AE9 /* Utils */,
+				03C132911976BD0600C19D03 /* View */,
+				03BFB0C9196EAC5600DE912B /* Logic */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		A5ACA6682A18DFA200FEE2FD /* WorldScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				03C132961976BD0600C19D03 /* WorldScreenViewController.h */,
+				03C132971976BD0600C19D03 /* WorldScreenViewController.m */,
+			);
+			path = WorldScreenViewController;
+			sourceTree = "<group>";
+		};
+		A5C224E12A24A75300C4C7A0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A5C224E22A24A77800C4C7A0 /* Direction.h */,
+				A5C224E62A24AC5B00C4C7A0 /* WorldPosition.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A5E1CC582A1F609B002CB927 /* SliderView */ = {
+			isa = PBXGroup;
+			children = (
+				A53E541C2A0EF04C006E2B90 /* SliderView.xib */,
+				A53E541E2A0EF3F5006E2B90 /* SliderView.h */,
+				A53E541F2A0EF3F5006E2B90 /* SliderView.m */,
+			);
+			path = SliderView;
+			sourceTree = "<group>";
+		};
+		A5E1CC682A1F87C3002CB927 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				A5E1CC692A1F87C3002CB927 /* SeaLife-Info.plist */,
+				A5E1CC6A2A1F87C3002CB927 /* Localizable.strings */,
+				A5E1CC6C2A1F87C3002CB927 /* InfoPlist.strings */,
+				A5E1CC712A1F87C3002CB927 /* SeaLife-Prefix.pch */,
+				A5E1CC762A1F87C3002CB927 /* Launch.storyboard */,
+				A5E1CC702A1F87C3002CB927 /* main.storyboard */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		A5E1CC7F2A1F87F7002CB927 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A5E1CC802A1F87F7002CB927 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A5E1CC892A1F8893002CB927 /* AppRelated */ = {
+			isa = PBXGroup;
+			children = (
+				A5E1CC8A2A1F8893002CB927 /* AppDelegate.h */,
+				A5E1CC8E2A1F8893002CB927 /* AppDelegate.m */,
+				A5E1CC8C2A1F8893002CB927 /* Constants.h */,
+				A5E1CC8D2A1F8893002CB927 /* main.m */,
+			);
+			path = AppRelated;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		03BFB08B196EA4FC00DE912B /* SeaLife */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03BFB0B8196EA4FC00DE912B /* Build configuration list for PBXNativeTarget "SeaLife" */;
+			buildPhases = (
+				03BFB088196EA4FC00DE912B /* Sources */,
+				03BFB089196EA4FC00DE912B /* Frameworks */,
+				03BFB08A196EA4FC00DE912B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SeaLife;
+			productName = SeaLife;
+			productReference = 03BFB08C196EA4FC00DE912B /* SeaLife.app */;
+			productType = "com.apple.product-type.application";
+		};
+		03BFB0A6196EA4FC00DE912B /* SeaLifeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03BFB0BB196EA4FC00DE912B /* Build configuration list for PBXNativeTarget "SeaLifeTests" */;
+			buildPhases = (
+				03BFB0A3196EA4FC00DE912B /* Sources */,
+				03BFB0A4196EA4FC00DE912B /* Frameworks */,
+				03BFB0A5196EA4FC00DE912B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03BFB0AD196EA4FC00DE912B /* PBXTargetDependency */,
+			);
+			name = SeaLifeTests;
+			productName = SeaLifeTests;
+			productReference = 03BFB0A7196EA4FC00DE912B /* SeaLifeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		03BFB084196EA4FC00DE912B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				ORGANIZATIONNAME = "Sergey Pozhidaev";
+				TargetAttributes = {
+					03BFB0A6196EA4FC00DE912B = {
+						TestTargetID = 03BFB08B196EA4FC00DE912B;
+					};
+				};
+			};
+			buildConfigurationList = 03BFB087196EA4FC00DE912B /* Build configuration list for PBXProject "SeaLife" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ru,
+			);
+			mainGroup = 03BFB083196EA4FC00DE912B;
+			productRefGroup = 03BFB08D196EA4FC00DE912B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				03BFB08B196EA4FC00DE912B /* SeaLife */,
+				03BFB0A6196EA4FC00DE912B /* SeaLifeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		03BFB08A196EA4FC00DE912B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5E1CC7B2A1F87C3002CB927 /* main.storyboard in Resources */,
+				A5E1CC812A1F87F8002CB927 /* Images.xcassets in Resources */,
+				A5E1CC7A2A1F87C3002CB927 /* InfoPlist.strings in Resources */,
+				A5E1CC792A1F87C3002CB927 /* Localizable.strings in Resources */,
+				A53E541D2A0EF04C006E2B90 /* SliderView.xib in Resources */,
+				A5E1CC7D2A1F87C3002CB927 /* Launch.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03BFB0A5196EA4FC00DE912B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03BFB0B3196EA4FC00DE912B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		03BFB088196EA4FC00DE912B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5E1CC902A1F8893002CB927 /* AppDelegate.m in Sources */,
+				A57B18832A1A20B4006E1AE9 /* Utils.m in Sources */,
+				03C132901976BCFF00C19D03 /* WorldViewController.m in Sources */,
+				A59883DB2A0ACC0F008B8763 /* TurnHelper.m in Sources */,
+				A53E54202A0EF3F5006E2B90 /* SliderView.m in Sources */,
+				A5BC10152A081AB8003618E2 /* NSValue+WorldPosition.m in Sources */,
+				A513A9302A0E79CE00EF8E95 /* CreatureTimer.m in Sources */,
+				A56C6EA72A0C04A600C66D0A /* AnimationsController.m in Sources */,
+				A5BC10102A066B56003618E2 /* UIImage+Creature.m in Sources */,
+				03B818F0197795BE0096FB77 /* OrcaCreature.m in Sources */,
+				A56C6EAD2A0C2CF700C66D0A /* WorldBackgroundView.m in Sources */,
+				03C1328D1976BCFF00C19D03 /* Turn.m in Sources */,
+				A59F3DA02A1391970088A510 /* CreaturesView.m in Sources */,
+				03B818F1197795BE0096FB77 /* FishCreature.m in Sources */,
+				A59F3D9C2A1299160088A510 /* AnimationsFactory.m in Sources */,
+				03C132991976BD0600C19D03 /* WorldScreenViewController.m in Sources */,
+				03B818EF197795BE0096FB77 /* Creature.m in Sources */,
+				A56178C02A0868F20027AC7C /* WorldCell.m in Sources */,
+				03C132981976BD0600C19D03 /* MenuViewController.m in Sources */,
+				03C1328E1976BCFF00C19D03 /* World.m in Sources */,
+				A5E1CC8F2A1F8893002CB927 /* main.m in Sources */,
+				03AC82F11974646000D4348C /* CreatureFactory.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03BFB0A3196EA4FC00DE912B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03BFB0B5196EA4FC00DE912B /* SeaLifeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03BFB0AD196EA4FC00DE912B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03BFB08B196EA4FC00DE912B /* SeaLife */;
+			targetProxy = 03BFB0AC196EA4FC00DE912B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		03BFB0B1196EA4FC00DE912B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03BFB0B2196EA4FC00DE912B /* en */,
+				A51EFD922A1C05160016182D /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A5E1CC6A2A1F87C3002CB927 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5E1CC6B2A1F87C3002CB927 /* en */,
+				A5E1CC742A1F87C3002CB927 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A5E1CC6C2A1F87C3002CB927 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5E1CC6D2A1F87C3002CB927 /* en */,
+				A5E1CC752A1F87C3002CB927 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		03BFB0B6196EA4FC00DE912B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch.storyboard;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		03BFB0B7196EA4FC00DE912B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch.storyboard;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		03BFB0B9196EA4FC00DE912B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sergey Pozhidaev (QGSWJ57NL7)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SeaLife/SupportingFiles/SeaLife-Prefix.pch";
+				INFOPLIST_FILE = "SeaLife/SupportingFiles/SeaLife-Info.plist";
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch.storyboard;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		03BFB0BA196EA4FC00DE912B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SeaLife/SupportingFiles/SeaLife-Prefix.pch";
+				INFOPLIST_FILE = "SeaLife/SupportingFiles/SeaLife-Info.plist";
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch.storyboard;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		03BFB0BC196EA4FC00DE912B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SeaLife.app/SeaLife";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SeaLife/SeaLife-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SeaLifeTests/SeaLifeTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		03BFB0BD196EA4FC00DE912B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SeaLife.app/SeaLife";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SeaLife/SeaLife-Prefix.pch";
+				INFOPLIST_FILE = "SeaLifeTests/SeaLifeTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		03BFB087196EA4FC00DE912B /* Build configuration list for PBXProject "SeaLife" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03BFB0B6196EA4FC00DE912B /* Debug */,
+				03BFB0B7196EA4FC00DE912B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03BFB0B8196EA4FC00DE912B /* Build configuration list for PBXNativeTarget "SeaLife" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03BFB0B9196EA4FC00DE912B /* Debug */,
+				03BFB0BA196EA4FC00DE912B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03BFB0BB196EA4FC00DE912B /* Build configuration list for PBXNativeTarget "SeaLifeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03BFB0BC196EA4FC00DE912B /* Debug */,
+				03BFB0BD196EA4FC00DE912B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 03BFB084196EA4FC00DE912B /* Project object */;
+}
