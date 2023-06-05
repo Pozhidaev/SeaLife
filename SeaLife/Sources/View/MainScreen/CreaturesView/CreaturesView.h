@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CreaturesView : UIView<WorldVisualDelegate>
 
-@property (nonatomic) CGSize cellSize;
 - (void)play;
 - (void)stop;
 - (void)reset;
@@ -27,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)createImageViewForCreature:(id<CreatureProtocol>)creature;
 - (void)removeImageViewForCreature:(id<CreatureProtocol>)creature;
 
-- (void)redrawFromCellSize:(CGSize)fromCellSize toCellSize:(CGSize)toCellSize;
+- (void)redrawToCellSize:(CGSize)toCellSize;
 
 - (void)performAnimationsForTurn:(Turn *)turn
                   withCompletion:(void(^_Nullable)(void))completion

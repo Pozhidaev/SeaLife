@@ -127,9 +127,7 @@
     CGFloat cellWidth = CGRectGetWidth(self.view.bounds) / _world.worldInfo.horizontalSize;
     CGFloat cellHeight = CGRectGetHeight(self.view.bounds) / _world.worldInfo.verticalSize;
     CGSize newCellSize = CGSizeMake(cellWidth, cellHeight);
-    CGSize oldCellSize = CGSizeEqualToSize(self.creaturesView.cellSize, CGSizeZero) == NO ? self.creaturesView.cellSize : newCellSize;
-    self.creaturesView.cellSize = newCellSize;
-    [self.creaturesView redrawFromCellSize:oldCellSize toCellSize:newCellSize];
+    [self.creaturesView redrawToCellSize:newCellSize];
 }
 
 - (void)setupBackground

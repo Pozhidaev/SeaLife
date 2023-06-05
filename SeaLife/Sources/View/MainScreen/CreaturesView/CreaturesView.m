@@ -22,6 +22,8 @@
     NSMutableDictionary *_imageViewsDictionary;
 }
 
+@property (nonatomic) CGSize cellSize;
+
 @end
 
 
@@ -117,9 +119,9 @@
     [_animationController removeAllAnimationsForCreatureUUID:creature.uuid];
 }
 
-- (void)redrawFromCellSize:(CGSize)fromCellSize
-                toCellSize:(CGSize)toCellSize
+- (void)redrawToCellSize:(CGSize)toCellSize
 {
+    CGSize fromCellSize = CGSizeEqualToSize(self.cellSize, CGSizeZero) == NO ? self.cellSize : toCellSize;
     CGFloat xCoeficient = toCellSize.width / fromCellSize.width;
     CGFloat yCoeficient = toCellSize.height / fromCellSize.height;
     
@@ -131,6 +133,8 @@
         center = CGPointMake(center.x * xCoeficient, center.y * yCoeficient);
         imageView.center = center;
     }
+    
+    self.cellSize = toCellSize;
 }
 
 - (void)performAnimationsForTurn:(Turn *)turn
