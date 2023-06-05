@@ -175,13 +175,13 @@
           withTransitionCoordinator:coordinator];
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (self->_world) {
             BOOL wasPlaying = self->_world.isPlaying;
             if (wasPlaying) { [self stop]; }
             [self redrawCreatureView];
             if (wasPlaying) { [self play]; }
         }
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
     }];
 }
 
