@@ -16,7 +16,7 @@
 #import "WorldProtocol.h"
 #import "WorldDelegate.h"
 #import "WorldVisualDelegate.h"
-#import "AnimationsController.h"
+#import "CreatureAnimator.h"
 #import "WorldCompletionReason.h"
 #import "WorldInfo.h"
 #import "WorldPosition.h"
@@ -250,7 +250,7 @@
 - (id<CreatureProtocol>)creatureForClass:(Class<CreatureProtocol>)creatureClass
 {
     UIImageView *visualComponent = [self.visualDelegate visualComponentForCreatureClass:creatureClass];
-    AnimationsController *animator = [[AnimationsController alloc] init];//  [[AnimationsController alloc] initWithVisualComponent:visualComponent];
+    CreatureAnimator *animator = [[CreatureAnimator alloc] init];//  [[AnimationsController alloc] initWithVisualComponent:visualComponent];
     [self.visualDelegate addAnimator:animator];
 
     id<CreatureProtocol> creature = [CreatureFactory creatureWithClass:creatureClass

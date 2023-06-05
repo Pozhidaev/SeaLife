@@ -11,7 +11,7 @@
 #import "WorldVisualDelegate.h"
 
 @protocol CreatureProtocol;
-@class AnimationsController;
+@class CreatureAnimator;
 struct WorldPosition;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)redrawToCellSize:(CGSize)toCellSize;
 
-- (void)addAnimator:(AnimationsController *)animator;
+- (void)addAnimator:(CreatureAnimator *)animator;
 
 @end
 

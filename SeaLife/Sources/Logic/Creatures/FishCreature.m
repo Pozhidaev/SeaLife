@@ -14,7 +14,7 @@
 #import "Direction.h"
 #import "WorldCell.h"
 #import "WorldPosition.h"
-#import "AnimationsController.h"
+#import "CreatureAnimator.h"
 
 @interface FishCreature()
 {
@@ -29,7 +29,7 @@
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
-                               animator:(AnimationsController *)animator
+                               animator:(CreatureAnimator *)animator
                         visualComponent:(UIImageView *)visualComponent
 {
     self = [super initWithTurnHelperClass:turnHelperClass

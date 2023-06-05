@@ -1,12 +1,12 @@
 //
-//  AnimationsController.m
+//  CreatureAnimator.m
 //  SeaLife
 //
 //  Created by Sergey Pozhidaev on 10.05.2023.
 //  Copyright © 2023 Sergey Pozhidaev. All rights reserved.
 //
 
-#import "AnimationsController.h"
+#import "CreatureAnimator.h"
 
 #import "Turn.h"
 #import "AnimationsFactory.h"
@@ -16,7 +16,7 @@
 #import "Utils.h"
 #import "WorldPosition.h"
 
-@interface AnimationsController() <CAAnimationDelegate>
+@interface CreatureAnimator() <CAAnimationDelegate>
 {
     NSMutableDictionary<NSUUID *, NSArray<CAAnimation *> *> *_animationsDictionary;
     NSMutableDictionary<NSUUID *, void(^)(void)> *_completionsDictionary;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation AnimationsController
+@implementation CreatureAnimator
 
 - (instancetype)init
 {

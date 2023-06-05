@@ -8,7 +8,7 @@
 
 #import "CreaturesView.h"
 #import "UIImage+Creature.h"
-#import "AnimationsController.h"
+#import "CreatureAnimator.h"
 #import "CreatureProtocol.h"
 #import "WorldPosition.h"
 
@@ -43,7 +43,7 @@
 
     _cellSize = cellSize;
 
-    for (AnimationsController *animator in _animatorsArray.allObjects) {
+    for (CreatureAnimator *animator in _animatorsArray.allObjects) {
         animator.cellSize = cellSize;
     }
 }
@@ -59,7 +59,7 @@
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
-- (void)addAnimator:(AnimationsController *)animator
+- (void)addAnimator:(CreatureAnimator *)animator
 {
     animator.cellSize = _cellSize;
     animator.animationSpeed = _animationSpeed;
@@ -72,7 +72,7 @@
     
     _animationSpeed = animationSpeed;
 
-    for (AnimationsController *animator in _animatorsArray.allObjects) {
+    for (CreatureAnimator *animator in _animatorsArray.allObjects) {
         animator.animationSpeed = animationSpeed;
     }
 }

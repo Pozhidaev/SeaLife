@@ -13,7 +13,7 @@
 #import "OrcaCreature.h"
 #import "TurnHelper.h"
 #import "WorldProtocol.h"
-#import "AnimationsController.h"
+#import "CreatureAnimator.h"
 
 @implementation CreatureFactory
 
@@ -24,7 +24,7 @@
 
 + (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
                                     world:(id<WorldProtocol>)world
-                                 animator:(AnimationsController *)animator
+                                 animator:(CreatureAnimator *)animator
                           visualComponent:(UIImageView *)visualComponent
 {
     static dispatch_queue_t timersQueue;
@@ -45,7 +45,7 @@
 }
 
 + (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(AnimationsController *)animator
+                                    animator:(CreatureAnimator *)animator
                              visualComponent:(UIImageView *)visualComponent
 {
     return [self creatureWithClass:OrcaCreature.class
@@ -55,7 +55,7 @@
 }
 
 + (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(AnimationsController *)animator
+                                    animator:(CreatureAnimator *)animator
                              visualComponent:(UIImageView *)visualComponent
 {
     return [self creatureWithClass:FishCreature.class

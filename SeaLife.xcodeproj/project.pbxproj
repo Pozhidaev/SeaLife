@@ -28,7 +28,7 @@
 		A53E541D2A0EF04C006E2B90 /* SliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A53E541C2A0EF04C006E2B90 /* SliderView.xib */; };
 		A53E54202A0EF3F5006E2B90 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A53E541F2A0EF3F5006E2B90 /* SliderView.m */; };
 		A56178C02A0868F20027AC7C /* WorldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A56178BF2A0868F20027AC7C /* WorldCell.m */; };
-		A56C6EA72A0C04A600C66D0A /* AnimationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56C6EA62A0C04A600C66D0A /* AnimationsController.m */; };
+		A56C6EA72A0C04A600C66D0A /* CreatureAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A56C6EA62A0C04A600C66D0A /* CreatureAnimator.m */; };
 		A56C6EAD2A0C2CF700C66D0A /* WorldBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A56C6EAC2A0C2CF700C66D0A /* WorldBackgroundView.m */; };
 		A57B18832A1A20B4006E1AE9 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A57B18822A1A20B4006E1AE9 /* Utils.m */; };
 		A59883DB2A0ACC0F008B8763 /* TurnHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A59883DA2A0ACC0F008B8763 /* TurnHelper.m */; };
@@ -96,8 +96,8 @@
 		A53E541F2A0EF3F5006E2B90 /* SliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderView.m; sourceTree = "<group>"; };
 		A56178BE2A0868F20027AC7C /* WorldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldCell.h; sourceTree = "<group>"; };
 		A56178BF2A0868F20027AC7C /* WorldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldCell.m; sourceTree = "<group>"; };
-		A56C6EA52A0C04A600C66D0A /* AnimationsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationsController.h; sourceTree = "<group>"; };
-		A56C6EA62A0C04A600C66D0A /* AnimationsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationsController.m; sourceTree = "<group>"; };
+		A56C6EA52A0C04A600C66D0A /* CreatureAnimator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatureAnimator.h; sourceTree = "<group>"; };
+		A56C6EA62A0C04A600C66D0A /* CreatureAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreatureAnimator.m; sourceTree = "<group>"; };
 		A56C6EAA2A0C1EDE00C66D0A /* WorldDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldDelegate.h; sourceTree = "<group>"; };
 		A56C6EAB2A0C2CF700C66D0A /* WorldBackgroundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldBackgroundView.h; sourceTree = "<group>"; };
 		A56C6EAC2A0C2CF700C66D0A /* WorldBackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldBackgroundView.m; sourceTree = "<group>"; };
@@ -319,7 +319,7 @@
 			children = (
 				A5ACA6682A18DFA200FEE2FD /* WorldScreenViewController */,
 				03C132861976BCFF00C19D03 /* WorldViewController */,
-				A53E541B2A0EDAE7006E2B90 /* AnimationsController */,
+				A53E541B2A0EDAE7006E2B90 /* CreatureAnimator */,
 				A59F3D9D2A13915E0088A510 /* WorldVisualDelegate */,
 				A53E541A2A0EDAB8006E2B90 /* WorldBackgroundView */,
 			);
@@ -354,15 +354,15 @@
 			path = WorldBackgroundView;
 			sourceTree = "<group>";
 		};
-		A53E541B2A0EDAE7006E2B90 /* AnimationsController */ = {
+		A53E541B2A0EDAE7006E2B90 /* CreatureAnimator */ = {
 			isa = PBXGroup;
 			children = (
-				A56C6EA52A0C04A600C66D0A /* AnimationsController.h */,
-				A56C6EA62A0C04A600C66D0A /* AnimationsController.m */,
+				A56C6EA52A0C04A600C66D0A /* CreatureAnimator.h */,
+				A56C6EA62A0C04A600C66D0A /* CreatureAnimator.m */,
 				A59F3D9A2A1299160088A510 /* AnimationsFactory.h */,
 				A59F3D9B2A1299160088A510 /* AnimationsFactory.m */,
 			);
-			path = AnimationsController;
+			path = CreatureAnimator;
 			sourceTree = "<group>";
 		};
 		A57B18842A1A20C1006E1AE9 /* Utils */ = {
@@ -564,7 +564,7 @@
 				A53E54202A0EF3F5006E2B90 /* SliderView.m in Sources */,
 				A5BC10152A081AB8003618E2 /* NSValue+WorldPosition.m in Sources */,
 				A513A9302A0E79CE00EF8E95 /* CreatureTimer.m in Sources */,
-				A56C6EA72A0C04A600C66D0A /* AnimationsController.m in Sources */,
+				A56C6EA72A0C04A600C66D0A /* CreatureAnimator.m in Sources */,
 				A5BC10102A066B56003618E2 /* UIImage+Creature.m in Sources */,
 				03B818F0197795BE0096FB77 /* OrcaCreature.m in Sources */,
 				A56C6EAD2A0C2CF700C66D0A /* WorldBackgroundView.m in Sources */,

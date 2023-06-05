@@ -21,7 +21,7 @@
 #import "CreatureProtocol.h"
 #import "TurnType.h"
 #import "WorldPosition.h"
-#import "AnimationsController.h"
+#import "CreatureAnimator.h"
 
 @interface Creature ()
 {
@@ -34,7 +34,7 @@
 }
 @property (nonatomic, readwrite) NSUUID *uuid;
 @property (nonatomic, readwrite) UIImageView *visualComponent;
-@property (nonatomic, readwrite) AnimationsController *animator;
+@property (nonatomic, readwrite) CreatureAnimator *animator;
 
 @end
 
@@ -46,7 +46,7 @@
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
-                               animator:(AnimationsController *)animator
+                               animator:(CreatureAnimator *)animator
                         visualComponent:(UIImageView *)visualComponent
 {
     self = [super init];

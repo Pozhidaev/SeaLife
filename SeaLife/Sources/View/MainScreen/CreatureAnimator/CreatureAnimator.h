@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AnimationsController : NSObject
+@interface CreatureAnimator : NSObject
 
 @property (nonatomic) CGSize cellSize;
 @property (nonatomic) float animationSpeed;
