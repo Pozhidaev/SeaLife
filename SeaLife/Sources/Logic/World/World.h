@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)play;
 - (void)stop;
 - (void)reset;
-- (void)prepare;
 
 //creatures
+- (void)createInitialCreatures;
 - (void)addCreature:(id<CreatureProtocol>)creature atCell:(WorldCell *)cell;
 - (void)removeCreature:(id<CreatureProtocol>)creature atCell:(WorldCell *)cell;;
 - (void)moveCreature:(id<CreatureProtocol>)creature fromCell:(WorldCell *)fromCell toCell:(WorldCell *)toCell;

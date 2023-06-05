@@ -89,7 +89,7 @@
     [self.creaturesView reset];
     [self redrawCreatureView];
 
-    [_world prepare];
+    [_world createInitialCreatures];
 }
 
 #pragma mark - Public Accessors

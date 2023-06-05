@@ -47,6 +47,7 @@
         self.worldInfo = worldInfo;
         self.isPlaying = NO;
         self.speed = 0;
+        
         _creatures = [[NSMutableSet alloc] init];
   
         _lockedCellsLock = [[NSRecursiveLock alloc] init];
@@ -54,6 +55,9 @@
         _cellsLock = [[NSRecursiveLock alloc] init];
         
         _lockedCells = [[NSMutableSet alloc] init];
+        
+        _cells = [self createCellsForXSize:_worldInfo.horizontalSize
+                                     ySize:_worldInfo.verticalSize];
     }
     return self;
 }
@@ -80,15 +84,6 @@
     [self.visualDelegate stop];
 }
 
-- (void)prepare
-{
-    _cells = [self createCellsForXSize:_worldInfo.horizontalSize
-                                 ySize:_worldInfo.verticalSize];
-    [self createInitialCreatures];
-
-    [self.visualDelegate createImageViewForCreatures:_creatures];
-}
-
 - (void)reset
 {
     [self stop];
@@ -98,7 +93,11 @@
 
     [self.visualDelegate reset];
     
-    [self prepare];
+    for (WorldCell *cell in _cells) {
+        cell.creature = nil;
+    }
+    
+    [self createInitialCreatures];
 }
 
 #pragma mark - Accessors
@@ -262,6 +261,8 @@
                                
         [self addCreature:creature atCell:cell];
     }
+    
+    [self.visualDelegate createImageViewForCreatures:_creatures];
 }
 
 @end
