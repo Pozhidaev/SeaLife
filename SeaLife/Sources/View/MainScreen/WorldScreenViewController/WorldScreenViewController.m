@@ -70,10 +70,7 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorNamed:@"MainScreenBackgroundColor"];
-    
-    [self setupControlPanel];
-    
+    [self setupView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -163,6 +160,13 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     NSString *title = (_isPlaying) ? playTitle : pauseTitle;
     [self.playButton setTitle:title
                      forState:UIControlStateNormal];
+}
+
+- (void)setupView
+{
+    self.view.backgroundColor = [UIColor colorNamed:@"MainScreenBackgroundColor"];
+    
+    [self setupControlPanel];
 }
 
 - (void)setupControlPanel

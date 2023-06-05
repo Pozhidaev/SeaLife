@@ -49,14 +49,15 @@
         __weak typeof(self) weakSelf = self;
         _timer = [[CreatureTimer alloc] initWithBlock:^{
             typeof(self) sSelf = weakSelf;
-            if (sSelf && sSelf.busy == NO) {
-                sSelf.busy = YES;
-                dispatch_async(sSelf->_queue, ^{
-                    [sSelf performTurnWithCompletion:^{
-                        sSelf.busy = NO;
-                    }];
-                });
+            if (!sSelf || sSelf.busy != NO) {
+                return;
             }
+            sSelf.busy = YES;
+            dispatch_async(sSelf->_queue, ^{
+                [sSelf performTurnWithCompletion:^{
+                    sSelf.busy = NO;
+                }];
+            });
         }];
     }
     return self;
@@ -145,7 +146,8 @@
 
 - (void)performEmpty:(Turn *)turn
          lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
-          completion:(void(^)(void))completion {
+          completion:(void(^)(void))completion
+{
     [self.world unlockCells:lockedCells];
     [self.visualDelegate performAnimationsForTurn:turn
                                    withCompletion:^{
@@ -155,7 +157,8 @@
 
 - (void)performDie:(Turn *)turn
        lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
-        completion:(void(^)(void))completion {
+        completion:(void(^)(void))completion
+{
     [lockedCells removeObject:turn.cell];
     
     [self.world unlockCells:lockedCells];
@@ -173,7 +176,8 @@
 
 - (void)performMove:(Turn *)turn
         lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
-         completion:(void(^)(void))completion {
+         completion:(void(^)(void))completion
+{
     [self.world moveCreature:self
                     fromCell:turn.cell
                       toCell:turn.targetCell];
@@ -192,7 +196,8 @@
 
 - (void)performReproduce:(Turn *)turn
              lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
-              completion:(void(^)(void))completion {
+              completion:(void(^)(void))completion
+{
     [lockedCells removeObject:turn.cell];
     [lockedCells removeObject:turn.targetCell];
     [self.world unlockCells:lockedCells];
@@ -219,7 +224,8 @@
 
 - (void)performEat:(Turn *)turn
        lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
-        completion:(void(^)(void))completion {
+        completion:(void(^)(void))completion
+{
     id<CreatureProtocol> targetCreature = [turn.otherCreatures anyObject];
     
     [targetCreature stop];
