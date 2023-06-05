@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol WorldVisualDelegate;
 @protocol TurnHelperProtocol;
 @protocol WorldProtocol;
+@class AnimationsController;
 typedef NS_ENUM(NSInteger, Direction);
 struct WorldPosition;
 
@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) Direction direction;
 
 @property (nonatomic, readonly) UIImageView *visualComponent;
+@property (nonatomic, readonly) AnimationsController *animator;
 
 - (void)setTimerTargetQueue:(dispatch_queue_t)queue;
 - (void)setSpeed:(float)speed;
@@ -33,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
-                         visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                               animator:(AnimationsController *)animator
                         visualComponent:(UIImageView *)visualComponent;
 
 - (NSString *)debugDescriptionIndent:(NSInteger)indent

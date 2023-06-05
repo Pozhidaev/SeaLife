@@ -18,12 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) float animationSpeed;
 
 - (void)play;
-- (void)stop;
+- (void)pause;
 - (void)reset;
+
 - (void)removeAllAnimationsForCreatureUUID:(NSUUID *)creatureUUID;
+
 - (void)performAnimationsForTurn:(Turn *)turn
-                        forLayer:(CALayer *)layer
-                  withCompletion:(void(^)(void))completion;
+                  withCompletion:(void(^)(void))completion
+                 completionQueue:(dispatch_queue_t)completionQueue;
 
 @end
 

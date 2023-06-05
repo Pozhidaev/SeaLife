@@ -37,8 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 //creatures
 - (void)createInitialCreatures;
+- (id<CreatureProtocol>)creatureForClass:(Class<CreatureProtocol>)creatureClass;
+
 - (void)addCreature:(id<CreatureProtocol>)creature atCell:(WorldCell *)cell;
-- (void)removeCreature:(id<CreatureProtocol>)creature atCell:(WorldCell *)cell;;
+- (void)removeCreature:(id<CreatureProtocol>)creature atCell:(WorldCell *_Nullable)cell;;
 - (void)moveCreature:(id<CreatureProtocol>)creature fromCell:(WorldCell *)fromCell toCell:(WorldCell *)toCell;
 
 //cells

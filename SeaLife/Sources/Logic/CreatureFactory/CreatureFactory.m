@@ -8,13 +8,12 @@
 
 #import "CreatureFactory.h"
 
+#import "CreatureProtocol.h"
 #import "FishCreature.h"
 #import "OrcaCreature.h"
 #import "TurnHelper.h"
-#import "CreatureProtocol.h"
-
 #import "WorldProtocol.h"
-#import "WorldVisualDelegate.h"
+#import "AnimationsController.h"
 
 @implementation CreatureFactory
 
@@ -25,7 +24,7 @@
 
 + (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
                                     world:(id<WorldProtocol>)world
-                           visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                                 animator:(AnimationsController *)animator
                           visualComponent:(UIImageView *)visualComponent
 {
     static dispatch_queue_t timersQueue;
@@ -37,7 +36,7 @@
     id<CreatureProtocol> creature = [[creatureClass alloc]
                                      initWithTurnHelperClass:[self turnHelperClass]
                                      world:world
-                                     visualDelegate:visualDelegate
+                                     animator:animator
                                      visualComponent:visualComponent];
 
     [creature setTimerTargetQueue:timersQueue];
@@ -46,22 +45,22 @@
 }
 
 + (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
-                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                                    animator:(AnimationsController *)animator
                              visualComponent:(UIImageView *)visualComponent
 {
     return [self creatureWithClass:OrcaCreature.class
                              world:world
-                    visualDelegate:visualDelegate
+                          animator:animator
                    visualComponent:visualComponent];
 }
 
 + (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
-                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                                    animator:(AnimationsController *)animator
                              visualComponent:(UIImageView *)visualComponent
 {
     return [self creatureWithClass:FishCreature.class
                              world:world
-                    visualDelegate:visualDelegate
+                          animator:animator
                    visualComponent:visualComponent];
 }
 

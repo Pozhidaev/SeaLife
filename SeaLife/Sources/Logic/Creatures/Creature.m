@@ -16,11 +16,12 @@
 #import "World.h"
 #import "WorldCell.h"
 #import "WorldProtocol.h"
-#import "WorldVisualDelegate.h"
+
 #import "CreatureFactory.h"
 #import "CreatureProtocol.h"
 #import "TurnType.h"
 #import "WorldPosition.h"
+#import "AnimationsController.h"
 
 @interface Creature ()
 {
@@ -29,10 +30,11 @@
     dispatch_queue_t _queue;
     
     __weak id<WorldProtocol> _world;
-    __weak id<WorldVisualDelegate> _visualDelegate;
+    
 }
 @property (nonatomic, readwrite) NSUUID *uuid;
 @property (nonatomic, readwrite) UIImageView *visualComponent;
+@property (nonatomic, readwrite) AnimationsController *animator;
 
 @end
 
@@ -44,7 +46,7 @@
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
-                         visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                               animator:(AnimationsController *)animator
                         visualComponent:(UIImageView *)visualComponent
 {
     self = [super init];
@@ -56,7 +58,7 @@
         _turnHelperClass = turnHelperClass;
         
         _world = world;
-        _visualDelegate = visualDelegate;
+        _animator = animator;
         
         __weak typeof(self) weakSelf = self;
         _timer = [[CreatureTimer alloc] initWithBlock:^{
@@ -90,17 +92,19 @@
 - (void)start
 {
     [_timer start];
+    [_animator play];
 }
 
 - (void)pause
 {
     [_timer pause];
+    [_animator pause];
 }
 
 - (void)stop
 {
-    [_timer stop];
     self.busy = YES;
+    [_timer stop];
 }
 
 #pragma mark - Private
@@ -161,8 +165,8 @@
           completion:(void(^)(void))completion
 {
     [_world unlockCells:lockedCells];
-    [_visualDelegate performAnimationsForTurn:turn
-                               withCompletion:^{
+    [_animator performAnimationsForTurn:turn
+                         withCompletion:^{
         completion();
     } completionQueue:_queue];
 }
@@ -175,12 +179,11 @@
     
     [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = _world;
-    [_visualDelegate performAnimationsForTurn:turn
-                               withCompletion:^{
-        [wWorld removeCreature:turn.creature
-                        atCell:turn.cell];
-        [wWorld unlockCell:turn.cell];
+    [_animator performAnimationsForTurn:turn
+                         withCompletion:^{
+        [self->_world removeCreature:turn.creature
+                              atCell:turn.cell];
+        [self->_world unlockCell:turn.cell];
         
         completion();
     } completionQueue:_queue];
@@ -197,10 +200,9 @@
     [lockedCells removeObject:turn.targetCell];
     [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = _world;
-    [_visualDelegate performAnimationsForTurn:turn
-                               withCompletion:^{
-        [wWorld unlockCell:turn.targetCell];
+    [_animator performAnimationsForTurn:turn
+                         withCompletion:^{
+        [self->_world unlockCell:turn.targetCell];
         
         completion();
     } completionQueue:_queue];
@@ -214,25 +216,22 @@
     [lockedCells removeObject:turn.targetCell];
     [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = _world;
-    [_visualDelegate performAnimationsForTurn:turn
-                               withCompletion:^{
-        [wWorld unlockCell:turn.cell];
-
-        UIImageView *visualComponent = [self->_visualDelegate visualComponentForCreatureClass:self.class];
-        id<CreatureProtocol> newCreature = [CreatureFactory creatureWithClass:self.class
-                                                                        world:self->_world
-                                                               visualDelegate:self->_visualDelegate
-                                                              visualComponent:visualComponent];
+    [_animator performAnimationsForTurn:turn
+                         withCompletion:^{
+        [self->_world unlockCell:turn.cell];
+        
+        id<CreatureProtocol> newCreature = [self->_world creatureForClass:self.class];
         newCreature.busy = YES;
         [self->_world addCreature:newCreature
                            atCell:turn.targetCell];
+        
         Turn *nextTurn = [Turn bornTurnWithCreature:newCreature
                                         currentCell:turn.targetCell];
         completion();
-        [self->_visualDelegate performAnimationsForTurn:nextTurn
-                                         withCompletion:^(){
-            [wWorld unlockCell:turn.targetCell];
+        
+        [newCreature.animator performAnimationsForTurn:nextTurn
+                                        withCompletion:^(){
+            [self->_world unlockCell:turn.targetCell];
             [newCreature start];
             newCreature.busy = NO;
         } completionQueue:self->_queue];
@@ -246,8 +245,6 @@
     id<CreatureProtocol> targetCreature = [turn.otherCreatures anyObject];
     
     [targetCreature stop];
-    [_world removeCreature:targetCreature
-                    atCell:turn.targetCell];
     
     [_world moveCreature:self
                 fromCell:turn.cell
@@ -256,17 +253,19 @@
     [lockedCells removeObject:turn.targetCell];
     [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = _world;
-    [_visualDelegate performAnimationsForTurn:turn
-                               withCompletion:^{
+    [_animator performAnimationsForTurn:turn
+                         withCompletion:^{
+        [self->_world unlockCell:turn.targetCell];
+        
         Turn *nextTurn = [Turn dieTurnWithCreature:targetCreature
                                        currentCell:turn.targetCell];
-        [wWorld unlockCell:turn.targetCell];
-        [self->_visualDelegate performAnimationsForTurn:nextTurn
-                                         withCompletion:^{
-        } completionQueue:self->_queue];
-        
         completion();
+        [targetCreature.animator performAnimationsForTurn:nextTurn
+                                           withCompletion:^{
+            [targetCreature.animator reset];
+            [self->_world removeCreature:targetCreature
+                                  atCell:nil];
+        } completionQueue:self->_queue];
     } completionQueue:_queue];
 }
 

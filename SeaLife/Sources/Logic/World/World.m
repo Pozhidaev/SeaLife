@@ -16,10 +16,12 @@
 #import "WorldProtocol.h"
 #import "WorldDelegate.h"
 #import "WorldVisualDelegate.h"
+#import "AnimationsController.h"
 #import "WorldCompletionReason.h"
 #import "WorldInfo.h"
 #import "WorldPosition.h"
 #import "NSValue+WorldPosition.h"
+#import "Utils.h"
 
 @interface World()
 {
@@ -73,7 +75,6 @@
     [_creaturesLock unlock];
     
     self.isPlaying = YES;
-    [self.visualDelegate play];
 }
 
 - (void)stop
@@ -83,7 +84,6 @@
     [_creaturesLock unlock];
 
     self.isPlaying = NO;
-    [self.visualDelegate stop];
 }
 
 - (void)reset
@@ -150,6 +150,11 @@
     [_creaturesLock lock];
     [_creatures addObject:creature];
     [_creaturesLock unlock];
+    
+    [Utils performOnMainThread:^{
+        [self.visualDelegate placeVisualComponent:creature.visualComponent
+                                               at:cell.position];
+    }];
 }
 
 - (void)removeCreature:(id<CreatureProtocol>)creature
@@ -159,12 +164,16 @@
     [_creatures removeObject:creature];
     [_creaturesLock unlock];
 
-    assert(cell);
-
-    [_cellsLock lock];
-    cell.creature = nil;
-    [_cellsLock unlock];
-
+    if (cell) {
+        [_cellsLock lock];
+        cell.creature = nil;
+        [_cellsLock unlock];
+    }
+    
+    [Utils performOnMainThread:^{
+        [creature.visualComponent removeFromSuperview];
+    }];
+    
     if ([_creatures count] == 0) {
         [self stop];
         [self.delegate worldDidFinishedWithReason:WorldCompletionReasonEmpty];
@@ -238,32 +247,43 @@
     [_lockedCellsLock unlock];
 }
 
+- (id<CreatureProtocol>)creatureForClass:(Class<CreatureProtocol>)creatureClass
+{
+    UIImageView *visualComponent = [self.visualDelegate visualComponentForCreatureClass:creatureClass];
+    AnimationsController *animator = [[AnimationsController alloc] init];//  [[AnimationsController alloc] initWithVisualComponent:visualComponent];
+    [self.visualDelegate addAnimator:animator];
+
+    id<CreatureProtocol> creature = [CreatureFactory creatureWithClass:creatureClass
+                                                                 world:self
+                                                              animator:animator
+                                                       visualComponent:visualComponent];
+    return creature;
+}
+
 - (void)createInitialCreatures
 {
     //for testing
-//    id<CreatureProtocol> creature1 = [CreatureFactory fishCreatureForWorld:self
-//                                                            visualDelegate:self.visualDelegate];
-//    [self addCreature:creature1 atCell:[self cellForPosition:(struct WorldPosition){.x = 0, .y = 10}]];
-//    id<CreatureProtocol> creature2 = [CreatureFactory orcaCreatureForWorld:self
-//                                                            visualDelegate:self.visualDelegate];
-//    [self addCreature:creature2 atCell:[self cellForPosition:(struct WorldPosition){.x = 5, .y = 10}]];
+//    id<CreatureProtocol> creature1 = [self creatureForClass:FishCreature.class];
+//    WorldCell *cell1 = [self cellForPosition:(struct WorldPosition){.x = 0, .y = 10}];
+//    [self addCreature:creature1 atCell:cell1];
+//    [self unlockCell:cell1];
+//
+//    id<CreatureProtocol> creature2 = [self creatureForClass:OrcaCreature.class];
+//    WorldCell *cell2 = [self cellForPosition:(struct WorldPosition){.x = 5, .y = 10}];
+//    [self addCreature:creature2 atCell:cell2];
+//    [self unlockCell:cell2];
+//
 //    return;
     
     NSMutableArray *creatures = [[NSMutableArray alloc] initWithCapacity:self.worldInfo.fishCount + self.worldInfo.orcaCount];
-    for (int i = 0; i < self.worldInfo.fishCount; i++) {
-        UIImageView *visualComponent = [self.visualDelegate visualComponentForCreatureClass:FishCreature.class];
-
-        id<CreatureProtocol> creature = [CreatureFactory fishCreatureForWorld:self
-                                                               visualDelegate:self.visualDelegate
-                                                              visualComponent:visualComponent];
+    for (int i = 0; i < self.worldInfo.fishCount; i++)
+    {
+        id<CreatureProtocol> creature = [self creatureForClass:FishCreature.class];
         [creatures addObject:creature];
     }
-    for (int i = 0; i < self.worldInfo.orcaCount; i++) {
-        UIImageView *visualComponent = [self.visualDelegate visualComponentForCreatureClass:OrcaCreature.class];
-
-        id<CreatureProtocol> creature = [CreatureFactory orcaCreatureForWorld:self
-                                                               visualDelegate:self.visualDelegate
-                                                              visualComponent:visualComponent];
+    for (int i = 0; i < self.worldInfo.orcaCount; i++)
+    {
+        id<CreatureProtocol> creature = [self creatureForClass:OrcaCreature.class];
         [creatures addObject:creature];
     }
 
@@ -274,10 +294,6 @@
         [freeCells removeObjectAtIndex:randomIndex];
                                
         [self addCreature:creature atCell:cell];
-        
-        [self.visualDelegate placeVisualComponent:creature.visualComponent
-                                      forCreature:creature
-                                               at:cell.position];
     }
 }
 

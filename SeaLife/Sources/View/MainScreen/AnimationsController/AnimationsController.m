@@ -54,7 +54,7 @@
     }
 }
 
-- (void)stop
+- (void)pause
 {
     for (CALayer *layer in _layersDictionary.allValues) {
         CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
@@ -203,5 +203,24 @@
                                              duration:0];
 }
 
-
+- (void)performAnimationsForTurn:(Turn *)turn
+                  withCompletion:(void(^)(void))completion
+                 completionQueue:(dispatch_queue_t)completionQueue
+{
+    [Utils performOnMainThread:^{
+        CALayer *layer = turn.creature.visualComponent.layer;
+        [self performAnimationsForTurn:turn
+                              forLayer:layer
+                        withCompletion:^{
+            if (turn.direction != DirectionNone) {
+                turn.creature.direction = turn.direction;
+            }
+            dispatch_async(completionQueue, ^{
+                if (completion) {
+                    completion();
+                }
+            });
+        }];
+    }];
+}
 @end

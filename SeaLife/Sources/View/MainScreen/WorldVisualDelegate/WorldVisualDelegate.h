@@ -8,16 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class Turn;
 @protocol CreatureProtocol;
+@class AnimationsController;
 struct WorldPosition;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WorldVisualDelegate <NSObject>
 
-- (void)play;
-- (void)stop;
 - (void)reset;
 
 - (void)setAnimationSpeed:(float)animationSpeed;
@@ -25,16 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImageView *)visualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass;
 
 - (void)placeVisualComponent:(UIImageView *)visualComponent
-                 forCreature:(id<CreatureProtocol>)creature
                           at:(struct WorldPosition)position;
-
-- (void)removeVisualComponentForCreature:(id<CreatureProtocol>)creature;
 
 - (void)redrawToCellSize:(CGSize)toCellSize;
 
-- (void)performAnimationsForTurn:(Turn *)turn
-                  withCompletion:(void(^_Nullable)(void))completion
-                 completionQueue:(dispatch_queue_t)completionQueue;
+- (void)addAnimator:(AnimationsController *)animator;
 
 @end
 

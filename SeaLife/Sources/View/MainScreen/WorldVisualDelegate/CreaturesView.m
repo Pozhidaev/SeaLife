@@ -8,23 +8,19 @@
 
 #import "CreaturesView.h"
 #import "UIImage+Creature.h"
-#import "Turn.h"
 #import "AnimationsController.h"
 #import "CreatureProtocol.h"
-#import "Direction.h"
-#import "TurnType.h"
-#import "Utils.h"
 #import "WorldPosition.h"
 
 @interface CreaturesView()
 {
-    AnimationsController *_animationController;
+    NSPointerArray *_animatorsArray;
+    float _animationSpeed;
 }
 
 @property (nonatomic) CGSize cellSize;
 
 @end
-
 
 @implementation CreaturesView
 
@@ -32,9 +28,10 @@
 {
     self = [super init];
     if (self) {
-        _animationController = [[AnimationsController alloc] init];
-
         self.cellSize = CGSizeZero;
+        NSPointerFunctionsOptions options = NSPointerFunctionsWeakMemory;
+        _animatorsArray = [[NSPointerArray alloc] initWithOptions:options];
+        _animationSpeed = 0.0;
     }
     return self;
 }
@@ -48,35 +45,41 @@
     _cellSize = cellSize;
     [self didChangeValueForKey:@"cellSize"];
 
-    _animationController.cellSize = cellSize;
+    for (AnimationsController *animator in _animatorsArray.allObjects) {
+        animator.cellSize = cellSize;
+    }
 }
 
 #pragma mark - WorldVisualDelegate
 
-- (void)play
-{
-    [_animationController play];
-}
-
-- (void)stop
-{
-    [_animationController stop];
-}
-
 - (void)reset
 {
-    [_animationController reset];
-
+    for (int i = 0; i < _animatorsArray.count; i++) {
+        [_animatorsArray removePointerAtIndex:i];
+    }
+    
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+- (void)addAnimator:(AnimationsController *)animator
+{
+    animator.cellSize = self.cellSize;
+    animator.animationSpeed = _animationSpeed;
+    [_animatorsArray addPointer:(__bridge void *)(animator)];
 }
 
 - (void)setAnimationSpeed:(float)animationSpeed
 {
-    _animationController.animationSpeed = animationSpeed;
+    if (_animationSpeed == animationSpeed) { return; }
+    
+    _animationSpeed = animationSpeed;
+
+    for (AnimationsController *animator in _animatorsArray.allObjects) {
+        animator.animationSpeed = animationSpeed;
+    }
 }
 
 - (void)placeVisualComponent:(UIImageView *)visualComponent
-                 forCreature:(id<CreatureProtocol>)creature
                           at:(struct WorldPosition)position
 {
     visualComponent.center = CGPointMake(self.cellSize.width * (position.x + 0.5),
@@ -101,13 +104,6 @@
     return imageView;
 }
 
-- (void)removeVisualComponentForCreature:(id<CreatureProtocol>)creature
-{
-    assert(creature);
-    [creature.visualComponent removeFromSuperview];
-    [_animationController removeAllAnimationsForCreatureUUID:creature.uuid];
-}
-
 - (void)redrawToCellSize:(CGSize)toCellSize
 {
     CGSize fromCellSize = CGSizeEqualToSize(self.cellSize, CGSizeZero) == NO ? self.cellSize : toCellSize;
@@ -124,64 +120,6 @@
     }
     
     self.cellSize = toCellSize;
-}
-
-- (void)performAnimationsForTurn:(Turn *)turn
-                  withCompletion:(void(^)(void))completion
-                 completionQueue:(dispatch_queue_t)completionQueue
-{
-    void(^animationPreparation)(void);
-    void(^animationCompletion)(void);
-    
-    switch (turn.type) {
-        case TurnTypeCreatureEmpty: {
-        } break;
-
-        case TurnTypeCreatureMove: {
-        } break;
-            
-        case TurnTypeCreatureEat: {
-        } break;
-            
-        case TurnTypeCreatureReproduce: {
-        } break;
-            
-        case TurnTypeCreatureBorn: {
-            animationPreparation = ^{
-                [self placeVisualComponent:turn.creature.visualComponent
-                               forCreature:turn.creature
-                                        at:turn.creature.position];
-            };
-        } break;
-            
-        case TurnTypeCreatureDie: {
-            animationCompletion = ^{
-                [self removeVisualComponentForCreature:turn.creature];
-            };
-        } break;
-    }
-    [Utils performOnMainThread:^{
-        if (animationPreparation) {
-            animationPreparation();
-        }
-        
-        CALayer *layer = turn.creature.visualComponent.layer;
-        [self->_animationController performAnimationsForTurn:turn
-                                                    forLayer:layer
-                                              withCompletion:^{
-            if (turn.direction != DirectionNone) {
-                turn.creature.direction = turn.direction;
-            }
-            if (animationCompletion) {
-                animationCompletion();
-            }
-            dispatch_async(completionQueue, ^{
-                if (completion) {
-                    completion();
-                }
-            });
-        }];
-    }];
 }
 
 @end

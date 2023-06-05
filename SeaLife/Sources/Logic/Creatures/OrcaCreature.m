@@ -8,12 +8,13 @@
 
 #import "OrcaCreature.h"
 
+#import "Creature+Private.h"
 #import "Turn.h"
 #import "TurnHelperProtocol.h"
-#import "WorldCell.h"
-#import "Creature+Private.h"
 #import "Direction.h"
+#import "WorldCell.h"
 #import "WorldPosition.h"
+#import "AnimationsController.h"
 
 @interface OrcaCreature()
 {
@@ -29,12 +30,12 @@
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
-                         visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                               animator:(AnimationsController *)animator
                         visualComponent:(UIImageView *)visualComponent
 {
     self = [super initWithTurnHelperClass:turnHelperClass
                                     world:world
-                           visualDelegate:visualDelegate
+                                 animator:animator
                           visualComponent:visualComponent];
     if (self) {
         _hungerPoints = kOrcaAllowedHungerPoins;
@@ -59,7 +60,7 @@
 
 - (NSSet<NSValue *> *)possibleTurnPositionsFrom:(struct WorldPosition)position
 {
-    //    return [self.turnHelperClass leftMoveRule](position); // for testing
+    //return [self->_turnHelperClass leftMoveRule](position); // for testing
     NSSet *movePositions = [_turnHelperClass positionsRuleForMove](position);
     NSSet *reproducePositions = [_turnHelperClass positionsRuleForReproduce](position);
     NSSet *eatPositions = [_turnHelperClass positionsRuleForEat](position);

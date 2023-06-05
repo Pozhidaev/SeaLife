@@ -10,7 +10,7 @@
 
 @protocol CreatureProtocol;
 @protocol WorldProtocol;
-@protocol WorldVisualDelegate;
+@class AnimationsController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,15 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
                                     world:(id<WorldProtocol>)world
-                           visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                                 animator:(AnimationsController *)animator
                           visualComponent:(UIImageView *)visualComponent;
 
 + (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
-                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                                    animator:(AnimationsController *)animator
                              visualComponent:(UIImageView *)visualComponent;
 
 + (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
-                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                                    animator:(AnimationsController *)animator
                              visualComponent:(UIImageView *)visualComponent;
 
 @end
