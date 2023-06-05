@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) struct WorldPosition position;
 @property (nonatomic) Direction direction;
 
+@property (nonatomic, readonly) UIImageView *visualComponent;
+
 - (void)setTimerTargetQueue:(dispatch_queue_t)queue;
 - (void)setSpeed:(float)speed;
 - (void)start;
@@ -31,7 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
-                         visualDelegate:(id<WorldVisualDelegate>)visualDelegate;
+                         visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                        visualComponent:(UIImageView *)visualComponent;
 
 - (NSString *)debugDescriptionIndent:(NSInteger)indent
                              caption:(NSString *)caption;

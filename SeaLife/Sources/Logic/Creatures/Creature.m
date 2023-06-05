@@ -32,6 +32,7 @@
     __weak id<WorldVisualDelegate> _visualDelegate;
 }
 @property (nonatomic, readwrite) NSUUID *uuid;
+@property (nonatomic, readwrite) UIImageView *visualComponent;
 
 @end
 
@@ -44,10 +45,13 @@
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
                          visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                        visualComponent:(UIImageView *)visualComponent
 {
     self = [super init];
     if (self) {
         self.uuid = [NSUUID UUID];
+        self.visualComponent = visualComponent;
+        
         _queue = dispatch_queue_create("CreatureQueue", 0);
         _turnHelperClass = turnHelperClass;
         
@@ -214,9 +218,12 @@
     [_visualDelegate performAnimationsForTurn:turn
                                withCompletion:^{
         [wWorld unlockCell:turn.cell];
+
+        UIImageView *visualComponent = [self->_visualDelegate visualComponentForCreatureClass:self.class];
         id<CreatureProtocol> newCreature = [CreatureFactory creatureWithClass:self.class
                                                                         world:self->_world
-                                                               visualDelegate:self->_visualDelegate];
+                                                               visualDelegate:self->_visualDelegate
+                                                              visualComponent:visualComponent];
         newCreature.busy = YES;
         [self->_world addCreature:newCreature
                            atCell:turn.targetCell];
@@ -229,7 +236,7 @@
             [newCreature start];
             newCreature.busy = NO;
         } completionQueue:self->_queue];
-    }  completionQueue:_queue];
+    }  completionQueue:dispatch_get_main_queue()];
 }
 
 - (void)performEat:(Turn *)turn

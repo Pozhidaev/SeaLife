@@ -260,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				A513A92D2A0D00C000EF8E95 /* WorldProtocol.h */,
-				A5B441762A14D4FA00B2C6CF /* WorldVisualDelegate.h */,
 				03C132841976BCFF00C19D03 /* World.h */,
 				03C132851976BCFF00C19D03 /* World.m */,
 				A56C6EAA2A0C1EDE00C66D0A /* WorldDelegate.h */,
@@ -321,7 +320,7 @@
 				A5ACA6682A18DFA200FEE2FD /* WorldScreenViewController */,
 				03C132861976BCFF00C19D03 /* WorldViewController */,
 				A53E541B2A0EDAE7006E2B90 /* AnimationsController */,
-				A59F3D9D2A13915E0088A510 /* CreaturesView */,
+				A59F3D9D2A13915E0088A510 /* WorldVisualDelegate */,
 				A53E541A2A0EDAB8006E2B90 /* WorldBackgroundView */,
 			);
 			path = MainScreen;
@@ -375,13 +374,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		A59F3D9D2A13915E0088A510 /* CreaturesView */ = {
+		A59F3D9D2A13915E0088A510 /* WorldVisualDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				A5B441762A14D4FA00B2C6CF /* WorldVisualDelegate.h */,
 				A59F3D9E2A1391970088A510 /* CreaturesView.h */,
 				A59F3D9F2A1391970088A510 /* CreaturesView.m */,
 			);
-			path = CreaturesView;
+			path = WorldVisualDelegate;
 			sourceTree = "<group>";
 		};
 		A5ACA5F72A18B78900FEE2FD /* Sources */ = {

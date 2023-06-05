@@ -11,6 +11,8 @@
 #import "WorldCell.h"
 #import "CreatureFactory.h"
 #import "CreatureProtocol.h"
+#import "FishCreature.h"
+#import "OrcaCreature.h"
 #import "WorldProtocol.h"
 #import "WorldDelegate.h"
 #import "WorldVisualDelegate.h"
@@ -249,13 +251,19 @@
     
     NSMutableArray *creatures = [[NSMutableArray alloc] initWithCapacity:self.worldInfo.fishCount + self.worldInfo.orcaCount];
     for (int i = 0; i < self.worldInfo.fishCount; i++) {
+        UIImageView *visualComponent = [self.visualDelegate visualComponentForCreatureClass:FishCreature.class];
+
         id<CreatureProtocol> creature = [CreatureFactory fishCreatureForWorld:self
-                                                               visualDelegate:self.visualDelegate];
+                                                               visualDelegate:self.visualDelegate
+                                                              visualComponent:visualComponent];
         [creatures addObject:creature];
     }
     for (int i = 0; i < self.worldInfo.orcaCount; i++) {
+        UIImageView *visualComponent = [self.visualDelegate visualComponentForCreatureClass:OrcaCreature.class];
+
         id<CreatureProtocol> creature = [CreatureFactory orcaCreatureForWorld:self
-                                                               visualDelegate:self.visualDelegate];
+                                                               visualDelegate:self.visualDelegate
+                                                              visualComponent:visualComponent];
         [creatures addObject:creature];
     }
 
@@ -266,9 +274,11 @@
         [freeCells removeObjectAtIndex:randomIndex];
                                
         [self addCreature:creature atCell:cell];
+        
+        [self.visualDelegate placeVisualComponent:creature.visualComponent
+                                      forCreature:creature
+                                               at:cell.position];
     }
-    
-    [self.visualDelegate createImageViewForCreatures:_creatures];
 }
 
 @end

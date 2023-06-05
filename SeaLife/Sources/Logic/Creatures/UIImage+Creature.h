@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (Creature)
 
-+ (UIImage * _Nullable)imageFor:(id<CreatureProtocol>)creature;
++ (UIImage *)imageFor:(Class<CreatureProtocol>)creatureClass;
 
 @end
 

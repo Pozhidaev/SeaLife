@@ -12,6 +12,7 @@
 
 @protocol CreatureProtocol;
 @class Turn;
+struct WorldPosition;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,11 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)play;
 - (void)stop;
 - (void)reset;
+
 - (void)setAnimationSpeed:(float)animationSpeed;
 
-- (void)createImageViewForCreatures:(NSSet<id<CreatureProtocol>> *)creatures;
-- (void)createImageViewForCreature:(id<CreatureProtocol>)creature;
-- (void)removeImageViewForCreature:(id<CreatureProtocol>)creature;
+- (UIImageView *)visualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass;
+
+- (void)placeVisualComponent:(UIImageView *)visualComponent
+                 forCreature:(id<CreatureProtocol>)creature
+                          at:(struct WorldPosition)position;
+
+- (void)removeVisualComponentForCreature:(id<CreatureProtocol>)creature;
 
 - (void)redrawToCellSize:(CGSize)toCellSize;
 

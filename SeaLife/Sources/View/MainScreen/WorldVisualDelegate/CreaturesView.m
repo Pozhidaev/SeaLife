@@ -19,7 +19,6 @@
 @interface CreaturesView()
 {
     AnimationsController *_animationController;
-    NSMutableDictionary *_imageViewsDictionary;
 }
 
 @property (nonatomic) CGSize cellSize;
@@ -33,7 +32,6 @@
 {
     self = [super init];
     if (self) {
-        _imageViewsDictionary = [[NSMutableDictionary alloc] init];
         _animationController = [[AnimationsController alloc] init];
 
         self.cellSize = CGSizeZero;
@@ -67,8 +65,6 @@
 
 - (void)reset
 {
-    [_imageViewsDictionary removeAllObjects];
-
     [_animationController reset];
 
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -79,43 +75,36 @@
     _animationController.animationSpeed = animationSpeed;
 }
 
-- (void)createImageViewForCreatures:(NSSet<id<CreatureProtocol>> *)creatures
+- (void)placeVisualComponent:(UIImageView *)visualComponent
+                 forCreature:(id<CreatureProtocol>)creature
+                          at:(struct WorldPosition)position
 {
-    for (id<CreatureProtocol> creature in creatures) {
-        [self createImageViewForCreature:creature];
-    }
+    visualComponent.center = CGPointMake(self.cellSize.width * (position.x + 0.5),
+                                         self.cellSize.height * (position.y + 0.5));
+    [self addSubview:visualComponent];
 }
 
-- (void)createImageViewForCreature:(id<CreatureProtocol>)creature
+- (UIImageView *)visualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass
 {
-    UIImage *image = [UIImage imageFor:creature];
+    UIImage *image = [UIImage imageFor:creatureClass];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.tintColor = [UIColor colorNamed:@"CreaturesTintColor"];
     CGRect frame = CGRectZero;
     frame.size = CGSizeMake(self.cellSize.width, self.cellSize.height);
-    frame.origin = CGPointMake(self.cellSize.width * creature.position.x,
-                               self.cellSize.height * creature.position.y);
+
     CGFloat delta = 0;
     if (frame.size.width > kCreatureImageViewMinSizeForReducing) {
         delta = frame.size.width * kCreatureImageViewReducingCoeficient;
     }
     imageView.frame = CGRectInset(frame, delta, delta);
-
-    [_imageViewsDictionary setObject:imageView forKey:creature.uuid];
-    [self addSubview:imageView];
+    
+    return imageView;
 }
 
-- (void)removeImageViewForCreature:(id<CreatureProtocol>)creature
+- (void)removeVisualComponentForCreature:(id<CreatureProtocol>)creature
 {
     assert(creature);
-
-    UIImageView *imageView = [_imageViewsDictionary objectForKey:creature.uuid];
-    [imageView removeFromSuperview];
-
-    assert(imageView);
-    
-    [_imageViewsDictionary removeObjectForKey:creature.uuid];
-    
+    [creature.visualComponent removeFromSuperview];
     [_animationController removeAllAnimationsForCreatureUUID:creature.uuid];
 }
 
@@ -125,13 +114,13 @@
     CGFloat xCoeficient = toCellSize.width / fromCellSize.width;
     CGFloat yCoeficient = toCellSize.height / fromCellSize.height;
     
-    for (UIImageView *imageView in _imageViewsDictionary.allValues) {
-        CGRect bounds = imageView.bounds;
+    for (UIView *view in self.subviews) {
+        CGRect bounds = view.bounds;
         bounds.size = CGSizeMake(bounds.size.width * xCoeficient, bounds.size.height * yCoeficient);
-        imageView.bounds = bounds;
-        CGPoint center = imageView.center;
+        view.bounds = bounds;
+        CGPoint center = view.center;
         center = CGPointMake(center.x * xCoeficient, center.y * yCoeficient);
-        imageView.center = center;
+        view.center = center;
     }
     
     self.cellSize = toCellSize;
@@ -159,13 +148,15 @@
             
         case TurnTypeCreatureBorn: {
             animationPreparation = ^{
-                [self createImageViewForCreature:turn.creature];
+                [self placeVisualComponent:turn.creature.visualComponent
+                               forCreature:turn.creature
+                                        at:turn.creature.position];
             };
         } break;
             
         case TurnTypeCreatureDie: {
             animationCompletion = ^{
-                [self removeImageViewForCreature:turn.creature];
+                [self removeVisualComponentForCreature:turn.creature];
             };
         } break;
     }
@@ -174,9 +165,9 @@
             animationPreparation();
         }
         
-        UIImageView *imageView = [self->_imageViewsDictionary objectForKey:turn.creature.uuid];
+        CALayer *layer = turn.creature.visualComponent.layer;
         [self->_animationController performAnimationsForTurn:turn
-                                                    forLayer:imageView.layer
+                                                    forLayer:layer
                                               withCompletion:^{
             if (turn.direction != DirectionNone) {
                 turn.creature.direction = turn.direction;

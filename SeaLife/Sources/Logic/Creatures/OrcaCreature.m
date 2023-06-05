@@ -30,10 +30,12 @@
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
                          visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                        visualComponent:(UIImageView *)visualComponent
 {
     self = [super initWithTurnHelperClass:turnHelperClass
                                     world:world
-                           visualDelegate:visualDelegate];
+                           visualDelegate:visualDelegate
+                          visualComponent:visualComponent];
     if (self) {
         _hungerPoints = kOrcaAllowedHungerPoins;
         self.direction = DirectionRight;

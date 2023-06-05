@@ -14,12 +14,12 @@
 
 @implementation UIImage (Creature)
 
-+ (UIImage *)imageFor:(id<CreatureProtocol>)creature
++ (UIImage *)imageFor:(Class<CreatureProtocol>)creatureClass
 {
-    if (creature.class == OrcaCreature.class) {
+    if (creatureClass == OrcaCreature.class) {
         UIImage *image = [UIImage imageNamed:@"Orca"];
         return image;
-    } else if (creature.class == FishCreature.class) {
+    } else if (creatureClass == FishCreature.class) {
         UIImage *image = [UIImage imageNamed:@"Fish"];
         return image;
     }

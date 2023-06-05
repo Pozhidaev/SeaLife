@@ -6,10 +6,11 @@
 //  Copyright © 2023 Sergey Pozhidaev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class Turn;
 @protocol CreatureProtocol;
+struct WorldPosition;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,9 +20,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stop;
 - (void)reset;
 
-- (void)createImageViewForCreatures:(NSSet<id<CreatureProtocol>> *)creatures;
-- (void)createImageViewForCreature:(id<CreatureProtocol>)creature;
-- (void)removeImageViewForCreature:(id<CreatureProtocol>)creature;
+- (void)setAnimationSpeed:(float)animationSpeed;
+
+- (UIImageView *)visualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass;
+
+- (void)placeVisualComponent:(UIImageView *)visualComponent
+                 forCreature:(id<CreatureProtocol>)creature
+                          at:(struct WorldPosition)position;
+
+- (void)removeVisualComponentForCreature:(id<CreatureProtocol>)creature;
+
+- (void)redrawToCellSize:(CGSize)toCellSize;
 
 - (void)performAnimationsForTurn:(Turn *)turn
                   withCompletion:(void(^_Nullable)(void))completion

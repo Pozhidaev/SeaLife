@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Sergey Pozhidaev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol CreatureProtocol;
 @protocol WorldProtocol;
@@ -18,13 +18,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
                                     world:(id<WorldProtocol>)world
-                           visualDelegate:(id<WorldVisualDelegate>)visualDelegate;
+                           visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                          visualComponent:(UIImageView *)visualComponent;
 
 + (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
-                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate;
-+ (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
-                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate;
+                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                             visualComponent:(UIImageView *)visualComponent;
 
++ (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
+                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate
+                             visualComponent:(UIImageView *)visualComponent;
 
 @end
 
