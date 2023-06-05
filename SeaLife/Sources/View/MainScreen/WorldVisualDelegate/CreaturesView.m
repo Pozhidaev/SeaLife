@@ -16,9 +16,8 @@
 {
     NSPointerArray *_animatorsArray;
     float _animationSpeed;
+    CGSize _cellSize;
 }
-
-@property (nonatomic) CGSize cellSize;
 
 @end
 
@@ -28,10 +27,10 @@
 {
     self = [super init];
     if (self) {
-        self.cellSize = CGSizeZero;
         NSPointerFunctionsOptions options = NSPointerFunctionsWeakMemory;
         _animatorsArray = [[NSPointerArray alloc] initWithOptions:options];
         _animationSpeed = 0.0;
+        _cellSize = CGSizeZero;
     }
     return self;
 }
@@ -41,9 +40,8 @@
 - (void)setCellSize:(CGSize)cellSize
 {
     if (CGSizeEqualToSize(_cellSize, cellSize)) { return; }
-    [self willChangeValueForKey:@"cellSize"];
+
     _cellSize = cellSize;
-    [self didChangeValueForKey:@"cellSize"];
 
     for (AnimationsController *animator in _animatorsArray.allObjects) {
         animator.cellSize = cellSize;
@@ -63,7 +61,7 @@
 
 - (void)addAnimator:(AnimationsController *)animator
 {
-    animator.cellSize = self.cellSize;
+    animator.cellSize = _cellSize;
     animator.animationSpeed = _animationSpeed;
     [_animatorsArray addPointer:(__bridge void *)(animator)];
 }
@@ -82,8 +80,8 @@
 - (void)placeVisualComponent:(UIImageView *)visualComponent
                           at:(struct WorldPosition)position
 {
-    visualComponent.center = CGPointMake(self.cellSize.width * (position.x + 0.5),
-                                         self.cellSize.height * (position.y + 0.5));
+    visualComponent.center = CGPointMake(_cellSize.width * (position.x + 0.5),
+                                         _cellSize.height * (position.y + 0.5));
     [self addSubview:visualComponent];
 }
 
@@ -93,7 +91,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.tintColor = [UIColor colorNamed:@"CreaturesTintColor"];
     CGRect frame = CGRectZero;
-    frame.size = CGSizeMake(self.cellSize.width, self.cellSize.height);
+    frame.size = CGSizeMake(_cellSize.width, _cellSize.height);
 
     CGFloat delta = 0;
     if (frame.size.width > kCreatureImageViewMinSizeForReducing) {
@@ -106,7 +104,7 @@
 
 - (void)redrawToCellSize:(CGSize)toCellSize
 {
-    CGSize fromCellSize = CGSizeEqualToSize(self.cellSize, CGSizeZero) == NO ? self.cellSize : toCellSize;
+    CGSize fromCellSize = CGSizeEqualToSize(_cellSize, CGSizeZero) == NO ? _cellSize : toCellSize;
     CGFloat xCoeficient = toCellSize.width / fromCellSize.width;
     CGFloat yCoeficient = toCellSize.height / fromCellSize.height;
     
@@ -119,7 +117,7 @@
         view.center = center;
     }
     
-    self.cellSize = toCellSize;
+    [self setCellSize:toCellSize];
 }
 
 @end
