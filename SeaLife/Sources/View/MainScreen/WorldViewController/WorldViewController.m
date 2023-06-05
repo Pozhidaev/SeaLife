@@ -20,7 +20,7 @@
 
 @interface WorldViewController ()
 {
-    World *_world;
+    id<WorldProtocol> _world;
 }
 
 @property (nonatomic) WorldBackgroundView *backgroundView;
