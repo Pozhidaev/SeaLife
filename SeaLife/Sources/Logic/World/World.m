@@ -140,9 +140,7 @@
 
     creature.position = cell.position;
     [creature setSpeed:_speed];
-    creature.world = self;
-    creature.visualDelegate = self.visualDelegate;
-    
+   
     [_cellsLock lock];
     cell.creature = creature;
     [_cellsLock unlock];
@@ -240,16 +238,24 @@
 
 - (void)createInitialCreatures
 {
-//    [self.world addCreature:[CreatureFactory fishCreature] atCell:[self.world cellForPosition:(struct WorldPosition){ .x = 0, .y = 10 } locking:NO]];
-//    [self.world addCreature:[CreatureFactory orcaCreature] atCell:[self.world cellForPosition:(struct WorldPosition){ .x = 9, .y = 5 } locking:NO]];
+    //for testing
+//    id<CreatureProtocol> creature1 = [CreatureFactory fishCreatureForWorld:self
+//                                                            visualDelegate:self.visualDelegate];
+//    [self addCreature:creature1 atCell:[self cellForPosition:(struct WorldPosition){.x = 0, .y = 10}]];
+//    id<CreatureProtocol> creature2 = [CreatureFactory orcaCreatureForWorld:self
+//                                                            visualDelegate:self.visualDelegate];
+//    [self addCreature:creature2 atCell:[self cellForPosition:(struct WorldPosition){.x = 5, .y = 10}]];
 //    return;
+    
     NSMutableArray *creatures = [[NSMutableArray alloc] initWithCapacity:self.worldInfo.fishCount + self.worldInfo.orcaCount];
     for (int i = 0; i < self.worldInfo.fishCount; i++) {
-        id<CreatureProtocol> creature = [CreatureFactory fishCreature];
+        id<CreatureProtocol> creature = [CreatureFactory fishCreatureForWorld:self
+                                                               visualDelegate:self.visualDelegate];
         [creatures addObject:creature];
     }
     for (int i = 0; i < self.worldInfo.orcaCount; i++) {
-        id<CreatureProtocol> creature = [CreatureFactory orcaCreature];
+        id<CreatureProtocol> creature = [CreatureFactory orcaCreatureForWorld:self
+                                                               visualDelegate:self.visualDelegate];
         [creatures addObject:creature];
     }
 

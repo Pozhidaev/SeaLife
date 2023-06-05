@@ -9,14 +9,22 @@
 #import <Foundation/Foundation.h>
 
 @protocol CreatureProtocol;
+@protocol WorldProtocol;
+@protocol WorldVisualDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CreatureFactory : NSObject
 
-+ (id<CreatureProtocol>)creatureFromCreature:(id<CreatureProtocol>)creature;
-+ (id<CreatureProtocol>)orcaCreature;
-+ (id<CreatureProtocol>)fishCreature;
++ (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
+                                    world:(id<WorldProtocol>)world
+                           visualDelegate:(id<WorldVisualDelegate>)visualDelegate;
+
++ (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
+                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate;
++ (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
+                              visualDelegate:(id<WorldVisualDelegate>)visualDelegate;
+
 
 @end
 

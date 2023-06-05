@@ -27,6 +27,9 @@
     id<CreatureTimerProtocol> _timer;
 @protected Class _turnHelperClass;
     dispatch_queue_t _queue;
+    
+    __weak id<WorldProtocol> _world;
+    __weak id<WorldVisualDelegate> _visualDelegate;
 }
 @property (nonatomic, readwrite) NSUUID *uuid;
 
@@ -39,12 +42,17 @@
 - (instancetype)init { assert(false); /*must call initWithTurnHelperClass*/ }
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
+                                  world:(id<WorldProtocol>)world
+                         visualDelegate:(id<WorldVisualDelegate>)visualDelegate
 {
     self = [super init];
     if (self) {
         self.uuid = [NSUUID UUID];
         _queue = dispatch_queue_create("CreatureQueue", 0);
         _turnHelperClass = turnHelperClass;
+        
+        _world = world;
+        _visualDelegate = visualDelegate;
         
         __weak typeof(self) weakSelf = self;
         _timer = [[CreatureTimer alloc] initWithBlock:^{
@@ -98,11 +106,11 @@
     NSMutableSet<WorldCell *> *lockedCells;
     NSSet<WorldCell *> *posibleTurnCells;
     
-    WorldCell *currentCell = [self.world cellForPosition:self.position];
+    WorldCell *currentCell = [_world cellForPosition:self.position];
     
     if (currentCell) {
         NSSet *turnPositions = [self possibleTurnPositionsFrom:self.position];
-        posibleTurnCells = [self.world cellsForPositions:turnPositions];
+        posibleTurnCells = [_world cellsForPositions:turnPositions];
         
         lockedCells = [posibleTurnCells mutableCopy];
         [lockedCells addObject:currentCell];
@@ -148,9 +156,9 @@
          lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
           completion:(void(^)(void))completion
 {
-    [self.world unlockCells:lockedCells];
-    [self.visualDelegate performAnimationsForTurn:turn
-                                   withCompletion:^{
+    [_world unlockCells:lockedCells];
+    [_visualDelegate performAnimationsForTurn:turn
+                               withCompletion:^{
         completion();
     } completionQueue:_queue];
 }
@@ -161,11 +169,11 @@
 {
     [lockedCells removeObject:turn.cell];
     
-    [self.world unlockCells:lockedCells];
+    [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = self.world;
-    [self.visualDelegate performAnimationsForTurn:turn
-                                   withCompletion:^{
+    __weak id<WorldProtocol> wWorld = _world;
+    [_visualDelegate performAnimationsForTurn:turn
+                               withCompletion:^{
         [wWorld removeCreature:turn.creature
                         atCell:turn.cell];
         [wWorld unlockCell:turn.cell];
@@ -178,16 +186,16 @@
         lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
          completion:(void(^)(void))completion
 {
-    [self.world moveCreature:self
-                    fromCell:turn.cell
-                      toCell:turn.targetCell];
+    [_world moveCreature:self
+                fromCell:turn.cell
+                  toCell:turn.targetCell];
     
     [lockedCells removeObject:turn.targetCell];
-    [self.world unlockCells:lockedCells];
+    [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = self.world;
-    [self.visualDelegate performAnimationsForTurn:turn
-                                   withCompletion:^{
+    __weak id<WorldProtocol> wWorld = _world;
+    [_visualDelegate performAnimationsForTurn:turn
+                               withCompletion:^{
         [wWorld unlockCell:turn.targetCell];
         
         completion();
@@ -200,21 +208,23 @@
 {
     [lockedCells removeObject:turn.cell];
     [lockedCells removeObject:turn.targetCell];
-    [self.world unlockCells:lockedCells];
+    [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = self.world;
-    [self.visualDelegate performAnimationsForTurn:turn
-                                   withCompletion:^{
+    __weak id<WorldProtocol> wWorld = _world;
+    [_visualDelegate performAnimationsForTurn:turn
+                               withCompletion:^{
         [wWorld unlockCell:turn.cell];
-        id<CreatureProtocol> newCreature = [CreatureFactory creatureFromCreature:self];
+        id<CreatureProtocol> newCreature = [CreatureFactory creatureWithClass:self.class
+                                                                        world:self->_world
+                                                               visualDelegate:self->_visualDelegate];
         newCreature.busy = YES;
-        [self.world addCreature:newCreature
-                         atCell:turn.targetCell];
+        [self->_world addCreature:newCreature
+                           atCell:turn.targetCell];
         Turn *nextTurn = [Turn bornTurnWithCreature:newCreature
                                         currentCell:turn.targetCell];
         completion();
-        [self.visualDelegate performAnimationsForTurn:nextTurn
-                                       withCompletion:^(){
+        [self->_visualDelegate performAnimationsForTurn:nextTurn
+                                         withCompletion:^(){
             [wWorld unlockCell:turn.targetCell];
             [newCreature start];
             newCreature.busy = NO;
@@ -229,23 +239,24 @@
     id<CreatureProtocol> targetCreature = [turn.otherCreatures anyObject];
     
     [targetCreature stop];
-    [self.world removeCreature:targetCreature
-                        atCell:turn.targetCell];
-    [self.world moveCreature:self
-                    fromCell:turn.cell
-                      toCell:turn.targetCell];
+    [_world removeCreature:targetCreature
+                    atCell:turn.targetCell];
+    
+    [_world moveCreature:self
+                fromCell:turn.cell
+                  toCell:turn.targetCell];
     
     [lockedCells removeObject:turn.targetCell];
-    [self.world unlockCells:lockedCells];
+    [_world unlockCells:lockedCells];
     
-    __weak id<WorldProtocol> wWorld = self.world;
-    [self.visualDelegate performAnimationsForTurn:turn
-                                   withCompletion:^{
+    __weak id<WorldProtocol> wWorld = _world;
+    [_visualDelegate performAnimationsForTurn:turn
+                               withCompletion:^{
         Turn *nextTurn = [Turn dieTurnWithCreature:targetCreature
                                        currentCell:turn.targetCell];
         [wWorld unlockCell:turn.targetCell];
-        [self.visualDelegate performAnimationsForTurn:nextTurn
-                                       withCompletion:^{
+        [self->_visualDelegate performAnimationsForTurn:nextTurn
+                                         withCompletion:^{
         } completionQueue:self->_queue];
         
         completion();

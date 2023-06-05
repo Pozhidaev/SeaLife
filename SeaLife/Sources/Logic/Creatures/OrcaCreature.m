@@ -28,8 +28,12 @@
 #pragma mark - Initializer
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
+                                  world:(id<WorldProtocol>)world
+                         visualDelegate:(id<WorldVisualDelegate>)visualDelegate
 {
-    self = [super initWithTurnHelperClass:turnHelperClass];
+    self = [super initWithTurnHelperClass:turnHelperClass
+                                    world:world
+                           visualDelegate:visualDelegate];
     if (self) {
         _hungerPoints = kOrcaAllowedHungerPoins;
         self.direction = DirectionRight;
