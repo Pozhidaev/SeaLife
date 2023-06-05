@@ -40,8 +40,9 @@
 
     [self setupCreaturesView];
     
+    [self.creaturesView setAnimationSpeed:kDefaultAnimationSpeed];
+    
     self.creaturesSpeed = kDefaultCreatureSpeed;
-    self.animationSpeed = kDefaultAnimationSpeed;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -74,6 +75,11 @@
     [_world reset];
 }
 
+- (void)setAnimationSpeed:(float)animationSpeed
+{
+    [self.creaturesView setAnimationSpeed:animationSpeed];
+}
+
 - (void)createWorldWithInfo:(struct WorldInfo)worldInfo
 {
     [_world stop];
@@ -102,16 +108,6 @@
     [self didChangeValueForKey:@"creaturesSpeed"];
     
     _world.speed = creaturesSpeed;
-}
-
-- (void)setAnimationSpeed:(float)animationSpeed
-{
-    if (_animationSpeed == animationSpeed) { return; }
-    [self willChangeValueForKey:@"animationSpeed"];
-    _animationSpeed = animationSpeed;
-    [self didChangeValueForKey:@"animationSpeed"];
-
-    self.creaturesView.animationSpeed = animationSpeed;
 }
 
 #pragma mark - WorldDelegate

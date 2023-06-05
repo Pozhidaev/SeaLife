@@ -74,18 +74,18 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     
     [self setupControlPanel];
     
-    float initialAnimationSpeed = kDefaultAnimationSpeed;
-    self.worldViewController.animationSpeed = initialAnimationSpeed;
-    self.animationSpeedSlider.value = kFastestAnimationSpeed + (kSlowestAnimationSpeed - initialAnimationSpeed);
-
-    float initialCreaturesSpeed = kDefaultCreatureSpeed;
-    self.worldViewController.creaturesSpeed = initialCreaturesSpeed;
-    self.creatureSpeedSlider.value = kFastestCreatureSpeed + (kSlowestCreatureSpeed - initialCreaturesSpeed); ;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self.worldViewController setAnimationSpeed:kDefaultAnimationSpeed];
+    self.animationSpeedSlider.value = kFastestAnimationSpeed + (kSlowestAnimationSpeed - kDefaultAnimationSpeed);
+
+    float initialCreaturesSpeed = kDefaultCreatureSpeed;
+    self.worldViewController.creaturesSpeed = initialCreaturesSpeed;
+    self.creatureSpeedSlider.value = kFastestCreatureSpeed + (kSlowestCreatureSpeed - initialCreaturesSpeed);
     
     if (!_configured) {
         [self showMenuFullScreen:YES];
@@ -119,7 +119,7 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 {
     float speed = kSlowestAnimationSpeed - (sender.value - kFastestAnimationSpeed);
     self.animationSpeedValueLabel.text = [NSString stringWithFormat:@"%.1fs", speed];
-    self.worldViewController.animationSpeed = speed;
+    [self.worldViewController setAnimationSpeed:speed];
 }
 
 - (void)creatureSpeedSliderChanged:(UISlider *)sender

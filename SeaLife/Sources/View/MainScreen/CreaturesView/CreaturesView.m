@@ -35,7 +35,6 @@
         _animationController = [[AnimationsController alloc] init];
 
         self.cellSize = CGSizeZero;
-        self.animationSpeed = 0.0;
     }
     return self;
 }
@@ -50,16 +49,6 @@
     [self didChangeValueForKey:@"cellSize"];
 
     _animationController.cellSize = cellSize;
-}
-
-- (void)setAnimationSpeed:(float)animationSpeed
-{
-    if (_animationSpeed == animationSpeed) { return; }
-    [self willChangeValueForKey:@"animationSpeed"];
-    _animationSpeed = animationSpeed;
-    [self didChangeValueForKey:@"animationSpeed"];
-
-    _animationController.animationSpeed = animationSpeed;
 }
 
 #pragma mark - WorldVisualDelegate
@@ -81,6 +70,11 @@
     [_animationController reset];
 
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+- (void)setAnimationSpeed:(float)animationSpeed
+{
+    _animationController.animationSpeed = animationSpeed;
 }
 
 - (void)createImageViewForCreatures:(NSSet<id<CreatureProtocol>> *)creatures

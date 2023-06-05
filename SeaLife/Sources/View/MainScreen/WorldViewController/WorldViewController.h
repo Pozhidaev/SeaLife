@@ -20,13 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WorldViewController : UIViewController<WorldDelegate>
 
 @property (nonatomic) float creaturesSpeed;
-@property (nonatomic) float animationSpeed;
 
 @property (nonatomic, weak) id<WorldViewControllerDelegate> delegate;
 
 - (void)play;
 - (void)stop;
 - (void)reset;
+- (void)setAnimationSpeed:(float)animationSpeed;
 
 - (void)createWorldWithInfo:(struct WorldInfo)worldInfo;
 

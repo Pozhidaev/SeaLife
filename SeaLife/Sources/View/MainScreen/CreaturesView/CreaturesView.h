@@ -18,11 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CreaturesView : UIView<WorldVisualDelegate>
 
 @property (nonatomic) CGSize cellSize;
-@property (nonatomic) float animationSpeed;
-
 - (void)play;
 - (void)stop;
 - (void)reset;
+- (void)setAnimationSpeed:(float)animationSpeed;
 
 - (void)createImageViewForCreatures:(NSSet<id<CreatureProtocol>> *)creatures;
 - (void)createImageViewForCreature:(id<CreatureProtocol>)creature;
