@@ -166,12 +166,24 @@
 
 - (WorldCell *)targetCell
 {
+    return [self.otherCells anyObject];
+}
+
+- (NSSet<WorldCell*> *)usedCells
+{
     switch (self.type) {
+        case TurnTypeCreatureEmpty:
+            return [NSSet set];
+        case TurnTypeCreatureMove:
+            return [[NSSet setWithObject:self.cell] setByAddingObjectsFromArray:[self.otherCells allObjects]];
+        case TurnTypeCreatureEat:
+            return [[NSSet setWithObject:self.cell] setByAddingObjectsFromArray:[self.otherCells allObjects]];
+        case TurnTypeCreatureReproduce:
+            return [[NSSet setWithObject:self.cell] setByAddingObjectsFromArray:[self.otherCells allObjects]];
         case TurnTypeCreatureBorn:
+            return [NSSet setWithObject:self.cell];
         case TurnTypeCreatureDie:
-            return nil;
-        default:
-            return [self.otherCells anyObject];
+            return [NSSet setWithObject:self.cell];
     }
 }
 

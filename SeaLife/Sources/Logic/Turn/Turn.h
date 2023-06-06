@@ -48,8 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
                                targetCell:(WorldCell *)targetCell;
 
 - (Direction)direction;
-- (WorldCell *)targetCell;
+- (WorldCell *_Nullable)targetCell;
 - (struct WorldPosition)finalPosition;
+- (NSSet<WorldCell*> *)usedCells;
 
 - (NSString *)debugDescription;
 

@@ -126,21 +126,24 @@
     assert(turn);
     [self afterEveryTurn];
     
+    [lockedCells minusSet:turn.usedCells];
+    [_world unlockCells:lockedCells];
+    
     switch (turn.type) {
         case TurnTypeCreatureEmpty: {
-            [self performEmpty:turn lockedCells:lockedCells completion:completion];
+            [self performEmpty:turn completion:completion];
         } break;
         case TurnTypeCreatureMove: {
-            [self performMove:turn lockedCells:lockedCells completion:completion];
+            [self performMove:turn completion:completion];
         } break;
         case TurnTypeCreatureEat: {
-            [self performEat:turn lockedCells:lockedCells completion:completion];
+            [self performEat:turn completion:completion];
         } break;
         case TurnTypeCreatureReproduce: {
-            [self performReproduce:turn lockedCells:lockedCells completion:completion];
+            [self performReproduce:turn completion:completion];
         } break;
         case TurnTypeCreatureDie: {
-            [self performDie:turn lockedCells:lockedCells completion:completion];
+            [self performDie:turn completion:completion];
         } break;
         case TurnTypeCreatureBorn: { assert(false); //creature can't born itself
         } break;
@@ -158,10 +161,8 @@
 #pragma mark - Private
 
 - (void)performEmpty:(Turn *)turn
-         lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
           completion:(void(^)(void))completion
 {
-    [_world unlockCells:lockedCells];
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
         completion();
@@ -169,13 +170,8 @@
 }
 
 - (void)performDie:(Turn *)turn
-       lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
         completion:(void(^)(void))completion
 {
-    [lockedCells removeObject:turn.cell];
-    
-    [_world unlockCells:lockedCells];
-    
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
         [self->_world removeCreature:turn.creature
@@ -187,15 +183,13 @@
 }
 
 - (void)performMove:(Turn *)turn
-        lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
          completion:(void(^)(void))completion
 {
     [_world moveCreature:self
                 fromCell:turn.cell
                   toCell:turn.targetCell];
     
-    [lockedCells removeObject:turn.targetCell];
-    [_world unlockCells:lockedCells];
+    [_world unlockCell:turn.cell];
     
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
@@ -206,13 +200,8 @@
 }
 
 - (void)performReproduce:(Turn *)turn
-             lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
               completion:(void(^)(void))completion
 {
-    [lockedCells removeObject:turn.cell];
-    [lockedCells removeObject:turn.targetCell];
-    [_world unlockCells:lockedCells];
-    
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
         [self->_world unlockCell:turn.cell];
@@ -238,7 +227,6 @@
 }
 
 - (void)performEat:(Turn *)turn
-       lockedCells:(NSMutableSet<WorldCell *> *)lockedCells
         completion:(void(^)(void))completion
 {
     id<CreatureProtocol> targetCreature = [turn.otherCreatures anyObject];
@@ -249,8 +237,7 @@
                 fromCell:turn.cell
                   toCell:turn.targetCell];
     
-    [lockedCells removeObject:turn.targetCell];
-    [_world unlockCells:lockedCells];
+    [_world unlockCell:turn.cell];
     
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
