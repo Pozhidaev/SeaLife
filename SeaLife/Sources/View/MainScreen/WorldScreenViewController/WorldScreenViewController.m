@@ -155,8 +155,8 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 {
     self.resetButton.enabled = !_isPlaying;
     
-    NSString *playTitle = NSLocalizedString(@"Button.Pause", "");
-    NSString *pauseTitle = NSLocalizedString(@"Button.Play", "");
+    NSString *playTitle = Localizable.buttonPause;
+    NSString *pauseTitle = Localizable.buttonPlay;
     NSString *title = (_isPlaying) ? playTitle : pauseTitle;
     [self.playButton setTitle:title
                      forState:UIControlStateNormal];
@@ -187,7 +187,7 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 {
     UILabel *creatureSpeedTitleLabel = [[UILabel alloc] init];
     creatureSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    creatureSpeedTitleLabel.text = NSLocalizedString(@"MainScreen.CreaturesSpeed", "");
+    creatureSpeedTitleLabel.text = Localizable.mainScreenCreaturesSpeed;
     creatureSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
 
     self.creatureSpeedValueLabel = [[UILabel alloc] init];
@@ -229,7 +229,7 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 {
     UILabel *animationSpeedTitleLabel = [[UILabel alloc] init];
     animationSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    animationSpeedTitleLabel.text = NSLocalizedString(@"MainScreen.AnimationSpeed", "");
+    animationSpeedTitleLabel.text = Localizable.mainScreenAnimationSpeed;
     animationSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
     
     self.animationSpeedValueLabel = [[UILabel alloc] init];
@@ -279,11 +279,11 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     self.menuButton.backgroundColor = [UIColor colorNamed:@"MainScreenMenuButtonColor"];
     self.playButton.backgroundColor = [UIColor colorNamed:@"MainScreenPlayButtonColor"];
 
-    [self.resetButton setTitle:NSLocalizedString(@"Button.Reset", "")
+    [self.resetButton setTitle:Localizable.buttonReset
                       forState:UIControlStateNormal];
-    [self.menuButton setTitle:NSLocalizedString(@"Button.Menu", "")
+    [self.menuButton setTitle:Localizable.buttonMenu
                       forState:UIControlStateNormal];
-    [self.playButton setTitle:NSLocalizedString(@"Button.Play", "")
+    [self.playButton setTitle:Localizable.buttonPlay
                      forState:UIControlStateNormal];
 }
 
@@ -297,14 +297,14 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
         
         NSString *message;
         switch (reason) {
-            case WorldCompletionReasonEmpty: { message = NSLocalizedString(@"World.Finish.Empty", ""); } break;
-            case WorldCompletionReasonFull: { message = NSLocalizedString(@"World.Finish.Full", ""); } break;
+            case WorldCompletionReasonEmpty: { message = Localizable.worldFinishEmpty; } break;
+            case WorldCompletionReasonFull: { message = Localizable.worldFinishFull; } break;
         }
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                        message:message
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Button.Ok", "")
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:Localizable.buttonOk
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction * _Nonnull action) {
             [self.worldViewController reset];
