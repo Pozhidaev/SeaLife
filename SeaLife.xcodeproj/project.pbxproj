@@ -319,11 +319,18 @@
 			children = (
 				A5ACA6682A18DFA200FEE2FD /* WorldScreenViewController */,
 				03C132861976BCFF00C19D03 /* WorldViewController */,
-				A53E541B2A0EDAE7006E2B90 /* CreatureAnimator */,
 				A59F3D9D2A13915E0088A510 /* WorldVisualDelegate */,
 				A53E541A2A0EDAB8006E2B90 /* WorldBackgroundView */,
 			);
 			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		A51F861C2A2F42CC002B3D8F /* VisualLogic */ = {
+			isa = PBXGroup;
+			children = (
+				A53E541B2A0EDAE7006E2B90 /* CreatureAnimator */,
+			);
+			path = VisualLogic;
 			sourceTree = "<group>";
 		};
 		A525393D2A23FB860037F97C /* MenuViewController */ = {
@@ -390,6 +397,7 @@
 				A5E1CC892A1F8893002CB927 /* AppRelated */,
 				A57B18842A1A20C1006E1AE9 /* Utils */,
 				03C132911976BD0600C19D03 /* View */,
+				A51F861C2A2F42CC002B3D8F /* VisualLogic */,
 				03BFB0C9196EAC5600DE912B /* Logic */,
 			);
 			path = Sources;
