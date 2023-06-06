@@ -39,10 +39,6 @@
     [self setupBackground];
 
     [self setupCreaturesView];
-    
-    [self.creaturesView setAnimationSpeed:kDefaultAnimationSpeed];
-    
-    self.creaturesSpeed = kDefaultCreatureSpeed;
 }
 
 - (void)viewDidAppear:(BOOL)animated
