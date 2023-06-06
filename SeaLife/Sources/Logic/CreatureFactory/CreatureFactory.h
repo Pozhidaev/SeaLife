@@ -6,25 +6,20 @@
 //  Copyright (c) 2014 Sergey Pozhidaev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @protocol CreatureProtocol;
-@protocol WorldProtocol;
-@class CreatureAnimator;
+@class CreatureDeps;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CreatureFactory : NSObject
 
 + (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
-                                    world:(id<WorldProtocol>)world
-                                 animator:(CreatureAnimator *)animator;
+                                    deps:(CreatureDeps *)deps;
 
-+ (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(CreatureAnimator *)animator;
-
-+ (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(CreatureAnimator *)animator;
++ (id<CreatureProtocol>)orcaCreatureWithDeps:(CreatureDeps *)deps;
++ (id<CreatureProtocol>)fishCreatureWithDeps:(CreatureDeps *)deps;
 
 @end
 

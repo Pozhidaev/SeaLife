@@ -14,7 +14,6 @@
 #import "Direction.h"
 #import "WorldCell.h"
 #import "WorldPosition.h"
-#import "CreatureAnimator.h"
 
 @interface OrcaCreature()
 {
@@ -28,13 +27,9 @@
 
 #pragma mark - Initializer
 
-- (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
-                                  world:(id<WorldProtocol>)world
-                               animator:(CreatureAnimator *)animator
+- (instancetype)initWithDeps:(CreatureDeps *)deps
 {
-    self = [super initWithTurnHelperClass:turnHelperClass
-                                    world:world
-                                 animator:animator];
+    self = [super initWithDeps: deps];
     if (self) {
         _hungerPoints = kOrcaAllowedHungerPoins;
         self.direction = DirectionRight;

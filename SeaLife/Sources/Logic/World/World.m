@@ -8,19 +8,24 @@
 
 #import "World.h"
 
-#import "WorldCell.h"
-#import "CreatureFactory.h"
 #import "CreatureProtocol.h"
+#import "CreatureFactory.h"
+#import "CreatureAnimator.h"
+#import "CreatureDeps.h"
 #import "FishCreature.h"
 #import "OrcaCreature.h"
+
 #import "WorldProtocol.h"
 #import "WorldDelegate.h"
 #import "WorldVisualDelegate.h"
-#import "CreatureAnimator.h"
-#import "WorldCompletionReason.h"
+#import "WorldCell.h"
 #import "WorldInfo.h"
 #import "WorldPosition.h"
+#import "WorldCompletionReason.h"
 #import "NSValue+WorldPosition.h"
+
+#import "TurnHelper.h"
+
 #import "Utils.h"
 
 @interface World()
@@ -251,9 +256,13 @@
 {
     UIImageView *visualComponent = [self.visualDelegate createVisualComponentForCreatureClass:creatureClass];
     CreatureAnimator *animator = [[CreatureAnimator alloc] initWithVisualComponent:visualComponent];
+    
+    CreatureDeps *deps = [[CreatureDeps alloc] init];
+    deps.world = self;
+    deps.animator = animator;
+    
     id<CreatureProtocol> creature = [CreatureFactory creatureWithClass:creatureClass
-                                                                 world:self
-                                                              animator:animator];
+                                                                  deps:deps];
     return creature;
 }
 

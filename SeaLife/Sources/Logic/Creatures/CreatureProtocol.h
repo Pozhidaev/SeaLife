@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TurnHelperProtocol;
-@protocol WorldProtocol;
 @class CreatureAnimator;
+@class CreatureDeps;
 typedef NS_ENUM(NSInteger, Direction);
 struct WorldPosition;
 
@@ -31,9 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)pause;
 - (void)stop;
 
-- (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
-                                  world:(id<WorldProtocol>)world
-                               animator:(CreatureAnimator *)animator;
+- (instancetype)initWithDeps:(CreatureDeps *)deps;
 
 - (NSString *)debugDescriptionIndent:(NSInteger)indent
                              caption:(NSString *)caption;

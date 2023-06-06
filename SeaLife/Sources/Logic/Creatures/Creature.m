@@ -10,18 +10,20 @@
 
 #import "CreatureTimerProtocol.h"
 #import "CreatureTimer.h"
+
 #import "TurnHelperProtocol.h"
 #import "TurnHelper.h"
 #import "Turn.h"
+#import "TurnType.h"
+
+#import "WorldProtocol.h"
 #import "World.h"
 #import "WorldCell.h"
-#import "WorldProtocol.h"
-
-#import "CreatureFactory.h"
-#import "CreatureProtocol.h"
-#import "TurnType.h"
 #import "WorldPosition.h"
+
+#import "CreatureProtocol.h"
 #import "CreatureAnimator.h"
+#import "CreatureDeps.h"
 
 @interface Creature ()
 {
@@ -43,19 +45,17 @@
 
 - (instancetype)init { assert(false); /*must call initWithTurnHelperClass*/ }
 
-- (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
-                                  world:(id<WorldProtocol>)world
-                               animator:(CreatureAnimator *)animator
+- (instancetype)initWithDeps:(CreatureDeps *)deps
 {
     self = [super init];
     if (self) {
         self.uuid = [NSUUID UUID];
         
         _queue = dispatch_queue_create("CreatureQueue", 0);
-        _turnHelperClass = turnHelperClass;
+        _turnHelperClass = deps.turnHelperClass;
         
-        _world = world;
-        _animator = animator;
+        _world = deps.world;
+        _animator = deps.animator;
         
         __weak typeof(self) weakSelf = self;
         _timer = [[CreatureTimer alloc] initWithBlock:^{

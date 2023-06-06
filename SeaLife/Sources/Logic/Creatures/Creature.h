@@ -10,11 +10,7 @@
 
 #import "CreatureProtocol.h"
 
-@protocol WorldProtocol;
-@protocol TurnHelperProtocol;
-@class CreatureAnimator;
-@class World;
-@class Turn;
+@class CreatureDeps;
 struct WorldPosition;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -34,9 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)pause;
 - (void)stop;
 
-- (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
-                                  world:(id<WorldProtocol>)world
-                               animator:(CreatureAnimator *)animator;
+- (instancetype)initWithDeps:(CreatureDeps *)deps;
 
 - (NSString *)debugDescriptionIndent:(NSInteger)indent
                              caption:(NSString *)caption;

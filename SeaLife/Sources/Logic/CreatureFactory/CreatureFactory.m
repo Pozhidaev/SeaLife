@@ -9,53 +9,47 @@
 #import "CreatureFactory.h"
 
 #import "CreatureProtocol.h"
+#import "CreatureDeps.h"
 #import "FishCreature.h"
 #import "OrcaCreature.h"
 #import "TurnHelper.h"
-#import "WorldProtocol.h"
-#import "CreatureAnimator.h"
+#import "TurnHelperProtocol.h"
 
 @implementation CreatureFactory
 
-+ (Class<TurnHelperProtocol>)turnHelperClass
++ (Class<TurnHelperProtocol>)turnHelperClassForCreatureClass:(Class<CreatureProtocol>)creatureClass
 {
     return [TurnHelper class];
 }
 
-+ (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
-                                    world:(id<WorldProtocol>)world
-                                 animator:(CreatureAnimator *)animator
++ (id<CreatureProtocol>)creatureWithClass:(Class<CreatureProtocol>)creatureClass
+                                     deps:(CreatureDeps *)deps
 {
     static dispatch_queue_t timersQueue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        timersQueue = dispatch_queue_create("VisualQueue", DISPATCH_QUEUE_CONCURRENT);
+        timersQueue = dispatch_queue_create("CreatureTimerParentQueue", DISPATCH_QUEUE_CONCURRENT);
     });
     
-    id<CreatureProtocol> creature = [[creatureClass alloc]
-                                     initWithTurnHelperClass:[self turnHelperClass]
-                                     world:world
-                                     animator:animator];
+    deps.turnHelperClass = [self turnHelperClassForCreatureClass:creatureClass];
+    
+    id<CreatureProtocol> creature = [[creatureClass.self alloc] initWithDeps:deps];
 
     [creature setTimerTargetQueue:timersQueue];
 
     return creature;
 }
 
-+ (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(CreatureAnimator *)animator
++ (id<CreatureProtocol>)orcaCreatureWithDeps:(CreatureDeps *)deps
 {
     return [self creatureWithClass:OrcaCreature.class
-                             world:world
-                          animator:animator];
+                              deps:deps];
 }
 
-+ (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(CreatureAnimator *)animator
++ (id<CreatureProtocol>)fishCreatureWithDeps:(CreatureDeps *)deps
 {
     return [self creatureWithClass:FishCreature.class
-                             world:world
-                          animator:animator];
+                              deps:deps];
 }
 
 @end
