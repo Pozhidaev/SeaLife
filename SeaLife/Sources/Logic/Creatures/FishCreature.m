@@ -30,12 +30,10 @@
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
                                animator:(CreatureAnimator *)animator
-                        visualComponent:(UIImageView *)visualComponent
 {
     self = [super initWithTurnHelperClass:turnHelperClass
                                     world:world
-                                 animator:animator
-                          visualComponent:visualComponent];
+                                 animator:animator];
     if (self) {
         self.direction = DirectionRight;
     }

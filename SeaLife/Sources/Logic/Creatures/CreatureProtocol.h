@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) struct WorldPosition position;
 @property (nonatomic) Direction direction;
 
-@property (nonatomic, readonly) UIImageView *visualComponent;
 @property (nonatomic, readonly) CreatureAnimator *animator;
 
 - (void)setTimerTargetQueue:(dispatch_queue_t)queue;
@@ -34,8 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTurnHelperClass:(Class<TurnHelperProtocol>)turnHelperClass
                                   world:(id<WorldProtocol>)world
-                               animator:(CreatureAnimator *)animator
-                        visualComponent:(UIImageView *)visualComponent;
+                               animator:(CreatureAnimator *)animator;
 
 - (NSString *)debugDescriptionIndent:(NSInteger)indent
                              caption:(NSString *)caption;

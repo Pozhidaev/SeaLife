@@ -19,17 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CreaturesView: UIView<WorldVisualDelegate>
 
 - (void)reset;
-
 - (void)setAnimationSpeed:(float)animationSpeed;
-
-- (UIImageView *)visualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass;
-
-- (void)placeVisualComponent:(UIImageView *)visualComponent
-                          at:(struct WorldPosition)position;
-
 - (void)redrawToCellSize:(CGSize)toCellSize;
-
 - (void)addAnimator:(CreatureAnimator *)animator;
+
+- (UIImageView *)createVisualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass;
+- (void)placeVisualComponentOfCreature:(id<CreatureProtocol>)creature
+                                    at:(struct WorldPosition)position;
+- (void)removeVisualComponentOfCreature:(id<CreatureProtocol>)creature;
 
 @end
 

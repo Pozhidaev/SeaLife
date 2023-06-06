@@ -15,7 +15,6 @@
 #define kAnimationPreparationKey              @"kAnimationPreparationKey"
 
 #define kAnimationKey                         @"kAnimationKey"
-#define kAnimationUUIDKey                     @"kAnimationUUIDKey"
 #define kTransformKey                         @"transform"
 
 //UI

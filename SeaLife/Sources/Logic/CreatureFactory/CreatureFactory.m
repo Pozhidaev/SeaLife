@@ -25,7 +25,6 @@
 + (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
                                     world:(id<WorldProtocol>)world
                                  animator:(CreatureAnimator *)animator
-                          visualComponent:(UIImageView *)visualComponent
 {
     static dispatch_queue_t timersQueue;
     static dispatch_once_t onceToken;
@@ -36,8 +35,7 @@
     id<CreatureProtocol> creature = [[creatureClass alloc]
                                      initWithTurnHelperClass:[self turnHelperClass]
                                      world:world
-                                     animator:animator
-                                     visualComponent:visualComponent];
+                                     animator:animator];
 
     [creature setTimerTargetQueue:timersQueue];
 
@@ -46,22 +44,18 @@
 
 + (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
                                     animator:(CreatureAnimator *)animator
-                             visualComponent:(UIImageView *)visualComponent
 {
     return [self creatureWithClass:OrcaCreature.class
                              world:world
-                          animator:animator
-                   visualComponent:visualComponent];
+                          animator:animator];
 }
 
 + (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
                                     animator:(CreatureAnimator *)animator
-                             visualComponent:(UIImageView *)visualComponent
 {
     return [self creatureWithClass:FishCreature.class
                              world:world
-                          animator:animator
-                   visualComponent:visualComponent];
+                          animator:animator];
 }
 
 @end

@@ -18,16 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id<CreatureProtocol>)creatureWithClass:(Class)creatureClass
                                     world:(id<WorldProtocol>)world
-                                 animator:(CreatureAnimator *)animator
-                          visualComponent:(UIImageView *)visualComponent;
+                                 animator:(CreatureAnimator *)animator;
 
 + (id<CreatureProtocol>)orcaCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(CreatureAnimator *)animator
-                             visualComponent:(UIImageView *)visualComponent;
+                                    animator:(CreatureAnimator *)animator;
 
 + (id<CreatureProtocol>)fishCreatureForWorld:(id<WorldProtocol>)world
-                                    animator:(CreatureAnimator *)animator
-                             visualComponent:(UIImageView *)visualComponent;
+                                    animator:(CreatureAnimator *)animator;
 
 @end
 

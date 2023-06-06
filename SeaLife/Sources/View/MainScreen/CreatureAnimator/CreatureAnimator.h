@@ -6,7 +6,7 @@
 //  Copyright © 2023 Sergey Pozhidaev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class Turn;
 
@@ -17,11 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CGSize cellSize;
 @property (nonatomic) float animationSpeed;
 
+@property (nonatomic, readonly) UIImageView *visualComponent;
+
 - (void)play;
 - (void)pause;
-- (void)reset;
 
-- (void)removeAllAnimationsForCreatureUUID:(NSUUID *)creatureUUID;
+- (instancetype)initWithVisualComponent:(UIImageView *)visualComponent;
 
 - (void)performAnimationsForTurn:(Turn *)turn
                   withCompletion:(void(^)(void))completion

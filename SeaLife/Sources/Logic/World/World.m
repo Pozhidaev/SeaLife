@@ -152,8 +152,8 @@
     [_creaturesLock unlock];
     
     [Utils performOnMainThread:^{
-        [self.visualDelegate placeVisualComponent:creature.visualComponent
-                                               at:cell.position];
+        [self.visualDelegate placeVisualComponentOfCreature:creature
+                                                         at:cell.position];
     }];
 }
 
@@ -171,7 +171,7 @@
     }
     
     [Utils performOnMainThread:^{
-        [creature.visualComponent removeFromSuperview];
+        [self.visualDelegate removeVisualComponentOfCreature:creature];
     }];
     
     if ([_creatures count] == 0) {
@@ -249,14 +249,11 @@
 
 - (id<CreatureProtocol>)creatureForClass:(Class<CreatureProtocol>)creatureClass
 {
-    UIImageView *visualComponent = [self.visualDelegate visualComponentForCreatureClass:creatureClass];
-    CreatureAnimator *animator = [[CreatureAnimator alloc] init];//  [[AnimationsController alloc] initWithVisualComponent:visualComponent];
-    [self.visualDelegate addAnimator:animator];
-
+    UIImageView *visualComponent = [self.visualDelegate createVisualComponentForCreatureClass:creatureClass];
+    CreatureAnimator *animator = [[CreatureAnimator alloc] initWithVisualComponent:visualComponent];
     id<CreatureProtocol> creature = [CreatureFactory creatureWithClass:creatureClass
                                                                  world:self
-                                                              animator:animator
-                                                       visualComponent:visualComponent];
+                                                              animator:animator];
     return creature;
 }
 

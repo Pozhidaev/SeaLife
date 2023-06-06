@@ -77,15 +77,25 @@
     }
 }
 
-- (void)placeVisualComponent:(UIImageView *)visualComponent
-                          at:(struct WorldPosition)position
+- (void)placeVisualComponentOfCreature:(id<CreatureProtocol>)creature
+                                    at:(struct WorldPosition)position
 {
+    creature.animator.cellSize = _cellSize;
+    creature.animator.animationSpeed = _animationSpeed;
+    [_animatorsArray addPointer:(__bridge void *)(creature.animator)];
+    
+    UIImageView *visualComponent = creature.animator.visualComponent;
     visualComponent.center = CGPointMake(_cellSize.width * (position.x + 0.5),
                                          _cellSize.height * (position.y + 0.5));
     [self addSubview:visualComponent];
 }
 
-- (UIImageView *)visualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass
+- (void)removeVisualComponentOfCreature:(id<CreatureProtocol>)creature
+{
+    [creature.animator.visualComponent removeFromSuperview];
+}
+
+- (UIImageView *)createVisualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass
 {
     UIImage *image = [UIImage imageFor:creatureClass];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
