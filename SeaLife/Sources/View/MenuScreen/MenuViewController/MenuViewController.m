@@ -144,15 +144,10 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
 
 - (void)setupSliderViews
 {
-    [self.fishCountView setTitle:NSLocalizedString(@"Menu.FishCount.Title", "")];
-    [self.orcaCountView setTitle:NSLocalizedString(@"Menu.OrcaCount.Title", "")];
-    [self.horizontalCountView setTitle:NSLocalizedString(@"Menu.XSize.Title", "")];
-    [self.verticalCountView setTitle:NSLocalizedString(@"Menu.YSize.Title", "")];
-
-    [self.fishCountView setTitle:NSLocalizedString(@"Menu.FishCount.Title", "")];
-    [self.orcaCountView setTitle:NSLocalizedString(@"Menu.OrcaCount.Title", "")];
-    [self.horizontalCountView setTitle:NSLocalizedString(@"Menu.XSize.Title", "")];
-    [self.verticalCountView setTitle:NSLocalizedString(@"Menu.YSize.Title", "")];
+    [self.fishCountView setTitle:Localizable.menuFishCountTitle];
+    [self.orcaCountView setTitle:Localizable.menuOrcaCountTitle];
+    [self.horizontalCountView setTitle:Localizable.menuXSizeTitle];
+    [self.verticalCountView setTitle:Localizable.menuYSizeTitle];
     
     self.fishCountView.backgroundColor = [UIColor colorNamed:@"SliderViewBackgroundColor"];
     self.orcaCountView.backgroundColor = [UIColor colorNamed:@"SliderViewBackgroundColor"];

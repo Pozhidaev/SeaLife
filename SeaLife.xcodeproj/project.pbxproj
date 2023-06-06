@@ -25,6 +25,7 @@
 		03C132981976BD0600C19D03 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C132941976BD0600C19D03 /* MenuViewController.m */; };
 		03C132991976BD0600C19D03 /* WorldScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C132971976BD0600C19D03 /* WorldScreenViewController.m */; };
 		A513A9302A0E79CE00EF8E95 /* CreatureTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = A513A92F2A0E79CE00EF8E95 /* CreatureTimer.m */; };
+		A51F861F2A2F47E2002B3D8F /* Localizable.m in Sources */ = {isa = PBXBuildFile; fileRef = A51F861D2A2F47E2002B3D8F /* Localizable.m */; };
 		A53E541D2A0EF04C006E2B90 /* SliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A53E541C2A0EF04C006E2B90 /* SliderView.xib */; };
 		A53E54202A0EF3F5006E2B90 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A53E541F2A0EF3F5006E2B90 /* SliderView.m */; };
 		A56178C02A0868F20027AC7C /* WorldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A56178BF2A0868F20027AC7C /* WorldCell.m */; };
@@ -91,6 +92,8 @@
 		A513A9322A0E800800EF8E95 /* TurnHelperProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurnHelperProtocol.h; sourceTree = "<group>"; };
 		A51EFD922A1C05160016182D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A51EFD9F2A1CE6360016182D /* Creature+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Creature+Private.h"; sourceTree = "<group>"; };
+		A51F861D2A2F47E2002B3D8F /* Localizable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizable.m; sourceTree = "<group>"; };
+		A51F861E2A2F47E2002B3D8F /* Localizable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizable.h; sourceTree = "<group>"; };
 		A53E541C2A0EF04C006E2B90 /* SliderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderView.xib; sourceTree = "<group>"; };
 		A53E541E2A0EF3F5006E2B90 /* SliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderView.h; sourceTree = "<group>"; };
 		A53E541F2A0EF3F5006E2B90 /* SliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderView.m; sourceTree = "<group>"; };
@@ -438,6 +441,8 @@
 				A5E1CC6A2A1F87C3002CB927 /* Localizable.strings */,
 				A5E1CC6C2A1F87C3002CB927 /* InfoPlist.strings */,
 				A5E1CC712A1F87C3002CB927 /* SeaLife-Prefix.pch */,
+				A51F861E2A2F47E2002B3D8F /* Localizable.h */,
+				A51F861D2A2F47E2002B3D8F /* Localizable.m */,
 				A5E1CC762A1F87C3002CB927 /* Launch.storyboard */,
 				A5E1CC702A1F87C3002CB927 /* main.storyboard */,
 			);
@@ -565,6 +570,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A51F861F2A2F47E2002B3D8F /* Localizable.m in Sources */,
 				A5E1CC902A1F8893002CB927 /* AppDelegate.m in Sources */,
 				A57B18832A1A20B4006E1AE9 /* Utils.m in Sources */,
 				03C132901976BCFF00C19D03 /* WorldViewController.m in Sources */,
