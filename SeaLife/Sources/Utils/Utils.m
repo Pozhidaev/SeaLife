@@ -21,4 +21,15 @@
     }
 }
 
++ (void)performOnMainThreadAndWait:(void(^)(void))performBlock
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    [self performOnMainThread:^{
+        performBlock();
+        dispatch_group_leave(group);
+    }];
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+}
+
 @end

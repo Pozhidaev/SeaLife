@@ -71,6 +71,22 @@
     return self;
 }
 
+#pragma mark - Accessors
+
+- (void)setSpeed:(float)speed
+{
+    if (_speed == speed) { return; }
+    [self willChangeValueForKey:@"speed"];
+    _speed = speed;
+    [self didChangeValueForKey:@"speed"];
+    
+    [_creaturesLock lock];
+    for (id<CreatureProtocol> creture in _creatures) {
+        [creture setSpeed:_speed];
+    }
+    [_creaturesLock unlock];
+}
+
 #pragma mark - Public methods
 
 - (void)play
@@ -107,159 +123,12 @@
     [self createInitialCreatures];
 }
 
-#pragma mark - Accessors
-
-- (void)setSpeed:(float)speed
-{
-    if (_speed == speed) { return; }
-    [self willChangeValueForKey:@"speed"];
-    _speed = speed;
-    [self didChangeValueForKey:@"speed"];
-    
-    [_creaturesLock lock];
-    for (id<CreatureProtocol> creture in _creatures) {
-        [creture setSpeed:_speed];
-    }
-    [_creaturesLock unlock];
-}
-
-#pragma mark - Private
-
-- (NSArray<WorldCell *> *)createCellsForXSize:(NSInteger)xSize
-                                        ySize:(NSInteger)ySize
-{
-    NSMutableArray *cells = [[NSMutableArray alloc] initWithCapacity:ySize * xSize];
-    for (int i = 0; i < xSize * ySize; i++) {
-        WorldPosition position = {.x = i % self.worldInfo.horizontalSize, .y = i / self.worldInfo.horizontalSize};
-        WorldCell *cell = [[WorldCell alloc] initWithPosition:position];
-        [cells addObject:cell];
-    }
-    return [cells copy];
-}
-
-#pragma mark - WorldProtocol methods
-
-- (void)addCreature:(id<CreatureProtocol>)creature
-             atCell:(WorldCell *)cell
-{
-    assert(cell);
-    assert(cell.creature == nil);
-
-    creature.position = cell.position;
-    [creature setSpeed:_speed];
-   
-    [_cellsLock lock];
-    cell.creature = creature;
-    [_cellsLock unlock];
-    
-    [_creaturesLock lock];
-    [_creatures addObject:creature];
-    [_creaturesLock unlock];
-    
-    [Utils performOnMainThread:^{
-        [self.visualDelegate placeVisualComponentOfCreature:creature
-                                                         at:cell.position];
-    }];
-}
-
-- (void)removeCreature:(id<CreatureProtocol>)creature
-                atCell:(WorldCell *)cell
-{
-    [_creaturesLock lock];
-    [_creatures removeObject:creature];
-    [_creaturesLock unlock];
-
-    if (cell) {
-        [_cellsLock lock];
-        cell.creature = nil;
-        [_cellsLock unlock];
-    }
-    
-    [Utils performOnMainThread:^{
-        [self.visualDelegate removeVisualComponentOfCreature:creature];
-    }];
-    
-    if ([_creatures count] == 0) {
-        [self stop];
-        [self.delegate worldDidFinishedWithReason:WorldCompletionReasonEmpty];
-    }
-}
-
-- (void)moveCreature:(id<CreatureProtocol>)creature
-            fromCell:(WorldCell *)fromCell
-              toCell:(WorldCell *)toCell
-{
-    [_cellsLock lock];
-    toCell.creature = creature;
-    fromCell.creature = nil;
-    creature.position = toCell.position;
-    [_cellsLock unlock];
-}
-
-- (WorldCell *)cellForPosition:(struct WorldPosition)position
-{
-    NSSet *positionSet = [NSSet setWithObject:[NSValue valueWithWorldPosition:position]];
-    return [[self cellsForPositions:positionSet] anyObject];
-}
-
-- (NSSet<WorldCell *> *)cellsForPositions:(NSSet<NSValue *> *)positions
-{
-    NSMutableSet<WorldCell *> *cells;
-    
-    [_lockedCellsLock lock]; {
-        NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
-        for (NSValue *positionValue in positions) {
-            WorldPosition position = [positionValue worldPositionValue];
-            if ((position.x >= 0 && position.x < _worldInfo.horizontalSize) &&
-                (position.y >= 0 && position.y < _worldInfo.verticalSize)) {
-                [indexSet addIndex:position.y * self.worldInfo.horizontalSize + position.x];
-            }
-        }
-        
-        cells = [[NSMutableSet alloc] initWithArray:[_cells objectsAtIndexes:indexSet]];
-        
-        [cells minusSet:_lockedCells];
-        
-        [self lockCells:cells];
-    } [_lockedCellsLock unlock];
-
-    return [cells copy];
-}
-
-- (void)lockCell:(WorldCell *)cell
-{
-    [self lockCells:[NSSet setWithObject:cell]];
-}
-
-- (void)lockCells:(NSSet<WorldCell *> *)cells
-{
-    [_lockedCellsLock lock];
-    [_lockedCells addObjectsFromArray:[cells allObjects]];
-    [_lockedCellsLock unlock];
-}
-
-- (void)unlockCell:(WorldCell *)cell
-{
-    [self unlockCells:[NSSet setWithObject:cell]];
-}
-
-- (void)unlockCells:(NSSet<WorldCell *> *)cells
-{
-    [_lockedCellsLock lock];
-    for (WorldCell *cell in cells) {
-        [_lockedCells removeObject:cell];
-    }
-    [_lockedCellsLock unlock];
-}
+#pragma mark - Creature methods
 
 - (id<CreatureProtocol>)creatureForClass:(Class<CreatureProtocol>)creatureClass
 {
-    UIImageView *visualComponent = [self.visualDelegate createVisualComponentForCreatureClass:creatureClass];
-    CreatureAnimator *animator = [[CreatureAnimator alloc] initWithVisualComponent:visualComponent];
-    
     CreatureDeps *deps = [[CreatureDeps alloc] init];
     deps.world = self;
-    deps.animator = animator;
     
     id<CreatureProtocol> creature = [CreatureFactory creatureWithClass:creatureClass
                                                                   deps:deps];
@@ -300,7 +169,144 @@
         [freeCells removeObjectAtIndex:randomIndex];
                                
         [self addCreature:creature atCell:cell];
+        [self addToVisualCreature:creature atCell:cell];
     }
 }
+
+- (void)addCreature:(id<CreatureProtocol>)creature
+             atCell:(WorldCell *)cell
+{
+    assert(cell);
+    assert(cell.creature == nil);
+
+    creature.position = cell.position;
+    [creature setSpeed:_speed];
+   
+    [_cellsLock lock];
+    cell.creature = creature;
+    [_cellsLock unlock];
+    
+    [_creaturesLock lock];
+    [_creatures addObject:creature];
+    [_creaturesLock unlock];
+}
+
+- (void)addToVisualCreature:(id<CreatureProtocol>)creature atCell:(WorldCell *)cell
+{
+    [Utils performOnMainThreadAndWait:^{
+        [self.visualDelegate addCreature:creature at:cell.position];
+    }];
+}
+
+- (void)removeCreature:(id<CreatureProtocol>)creature
+                atCell:(WorldCell *)cell
+{
+    [_creaturesLock lock];
+    [_creatures removeObject:creature];
+    [_creaturesLock unlock];
+
+    if (cell) {
+        [_cellsLock lock];
+        cell.creature = nil;
+        [_cellsLock unlock];
+    }
+    
+    if ([_creatures count] == 0) {
+        [self stop];
+        [self.delegate worldDidFinishedWithReason:WorldCompletionReasonEmpty];
+    }
+}
+
+- (void)removeFromVisualCreature:(id<CreatureProtocol>)creature
+{
+    [Utils performOnMainThreadAndWait:^{
+        [self.visualDelegate removeCreature:creature];
+    }];
+}
+
+- (void)moveCreature:(id<CreatureProtocol>)creature
+            fromCell:(WorldCell *)fromCell
+              toCell:(WorldCell *)toCell
+{
+    [_cellsLock lock];
+    toCell.creature = creature;
+    fromCell.creature = nil;
+    creature.position = toCell.position;
+    [_cellsLock unlock];
+}
+
+#pragma mark - Cells methods
+
+- (WorldCell *)cellForPosition:(struct WorldPosition)position
+{
+    NSSet *positionSet = [NSSet setWithObject:[NSValue valueWithWorldPosition:position]];
+    return [[self cellsForPositions:positionSet] anyObject];
+}
+
+- (NSSet<WorldCell *> *)cellsForPositions:(NSSet<NSValue *> *)positions
+{
+    NSMutableSet<WorldCell *> *cells;
+    
+    [_lockedCellsLock lock]; {
+        NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
+        for (NSValue *positionValue in positions) {
+            WorldPosition position = [positionValue worldPositionValue];
+            if ((position.x >= 0 && position.x < _worldInfo.horizontalSize) &&
+                (position.y >= 0 && position.y < _worldInfo.verticalSize)) {
+                [indexSet addIndex:position.y * self.worldInfo.horizontalSize + position.x];
+            }
+        }
+        
+        cells = [[NSMutableSet alloc] initWithArray:[_cells objectsAtIndexes:indexSet]];
+        
+        [cells minusSet:_lockedCells];
+        
+        [self lockCells:cells];
+    } [_lockedCellsLock unlock];
+
+    return [cells copy];
+}
+
+- (void)unlockCell:(WorldCell *)cell
+{
+    [self unlockCells:[NSSet setWithObject:cell]];
+}
+
+- (void)unlockCells:(NSSet<WorldCell *> *)cells
+{
+    [_lockedCellsLock lock];
+    for (WorldCell *cell in cells) {
+        [_lockedCells removeObject:cell];
+    }
+    [_lockedCellsLock unlock];
+}
+
+#pragma mark - Private
+
+- (NSArray<WorldCell *> *)createCellsForXSize:(NSInteger)xSize
+                                        ySize:(NSInteger)ySize
+{
+    NSMutableArray *cells = [[NSMutableArray alloc] initWithCapacity:ySize * xSize];
+    for (int i = 0; i < xSize * ySize; i++) {
+        WorldPosition position = {.x = i % self.worldInfo.horizontalSize, .y = i / self.worldInfo.horizontalSize};
+        WorldCell *cell = [[WorldCell alloc] initWithPosition:position];
+        [cells addObject:cell];
+    }
+    return [cells copy];
+}
+        
+- (void)lockCell:(WorldCell *)cell
+{
+    [self lockCells:[NSSet setWithObject:cell]];
+}
+
+- (void)lockCells:(NSSet<WorldCell *> *)cells
+{
+    [_lockedCellsLock lock];
+    [_lockedCells addObjectsFromArray:[cells allObjects]];
+    [_lockedCellsLock unlock];
+}
+  
+
 
 @end

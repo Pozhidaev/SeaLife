@@ -35,7 +35,6 @@
     
 }
 @property (nonatomic, readwrite) NSUUID *uuid;
-@property (nonatomic, readwrite) CreatureAnimator *animator;
 
 @end
 
@@ -55,7 +54,6 @@
         _turnHelperClass = deps.turnHelperClass;
         
         _world = deps.world;
-        _animator = deps.animator;
         
         __weak typeof(self) weakSelf = self;
         _timer = [[CreatureTimer alloc] initWithBlock:^{
@@ -174,8 +172,8 @@
 {
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
-        [self->_world removeCreature:turn.creature
-                              atCell:turn.cell];
+        [self->_world removeFromVisualCreature:turn.creature];
+        [self->_world removeCreature:turn.creature atCell:turn.cell];
         [self->_world unlockCell:turn.cell];
         
         completion();
@@ -202,23 +200,25 @@
 - (void)performReproduce:(Turn *)turn
               completion:(void(^)(void))completion
 {
+    id<CreatureProtocol> newCreature = [self->_world creatureForClass:self.class];
+    [self->_world addCreature:newCreature atCell:turn.targetCell];
+    newCreature.busy = YES;
+
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
         [self->_world unlockCell:turn.cell];
-        
-        id<CreatureProtocol> newCreature = [self->_world creatureForClass:self.class];
-        newCreature.busy = YES;
-        [self->_world addCreature:newCreature
-                           atCell:turn.targetCell];
-        
+                
         Turn *nextTurn = [Turn bornTurnWithCreature:newCreature
                                         currentCell:turn.targetCell];
         completion();
+        
+        [self->_world addToVisualCreature:newCreature atCell:turn.targetCell];
         
         [newCreature.animator performAnimationsForTurn:nextTurn
                                         withCompletion:^(){
             [self->_world unlockCell:turn.targetCell];
             newCreature.busy = NO;
+            
             if (self->_world.isPlaying) {
                 [newCreature start];
             }
@@ -248,8 +248,8 @@
         completion();
         [targetCreature.animator performAnimationsForTurn:nextTurn
                                            withCompletion:^{
-            [self->_world removeCreature:targetCreature
-                                  atCell:nil];
+            [self->_world removeFromVisualCreature:targetCreature];
+            [self->_world removeCreature:targetCreature atCell:nil];
         } completionQueue:self->_queue];
     } completionQueue:_queue];
 }

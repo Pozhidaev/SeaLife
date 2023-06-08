@@ -19,12 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reset;
 - (void)setAnimationSpeed:(float)animationSpeed;
 - (void)redrawToCellSize:(CGSize)toCellSize;
-- (void)addAnimator:(CreatureAnimator *)animator;
 
-- (UIImageView *)createVisualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass;
-- (void)placeVisualComponentOfCreature:(id<CreatureProtocol>)creature
-                                    at:(struct WorldPosition)position;
-- (void)removeVisualComponentOfCreature:(id<CreatureProtocol>)creature;
+- (void)addCreature:(id<CreatureProtocol>)creature at:(struct WorldPosition)position;
+- (void)removeCreature:(id<CreatureProtocol>)creature;
 
 @end
 

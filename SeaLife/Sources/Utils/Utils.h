@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)performOnMainThread:(void(^)(void))performBlock;
 
++ (void)performOnMainThreadAndWait:(void(^)(void))performBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

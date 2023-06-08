@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) Class<TurnHelperProtocol> turnHelperClass;
 @property (nonatomic, weak) id<WorldProtocol> world;
-@property (nonatomic, weak) CreatureAnimator *animator;
 
 @end
 

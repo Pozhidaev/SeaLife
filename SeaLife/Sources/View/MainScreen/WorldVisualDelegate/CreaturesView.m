@@ -14,7 +14,7 @@
 
 @interface CreaturesView()
 {
-    NSPointerArray *_animatorsArray;
+    NSMapTable *_animators;
     float _animationSpeed;
     CGSize _cellSize;
 }
@@ -27,8 +27,9 @@
 {
     self = [super init];
     if (self) {
-        NSPointerFunctionsOptions options = NSPointerFunctionsWeakMemory;
-        _animatorsArray = [[NSPointerArray alloc] initWithOptions:options];
+        NSPointerFunctionsOptions keyOptions = NSPointerFunctionsWeakMemory;
+        NSPointerFunctionsOptions valueOptions = NSPointerFunctionsWeakMemory;
+        _animators = [[NSMapTable alloc] initWithKeyOptions:keyOptions valueOptions:valueOptions capacity:0];
         _animationSpeed = 0.0;
         _cellSize = CGSizeZero;
     }
@@ -43,7 +44,7 @@
 
     _cellSize = cellSize;
 
-    for (CreatureAnimator *animator in _animatorsArray.allObjects) {
+    for (CreatureAnimator *animator in _animators.objectEnumerator) {
         animator.cellSize = cellSize;
     }
 }
@@ -52,18 +53,9 @@
 
 - (void)reset
 {
-    for (int i = 0; i < _animatorsArray.count; i++) {
-        [_animatorsArray removePointerAtIndex:i];
-    }
+    [_animators removeAllObjects];
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-}
-
-- (void)addAnimator:(CreatureAnimator *)animator
-{
-    animator.cellSize = _cellSize;
-    animator.animationSpeed = _animationSpeed;
-    [_animatorsArray addPointer:(__bridge void *)(animator)];
 }
 
 - (void)setAnimationSpeed:(float)animationSpeed
@@ -72,44 +64,9 @@
     
     _animationSpeed = animationSpeed;
 
-    for (CreatureAnimator *animator in _animatorsArray.allObjects) {
+    for (CreatureAnimator *animator in _animators.objectEnumerator) {
         animator.animationSpeed = animationSpeed;
     }
-}
-
-- (void)placeVisualComponentOfCreature:(id<CreatureProtocol>)creature
-                                    at:(struct WorldPosition)position
-{
-    creature.animator.cellSize = _cellSize;
-    creature.animator.animationSpeed = _animationSpeed;
-    [_animatorsArray addPointer:(__bridge void *)(creature.animator)];
-    
-    UIImageView *visualComponent = creature.animator.visualComponent;
-    visualComponent.center = CGPointMake(_cellSize.width * (position.x + 0.5),
-                                         _cellSize.height * (position.y + 0.5));
-    [self addSubview:visualComponent];
-}
-
-- (void)removeVisualComponentOfCreature:(id<CreatureProtocol>)creature
-{
-    [creature.animator.visualComponent removeFromSuperview];
-}
-
-- (UIImageView *)createVisualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass
-{
-    UIImage *image = [UIImage imageFor:creatureClass];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.tintColor = [UIColor colorNamed:@"CreaturesTintColor"];
-    CGRect frame = CGRectZero;
-    frame.size = CGSizeMake(_cellSize.width, _cellSize.height);
-
-    CGFloat delta = 0;
-    if (frame.size.width > kCreatureImageViewMinSizeForReducing) {
-        delta = frame.size.width * kCreatureImageViewReducingCoeficient;
-    }
-    imageView.frame = CGRectInset(frame, delta, delta);
-    
-    return imageView;
 }
 
 - (void)redrawToCellSize:(CGSize)toCellSize
@@ -128,6 +85,54 @@
     }
     
     [self setCellSize:toCellSize];
+}
+
+- (void)addCreature:(id<CreatureProtocol>)creature at:(struct WorldPosition)position
+{
+    UIImageView *visualComponent = [self visualComponentForCreatureClass:creature.class];
+    visualComponent.center = CGPointMake(_cellSize.width * (position.x + 0.5),
+                                         _cellSize.height * (position.y + 0.5));
+    [self addSubview:visualComponent];
+    
+    CreatureAnimator *animator = [[CreatureAnimator alloc] initWithVisualComponent:visualComponent];
+
+    [self addAnimator:animator for:creature.uuid];
+    
+    creature.animator = animator;
+}
+
+- (void)removeCreature:(id<CreatureProtocol>)creature
+{
+    [creature.animator.visualComponent removeFromSuperview];
+    
+    [_animators removeObjectForKey:creature.uuid];
+}
+
+#pragma mark - Private methods
+
+- (UIImageView *)visualComponentForCreatureClass:(Class<CreatureProtocol>)creatureClass
+{
+    UIImage *image = [UIImage imageFor:creatureClass];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.tintColor = [UIColor colorNamed:@"CreaturesTintColor"];
+    CGRect frame = CGRectZero;
+    frame.size = CGSizeMake(_cellSize.width, _cellSize.height);
+
+    CGFloat delta = 0;
+    if (frame.size.width > kCreatureImageViewMinSizeForReducing) {
+        delta = frame.size.width * kCreatureImageViewReducingCoeficient;
+    }
+    imageView.frame = CGRectInset(frame, delta, delta);
+    
+    return imageView;
+}
+
+- (void)addAnimator:(CreatureAnimator *)animator for:(NSUUID *)creatureUUID
+{
+    animator.cellSize = _cellSize;
+    animator.animationSpeed = _animationSpeed;
+    
+    [_animators setObject:animator forKey:creatureUUID];
 }
 
 @end
