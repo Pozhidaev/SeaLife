@@ -333,14 +333,6 @@
 			path = MainScreen;
 			sourceTree = "<group>";
 		};
-		A51F861C2A2F42CC002B3D8F /* VisualLogic */ = {
-			isa = PBXGroup;
-			children = (
-				A53E541B2A0EDAE7006E2B90 /* CreatureAnimator */,
-			);
-			path = VisualLogic;
-			sourceTree = "<group>";
-		};
 		A525393D2A23FB860037F97C /* MenuViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +387,7 @@
 				A5B441762A14D4FA00B2C6CF /* WorldVisualDelegate.h */,
 				A59F3D9E2A1391970088A510 /* CreaturesView.h */,
 				A59F3D9F2A1391970088A510 /* CreaturesView.m */,
+				A53E541B2A0EDAE7006E2B90 /* CreatureAnimator */,
 			);
 			path = WorldVisualDelegate;
 			sourceTree = "<group>";
@@ -405,7 +398,6 @@
 				A5E1CC892A1F8893002CB927 /* AppRelated */,
 				A57B18842A1A20C1006E1AE9 /* Utils */,
 				03C132911976BD0600C19D03 /* View */,
-				A51F861C2A2F42CC002B3D8F /* VisualLogic */,
 				03BFB0C9196EAC5600DE912B /* Logic */,
 			);
 			path = Sources;
