@@ -18,6 +18,7 @@
 #define kTransformKey                         @"transform"
 
 //UI
+#define kDefaultBorderWidth                   1.0
 #define kDefaultCornerRadius                  8.0
 #define kDefaultUIElementSpace                8.0
 

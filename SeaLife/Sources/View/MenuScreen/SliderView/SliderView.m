@@ -57,6 +57,8 @@ NSString * const kSliderMaximumValueKey = @"maximumValue";
                      context:nil];
     
     self.backgroundColor = [UIColor colorNamed:@"SliderView/Background"];
+    self.layer.borderWidth = kDefaultBorderWidth;
+    self.layer.borderColor = [UIColor colorNamed:@"SliderView/Border"].CGColor;
     self.tintColor = [UIColor colorNamed:@"SliderView/Slider"];
 }
 
@@ -98,6 +100,13 @@ NSString * const kSliderMaximumValueKey = @"maximumValue";
     if ([keyPath isEqualToString:kSliderMaximumValueKey]) {
         self.maximumValueLabel.text = [NSString stringWithFormat:@"%.0f", ((UISlider *)object).maximumValue];
     }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    self.layer.borderColor = [UIColor colorNamed:@"SliderView/Border"].CGColor;
 }
 
 @end

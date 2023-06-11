@@ -336,4 +336,13 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     }
 }
 
+#pragma mark - UIContentContainer
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    
+    self.controlPanel.layer.borderColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Frame"].CGColor;
+}
+
 @end

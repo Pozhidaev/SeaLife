@@ -187,6 +187,8 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
 - (void)setupButtons
 {
     self.startButton.layer.cornerRadius = kDefaultUIElementSpace;
+    self.startButton.layer.borderWidth = kDefaultBorderWidth;
+    self.startButton.layer.borderColor = [UIColor colorNamed:@"Menu/StartButtonFrame"].CGColor;
     self.startButton.backgroundColor =  [UIColor colorNamed:@"Menu/StartButtonBackground"];
     self.startButton.contentEdgeInsets = UIEdgeInsetsMake(kDefaultUIElementSpace * 2.0,
                                                           kDefaultUIElementSpace * 4.0,
@@ -287,6 +289,8 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    
+    self.startButton.layer.borderColor = [UIColor colorNamed:@"Menu/StartButtonFrame"].CGColor;
 
     if (newCollection.verticalSizeClass != self.traitCollection.verticalSizeClass) {
         if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
