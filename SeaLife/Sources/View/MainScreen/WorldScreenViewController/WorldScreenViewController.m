@@ -176,6 +176,12 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     self.controlPanel.layer.borderWidth = kMainScreenControlPanelViewBorderWidth;
     self.controlPanel.layer.cornerRadius = kDefaultCornerRadius;
     
+    [self.speedControlStackView setDistribution:UIStackViewDistributionFillEqually];
+    self.speedControlStackView.layoutMarginsRelativeArrangement = YES;
+    self.speedControlStackView.layoutMargins = UIEdgeInsetsMake(kDefaultUIElementSpace,
+                                                                kDefaultUIElementSpace,
+                                                                kDefaultUIElementSpace,
+                                                                kDefaultUIElementSpace);
     [self setupButtons];
     
     [self setupCreatureSpeedSlider];
