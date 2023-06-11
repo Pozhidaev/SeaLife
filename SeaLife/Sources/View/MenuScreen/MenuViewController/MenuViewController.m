@@ -83,9 +83,9 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorNamed:@"MenuBackgroundColor"];
+    self.view.backgroundColor = [UIColor colorNamed:@"Menu/Background"];
     self.view.layer.borderWidth = kMenuViewBorderWidth;
-    self.view.layer.borderColor = [UIColor colorNamed:@"MenuFrameColor"].CGColor;
+    self.view.layer.borderColor = [UIColor colorNamed:@"Menu/Frame"].CGColor;
     self.view.layer.cornerRadius = kMenuViewCornerRadius;
 
     [self setupButtons];
@@ -149,22 +149,11 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
     [self.horizontalCountView setTitle:Localizable.menuXSizeTitle];
     [self.verticalCountView setTitle:Localizable.menuYSizeTitle];
     
-    self.fishCountView.backgroundColor = [UIColor colorNamed:@"SliderViewBackgroundColor"];
-    self.orcaCountView.backgroundColor = [UIColor colorNamed:@"SliderViewBackgroundColor"];
-    self.horizontalCountView.backgroundColor = [UIColor colorNamed:@"SliderViewBackgroundColor"];
-    self.verticalCountView.backgroundColor = [UIColor colorNamed:@"SliderViewBackgroundColor"];
-
     self.fishCountView.layer.cornerRadius = kDefaultCornerRadius;
     self.orcaCountView.layer.cornerRadius = kDefaultCornerRadius;
     self.horizontalCountView.layer.cornerRadius = kDefaultCornerRadius;
     self.verticalCountView.layer.cornerRadius = kDefaultCornerRadius;
 
-    self.fishCountView.tintColor = [UIColor colorNamed:@"SliderViewSliderTintColor"];
-    self.orcaCountView.tintColor = [UIColor colorNamed:@"SliderViewSliderTintColor"];
-    self.horizontalCountView.tintColor = [UIColor colorNamed:@"SliderViewSliderTintColor"];
-    self.verticalCountView.tintColor = [UIColor colorNamed:@"SliderViewSliderTintColor"];
-
-    
     [self.fishCountView.slider addTarget:self action:@selector(sliderValueChange:) forControlEvents:UIControlEventValueChanged];
     [self.orcaCountView.slider addTarget:self action:@selector(sliderValueChange:) forControlEvents:UIControlEventValueChanged];
     [self.horizontalCountView.slider addTarget:self action:@selector(sliderValueChange:) forControlEvents:UIControlEventValueChanged];
@@ -182,12 +171,12 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
 - (void)setupButtons
 {
     self.startButton.layer.cornerRadius = kDefaultUIElementSpace;
-    self.startButton.backgroundColor =  [UIColor colorNamed:@"MenuStartButtonColor"];
+    self.startButton.backgroundColor =  [UIColor colorNamed:@"Menu/StartButtonBackground"];
     self.startButton.contentEdgeInsets = UIEdgeInsetsMake(kDefaultUIElementSpace * 2.0,
                                                           kDefaultUIElementSpace * 4.0,
                                                           kDefaultUIElementSpace * 2.0,
                                                           kDefaultUIElementSpace * 4.0);
-    NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor colorNamed:@"MenuStartButtonTitle"],
+    NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor colorNamed:@"Menu/StartButtonTitle"],
                                  NSFontAttributeName: [UIFont systemFontOfSize: 24.0]};
     NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Menu.Button.Start", "")
                                                                           attributes:attributes];

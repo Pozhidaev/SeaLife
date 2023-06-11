@@ -114,7 +114,6 @@
 {
     UIImage *image = [UIImage imageFor:creatureClass];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.tintColor = [UIColor colorNamed:@"CreaturesTintColor"];
     CGRect frame = CGRectZero;
     frame.size = CGSizeMake(_cellSize.width, _cellSize.height);
 

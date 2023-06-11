@@ -164,15 +164,15 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 
 - (void)setupView
 {
-    self.view.backgroundColor = [UIColor colorNamed:@"MainScreenBackgroundColor"];
+    self.view.backgroundColor = [UIColor colorNamed:@"MainScreen/Background"];
     
     [self setupControlPanel];
 }
 
 - (void)setupControlPanel
 {
-    self.controlPanel.backgroundColor = [UIColor colorNamed:@"MainScreenControlPanelBackgroundColor"];
-    self.controlPanel.layer.borderColor = [UIColor colorNamed:@"MainScreenControlPanelFrameColor"].CGColor;
+    self.controlPanel.backgroundColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Background"];
+    self.controlPanel.layer.borderColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Frame"].CGColor;
     self.controlPanel.layer.borderWidth = kMainScreenControlPanelViewBorderWidth;
     self.controlPanel.layer.cornerRadius = kDefaultCornerRadius;
     
@@ -188,27 +188,27 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     UILabel *creatureSpeedTitleLabel = [[UILabel alloc] init];
     creatureSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     creatureSpeedTitleLabel.text = Localizable.mainScreenCreaturesSpeed;
-    creatureSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
+    creatureSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
 
     self.creatureSpeedValueLabel = [[UILabel alloc] init];
     self.creatureSpeedValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.creatureSpeedValueLabel.text = [NSString stringWithFormat:@"%.1fs", kDefaultCreatureSpeed];
-    self.creatureSpeedValueLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
+    self.creatureSpeedValueLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
     
     UILabel *creatureSpeedMinLabel = [[UILabel alloc] init];
     creatureSpeedMinLabel.translatesAutoresizingMaskIntoConstraints = NO;
     creatureSpeedMinLabel.text = [NSString stringWithFormat:@"%.1fs", kSlowestCreatureSpeed];
-    creatureSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
-
+    creatureSpeedMinLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
+    
     UILabel *creatureSpeedMaxLabel = [[UILabel alloc] init];
     creatureSpeedMaxLabel.translatesAutoresizingMaskIntoConstraints = NO;
     creatureSpeedMaxLabel.text = [NSString stringWithFormat:@"%.1fs", kFastestCreatureSpeed];
-    creatureSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
+    creatureSpeedMaxLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
 
     self.creatureSpeedSlider = [[UISlider alloc] init];
     self.creatureSpeedSlider.minimumValue = kFastestCreatureSpeed;
     self.creatureSpeedSlider.maximumValue = kSlowestCreatureSpeed;
-    self.creatureSpeedSlider.tintColor = [UIColor colorNamed:@"MainScreenSliderTintColor"];
+    self.creatureSpeedSlider.tintColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Slider"];
     [self.creatureSpeedSlider addTarget:self action:@selector(creatureSpeedSliderChanged:) forControlEvents:UIControlEventValueChanged];
 
     UIStackView *creatureSpeedTitleStackView = [[UIStackView alloc] init];
@@ -230,29 +230,27 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     UILabel *animationSpeedTitleLabel = [[UILabel alloc] init];
     animationSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     animationSpeedTitleLabel.text = Localizable.mainScreenAnimationSpeed;
-    animationSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
+    animationSpeedTitleLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
     
     self.animationSpeedValueLabel = [[UILabel alloc] init];
     self.animationSpeedValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.animationSpeedValueLabel.text = [NSString stringWithFormat:@"%.1fs", kDefaultAnimationSpeed];
-    self.animationSpeedValueLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
+    self.animationSpeedValueLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
     
     UILabel *animationSpeedMinLabel = [[UILabel alloc] init];
     animationSpeedMinLabel.translatesAutoresizingMaskIntoConstraints = NO;
     animationSpeedMinLabel.text = [NSString stringWithFormat:@"%.1fs", kSlowestAnimationSpeed];
-    animationSpeedMinLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
-    [self.controlPanel addSubview:animationSpeedMinLabel];
+    animationSpeedMinLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
 
     UILabel *animationSpeedMaxLabel = [[UILabel alloc] init];
     animationSpeedMaxLabel.translatesAutoresizingMaskIntoConstraints = NO;
     animationSpeedMaxLabel.text = [NSString stringWithFormat:@"%.1fs", kFastestAnimationSpeed];
-    animationSpeedMaxLabel.textColor = [UIColor colorNamed:@"MainScreenTextColor"];
-    [self.controlPanel addSubview:animationSpeedMaxLabel];
+    animationSpeedMaxLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
 
     self.animationSpeedSlider = [[UISlider alloc] init];
     self.animationSpeedSlider.minimumValue = kFastestAnimationSpeed;
     self.animationSpeedSlider.maximumValue = kSlowestAnimationSpeed;
-    self.animationSpeedSlider.tintColor = [UIColor colorNamed:@"MainScreenSliderTintColor"];
+    self.animationSpeedSlider.tintColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Slider"];
     [self.animationSpeedSlider addTarget:self action:@selector(animationSpeedSliderChanged:) forControlEvents:UIControlEventValueChanged];
 
     UIStackView *animationSpeedTitleStackView = [[UIStackView alloc] init];
@@ -275,9 +273,9 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     self.resetButton.layer.cornerRadius = kDefaultCornerRadius;
     self.menuButton.layer.cornerRadius = kDefaultCornerRadius;
     
-    self.resetButton.backgroundColor = [UIColor colorNamed:@"MainScreenResetButtonColor"];
-    self.menuButton.backgroundColor = [UIColor colorNamed:@"MainScreenMenuButtonColor"];
-    self.playButton.backgroundColor = [UIColor colorNamed:@"MainScreenPlayButtonColor"];
+    self.resetButton.backgroundColor = [UIColor colorNamed:@"MainScreen/ControlPanel/ResetButtonBackground"];
+    self.menuButton.backgroundColor = [UIColor colorNamed:@"MainScreen/ControlPanel/MenuButtonBackground"];
+    self.playButton.backgroundColor = [UIColor colorNamed:@"MainScreen/ControlPanel/PlayButtonBackground"];
 
     [self.resetButton setTitle:Localizable.buttonReset
                       forState:UIControlStateNormal];

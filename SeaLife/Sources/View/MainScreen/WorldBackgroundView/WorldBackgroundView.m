@@ -16,9 +16,9 @@
 - (void)drawRect:(CGRect)rect {
     CGFloat cellLineWidth = kWorldBackgroundViewCellLineWidth;
     CGFloat frameLineWidth = kWorldBackgroundViewBorderLineWidth;
-    CGColorRef cellLineColor = [UIColor colorNamed:@"WorldCellsColor"].CGColor;
-    CGColorRef cellFillColor = [UIColor colorNamed:@"WorldBackgroundColor"].CGColor;
-    CGColorRef frameLineColor = [UIColor colorNamed:@"WorldFrameColor"].CGColor;
+    CGColorRef cellLineColor = [UIColor colorNamed:@"WorldBackground/CellsFrame"].CGColor;
+    CGColorRef cellFillColor = [UIColor colorNamed:@"WorldBackground/Background"].CGColor;
+    CGColorRef frameLineColor = [UIColor colorNamed:@"WorldBackground/Frame"].CGColor;
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextClearRect(context, rect);

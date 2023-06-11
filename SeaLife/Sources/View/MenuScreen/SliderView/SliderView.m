@@ -55,6 +55,9 @@ NSString * const kSliderMaximumValueKey = @"maximumValue";
                   forKeyPath:kSliderMaximumValueKey
                      options:NSKeyValueObservingOptionInitial
                      context:nil];
+    
+    self.backgroundColor = [UIColor colorNamed:@"SliderView/Background"];
+    self.tintColor = [UIColor colorNamed:@"SliderView/Slider"];
 }
 
 #pragma mark - Public methods
