@@ -20,6 +20,9 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
     NSInteger _orcaCount;
     NSInteger _horizontalSize;
     NSInteger _verticalSize;
+    
+    NSArray *compactHeightConstraints;
+    NSArray *regularConstraints;
 }
 
 @property (nonatomic) SliderView *fishCountView;
@@ -60,21 +63,34 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
     self.startButton.translatesAutoresizingMaskIntoConstraints = NO;
     [view addSubview:self.startButton];
 
-    CGFloat verticalMultiplier = 3.0;
+    CGFloat regularVerticalMultiplier = 3.0;
     if (self.modalPresentationStyle == UIModalPresentationFullScreen) {
-        verticalMultiplier = 10.0;
-        view.layoutMargins = UIEdgeInsetsMake(0.0, kDefaultUIElementSpace * 10.0, 0.0, kDefaultUIElementSpace * 10.0);
+        regularVerticalMultiplier = 10.0;
     }
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [stackView.leadingAnchor constraintEqualToAnchor:view.layoutMarginsGuide.leadingAnchor],
-        [stackView.trailingAnchor constraintEqualToAnchor:view.layoutMarginsGuide.trailingAnchor],
-        [stackView.topAnchor constraintEqualToSystemSpacingBelowAnchor:view.topAnchor multiplier:verticalMultiplier],
-        
-        [self.startButton.topAnchor constraintGreaterThanOrEqualToAnchor:stackView.bottomAnchor],
+    regularConstraints = @[
+        [stackView.topAnchor constraintEqualToSystemSpacingBelowAnchor:view.safeAreaLayoutGuide.topAnchor multiplier:regularVerticalMultiplier],
+        [stackView.widthAnchor constraintEqualToAnchor:view.readableContentGuide.widthAnchor],
+        [stackView.centerXAnchor constraintEqualToAnchor:view.readableContentGuide.centerXAnchor],
+
         [self.startButton.centerXAnchor constraintEqualToAnchor:view.centerXAnchor],
-        [view.layoutMarginsGuide.bottomAnchor constraintEqualToSystemSpacingBelowAnchor:self.startButton.bottomAnchor multiplier:verticalMultiplier],
-    ]];
+        [view.safeAreaLayoutGuide.bottomAnchor constraintEqualToSystemSpacingBelowAnchor:self.startButton.bottomAnchor multiplier:regularVerticalMultiplier],
+    ];
+
+    compactHeightConstraints = @[
+        [stackView.topAnchor constraintEqualToAnchor:view.safeAreaLayoutGuide.topAnchor],
+        [stackView.leadingAnchor constraintEqualToAnchor:view.safeAreaLayoutGuide.leadingAnchor],
+        [stackView.trailingAnchor constraintEqualToAnchor:self.startButton.leadingAnchor constant:-kDefaultUIElementSpace],
+        [stackView.bottomAnchor constraintEqualToAnchor:view.safeAreaLayoutGuide.bottomAnchor],
+    
+        [self.startButton.trailingAnchor constraintEqualToAnchor:view.safeAreaLayoutGuide.trailingAnchor],
+        [self.startButton.centerYAnchor constraintEqualToAnchor:view.centerYAnchor]
+    ];
+
+    if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+        [NSLayoutConstraint activateConstraints:compactHeightConstraints];
+    } else {
+        [NSLayoutConstraint activateConstraints:regularConstraints];
+    }
     
     self.view = view;
 }
@@ -266,6 +282,21 @@ NSString *const kUnwindToMainScreenSegueIdentifier = @"kUnwindToMainScreenSegueI
     self.orcaCountView.slider.value = _orcaCount;
     self.horizontalCountView.slider.value = _horizontalSize;
     self.verticalCountView.slider.value = _verticalSize;
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+
+    if (newCollection.verticalSizeClass != self.traitCollection.verticalSizeClass) {
+        if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+            [NSLayoutConstraint deactivateConstraints:regularConstraints];
+            [NSLayoutConstraint activateConstraints:compactHeightConstraints];
+        } else {
+            [NSLayoutConstraint deactivateConstraints:compactHeightConstraints];
+            [NSLayoutConstraint activateConstraints:regularConstraints];
+        }
+   }
 }
 
 @end
