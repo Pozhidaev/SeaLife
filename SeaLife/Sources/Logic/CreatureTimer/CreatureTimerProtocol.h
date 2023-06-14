@@ -12,9 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CreatureTimerProtocol <NSObject>
 
-- (instancetype)initWithBlock:(void(^)(void))timerBlock;
-
-- (void)setTargetQueue:(dispatch_queue_t)targetQueue;
+- (instancetype)initWithTargetQueue:(dispatch_queue_t)targetQueue
+                              block:(void(^)(void))timerBlock;
 
 - (void)setSpeed:(float)speed;
 

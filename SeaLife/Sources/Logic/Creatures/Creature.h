@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) CreatureAnimator *animator;
 
-- (void)setTimerTargetQueue:(dispatch_queue_t)queue;
 - (void)setSpeed:(float)speed;
 - (void)start;
 - (void)pause;

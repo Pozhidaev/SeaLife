@@ -22,14 +22,18 @@
 
 #pragma mark - Memory
 
-- (instancetype)initWithBlock:(void(^)(void))timerBlock
+- (instancetype)initWithTargetQueue:(dispatch_queue_t)targetQueue
+                              block:(void(^)(void))timerBlock
 {
     self = [super init];
     if (self) {
         _timerBlock = timerBlock;
         _timerPausedCounter = 0;
         
-        _queue = dispatch_queue_create("timer", 0);
+        _queue = dispatch_queue_create("timer_private_queue", DISPATCH_QUEUE_SERIAL_INACTIVE);
+        dispatch_set_target_queue(_queue, targetQueue);
+        dispatch_activate(_queue);
+        
         _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _queue);
         if (_timer) {
             dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, 0);
@@ -59,11 +63,6 @@
 
 #pragma mark - Public
 
-- (void)setTargetQueue:(dispatch_queue_t)targetQueue
-{
-    dispatch_set_target_queue(_queue, targetQueue);
-}
-
 - (void)setSpeed:(float)speed
 {
     int64_t currentStartOffset = (int64_t)((double)speed * NSEC_PER_SEC);
@@ -76,12 +75,10 @@
 
 - (void)start
 {
-    dispatch_async(_queue, ^{
-        if (self->_timerPausedCounter == 0) {
-            self->_timerPausedCounter += 1;
-            dispatch_resume(self->_timer);
-        }
-    });
+    if (self->_timerPausedCounter == 0) {
+        self->_timerPausedCounter += 1;
+        dispatch_resume(self->_timer);
+    }
 }
 
 - (void)stop
@@ -91,12 +88,10 @@
 
 - (void)pause
 {
-    dispatch_async(_queue, ^{
-        if (self->_timerPausedCounter > 0) {
-            self->_timerPausedCounter -= 1;
-            dispatch_suspend(self->_timer);
-        }
-    });
+    if (self->_timerPausedCounter > 0) {
+        self->_timerPausedCounter -= 1;
+        dispatch_suspend(self->_timer);
+    }
 }
 
 @end

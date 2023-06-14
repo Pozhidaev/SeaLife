@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) Class<TurnHelperProtocol> turnHelperClass;
 @property (nonatomic, weak) id<WorldProtocol> world;
 
+@property (nonatomic, weak) dispatch_queue_t timersParentQueue;
+@property (nonatomic, weak) dispatch_queue_t creaturesParentQueue;
+
 @end
 
 NS_ASSUME_NONNULL_END

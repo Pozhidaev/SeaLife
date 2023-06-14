@@ -30,9 +30,7 @@
     id<CreatureTimerProtocol> _timer;
 @protected Class _turnHelperClass;
     dispatch_queue_t _queue;
-    
     __weak id<WorldProtocol> _world;
-    
 }
 @property (nonatomic, readwrite) NSUUID *uuid;
 
@@ -50,13 +48,17 @@
     if (self) {
         self.uuid = [NSUUID UUID];
         
-        _queue = dispatch_queue_create("CreatureQueue", 0);
+        _queue = dispatch_queue_create("creature_private_queue", DISPATCH_QUEUE_SERIAL_INACTIVE);
+        dispatch_set_target_queue(_queue, deps.creaturesParentQueue);
+        dispatch_activate(_queue);
+        
         _turnHelperClass = deps.turnHelperClass;
         
         _world = deps.world;
         
         __weak typeof(self) weakSelf = self;
-        _timer = [[CreatureTimer alloc] initWithBlock:^{
+        _timer = [[CreatureTimer alloc] initWithTargetQueue:deps.timersParentQueue
+                                                      block: ^{
             typeof(self) sSelf = weakSelf;
             if (!sSelf || sSelf.busy != NO) {
                 return;
@@ -70,13 +72,6 @@
         }];
     }
     return self;
-}
-
-#pragma mark - CreatureProtocol
-
-- (void)setTimerTargetQueue:(dispatch_queue_t)queue
-{
-    [_timer setTargetQueue:queue];
 }
 
 - (void)setSpeed:(float)speed

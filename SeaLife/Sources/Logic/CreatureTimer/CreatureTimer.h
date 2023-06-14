@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CreatureTimer : NSObject<CreatureTimerProtocol>
 
-- (void)setTargetQueue:(dispatch_queue_t)targetQueue;
-
 @end
 
 NS_ASSUME_NONNULL_END
