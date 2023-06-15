@@ -32,6 +32,7 @@
     self = [super initWithDeps: deps];
     if (self) {
         _hungerPoints = kOrcaAllowedHungerPoins;
+        _reproductivePoints = 0;
         self.direction = DirectionRight;
     }
     return self;

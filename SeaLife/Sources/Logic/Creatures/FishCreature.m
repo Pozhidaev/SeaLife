@@ -30,6 +30,7 @@
 {
     self = [super initWithDeps: deps];
     if (self) {
+        _reproductivePoints = 0;
         self.direction = DirectionRight;
     }
     return self;
