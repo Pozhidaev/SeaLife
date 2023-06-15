@@ -247,20 +247,19 @@
 {
     NSMutableSet<WorldCell *> *cells;
     
-    [_lockedCellsLock lock]; {
-        NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
-        for (NSValue *positionValue in positions) {
-            WorldPosition position = [positionValue worldPositionValue];
-            if ((position.x >= 0 && position.x < _worldInfo.horizontalSize) &&
-                (position.y >= 0 && position.y < _worldInfo.verticalSize)) {
-                [indexSet addIndex:position.y * self.worldInfo.horizontalSize + position.x];
-            }
+    NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
+    for (NSValue *positionValue in positions) {
+        WorldPosition position = [positionValue worldPositionValue];
+        if ((position.x >= 0 && position.x < _worldInfo.horizontalSize) &&
+            (position.y >= 0 && position.y < _worldInfo.verticalSize)) {
+            [indexSet addIndex:position.y * self.worldInfo.horizontalSize + position.x];
         }
-        
-        cells = [[NSMutableSet alloc] initWithArray:[_cells objectsAtIndexes:indexSet]];
-        
+    }
+    
+    cells = [[NSMutableSet alloc] initWithArray:[_cells objectsAtIndexes:indexSet]];
+    
+    [_lockedCellsLock lock]; {
         [cells minusSet:_lockedCells];
-        
         [self lockCells:cells];
     } [_lockedCellsLock unlock];
 
