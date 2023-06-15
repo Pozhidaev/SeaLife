@@ -13,6 +13,16 @@
 
 #pragma mark - TurnHelperProtocol
 
++ (NSSet<NSValue *> *)possibleTurnPositionsFrom:(struct WorldPosition)position
+{
+    //return [self leftMoveRule](position); // for testing
+    NSSet *movePositions = [self positionsRuleForMove](position);
+    NSSet *reproducePositions = [self positionsRuleForReproduce](position);
+    return [movePositions setByAddingObjectsFromSet:reproducePositions];
+}
+
+#pragma mark - Private
+
 + (PositionsRuleFunction)positionsRuleForMove {
     return ^NSSet *(struct WorldPosition position){
         NSMutableSet<NSValue *> *positions = [[NSMutableSet alloc] init];
@@ -25,11 +35,6 @@
 }
 
 + (PositionsRuleFunction)positionsRuleForReproduce
-{
-    return [self positionsRuleForMove];
-}
-
-+ (PositionsRuleFunction)positionsRuleForEat
 {
     return [self positionsRuleForMove];
 }

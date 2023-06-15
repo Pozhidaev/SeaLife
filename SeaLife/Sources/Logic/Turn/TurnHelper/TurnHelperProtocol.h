@@ -29,9 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (PositionsRuleFunction)leftMoveRule;
 + (PositionsRuleFunction)rightMoveRule;
 
-+ (PositionsRuleFunction)positionsRuleForMove;
-+ (PositionsRuleFunction)positionsRuleForReproduce;
-+ (PositionsRuleFunction)positionsRuleForEat;
++ (NSSet<NSValue *> *)possibleTurnPositionsFrom:(struct WorldPosition)position;
 
 //filter
 + (MoveRuleFunction)moveRuleFunction;

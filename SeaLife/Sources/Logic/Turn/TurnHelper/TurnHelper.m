@@ -64,25 +64,9 @@
     };
 }
 
-+ (PositionsRuleFunction)positionsRuleForMove {
-    return ^NSSet *(struct WorldPosition position){
-        NSMutableSet<NSValue *> *positions = [[NSMutableSet alloc] init];
-        [positions addObject:[[self upMoveRule](position) anyObject]];
-        [positions addObject:[[self downMoveRule](position) anyObject]];
-        [positions addObject:[[self leftMoveRule](position) anyObject]];
-        [positions addObject:[[self rightMoveRule](position) anyObject]];
-        return [positions copy];
-    };
-}
-
-+ (PositionsRuleFunction)positionsRuleForReproduce
++ (NSSet<NSValue *> *)possibleTurnPositionsFrom:(struct WorldPosition)position
 {
-    return [self positionsRuleForMove];
-}
-
-+ (PositionsRuleFunction)positionsRuleForEat
-{
-    return [self positionsRuleForMove];
+    assert(false); // must be overrided
 }
 
 #pragma mark - Filter Rules

@@ -51,15 +51,6 @@
     }
 }
 
-- (NSSet<NSValue *> *)possibleTurnPositionsFrom:(struct WorldPosition)position
-{
-    //return [self->_turnHelperClass leftMoveRule](position); // for testing
-    NSSet *movePositions = [_turnHelperClass positionsRuleForMove](position);
-    NSSet *reproducePositions = [_turnHelperClass positionsRuleForReproduce](position);
-    NSSet *eatPositions = [_turnHelperClass positionsRuleForEat](position);
-    return [[movePositions setByAddingObjectsFromSet:reproducePositions] setByAddingObjectsFromSet:eatPositions];
-}
-
 - (Turn *)decideTurnForCurrentCell:(WorldCell *)currentCell
                       posibleCells:(NSSet<WorldCell *> *)possibleCells
 {

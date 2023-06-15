@@ -107,7 +107,7 @@
     WorldCell *currentCell = [_world cellForPosition:self.position];
     
     if (currentCell) {
-        NSSet *turnPositions = [self possibleTurnPositionsFrom:self.position];
+        NSSet *turnPositions = [_turnHelperClass possibleTurnPositionsFrom:self.position];
         posibleTurnCells = [_world cellsForPositions:turnPositions];
         
         lockedCells = [posibleTurnCells mutableCopy];
@@ -145,8 +145,7 @@
 
 - (void)beforeEveryTurn { assert(false); /*must be overriden*/ }
 - (void)afterEveryTurn { assert(false); /*must be overriden*/ }
-- (NSSet<NSValue *> *)possibleTurnPositionsFrom:(struct WorldPosition)position
-{ assert(false); /*must be overriden*/ return nil; }
+
 - (Turn *)decideTurnForCurrentCell:(WorldCell *)currentCell
                       posibleCells:( NSSet<WorldCell *> *)posibleCells
 { assert(false); /*must be overriden*/ }
