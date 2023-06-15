@@ -8,18 +8,29 @@
 
 #import "CreatureFactory.h"
 
-#import "CreatureProtocol.h"
 #import "CreatureDeps.h"
+
+#import "CreatureProtocol.h"
 #import "FishCreature.h"
 #import "OrcaCreature.h"
-#import "TurnHelper.h"
+
 #import "TurnHelperProtocol.h"
+#import "FishTurnHelper.h"
+#import "OrcaTurnHelper.h"
 
 @implementation CreatureFactory
 
 + (Class<TurnHelperProtocol>)turnHelperClassForCreatureClass:(Class<CreatureProtocol>)creatureClass
 {
-    return [TurnHelper class];
+    Class<TurnHelperProtocol> turnHelperClass = nil;
+    if (creatureClass == FishCreature.class) {
+        turnHelperClass = [FishTurnHelper class];
+    }
+    if (creatureClass == OrcaCreature.class) {
+        turnHelperClass = [OrcaTurnHelper class];
+    }
+    assert(turnHelperClass);
+    return turnHelperClass;
 }
 
 + (id<CreatureProtocol>)creatureWithClass:(Class<CreatureProtocol>)creatureClass

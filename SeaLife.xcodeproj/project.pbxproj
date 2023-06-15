@@ -36,6 +36,8 @@
 		A59883DB2A0ACC0F008B8763 /* TurnHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A59883DA2A0ACC0F008B8763 /* TurnHelper.m */; };
 		A59F3D9C2A1299160088A510 /* AnimationsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A59F3D9B2A1299160088A510 /* AnimationsFactory.m */; };
 		A59F3DA02A1391970088A510 /* CreaturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = A59F3D9F2A1391970088A510 /* CreaturesView.m */; };
+		A5B06B212A3B32FB002B1C8B /* FishTurnHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B06B202A3B32FB002B1C8B /* FishTurnHelper.m */; };
+		A5B06B252A3B3328002B1C8B /* OrcaTurnHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B06B242A3B3328002B1C8B /* OrcaTurnHelper.m */; };
 		A5BC10102A066B56003618E2 /* UIImage+Creature.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC100F2A066B56003618E2 /* UIImage+Creature.m */; };
 		A5BC10152A081AB8003618E2 /* NSValue+WorldPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC10142A081AB8003618E2 /* NSValue+WorldPosition.m */; };
 		A5E1CC792A1F87C3002CB927 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CC6A2A1F87C3002CB927 /* Localizable.strings */; };
@@ -115,6 +117,10 @@
 		A59F3D9B2A1299160088A510 /* AnimationsFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationsFactory.m; sourceTree = "<group>"; };
 		A59F3D9E2A1391970088A510 /* CreaturesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreaturesView.h; sourceTree = "<group>"; };
 		A59F3D9F2A1391970088A510 /* CreaturesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreaturesView.m; sourceTree = "<group>"; };
+		A5B06B1F2A3B32FB002B1C8B /* FishTurnHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FishTurnHelper.h; sourceTree = "<group>"; };
+		A5B06B202A3B32FB002B1C8B /* FishTurnHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FishTurnHelper.m; sourceTree = "<group>"; };
+		A5B06B232A3B3328002B1C8B /* OrcaTurnHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrcaTurnHelper.h; sourceTree = "<group>"; };
+		A5B06B242A3B3328002B1C8B /* OrcaTurnHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrcaTurnHelper.m; sourceTree = "<group>"; };
 		A5B441762A14D4FA00B2C6CF /* WorldVisualDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldVisualDelegate.h; sourceTree = "<group>"; };
 		A5BC100E2A066B56003618E2 /* UIImage+Creature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Creature.h"; sourceTree = "<group>"; };
 		A5BC100F2A066B56003618E2 /* UIImage+Creature.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Creature.m"; sourceTree = "<group>"; };
@@ -283,11 +289,9 @@
 		03C1327F1976BCFF00C19D03 /* Turn */ = {
 			isa = PBXGroup;
 			children = (
+				A5B06B222A3B3305002B1C8B /* TurnHelper */,
 				03C132821976BCFF00C19D03 /* Turn.h */,
 				03C132831976BCFF00C19D03 /* Turn.m */,
-				A59883D92A0ACC0F008B8763 /* TurnHelper.h */,
-				A59883DA2A0ACC0F008B8763 /* TurnHelper.m */,
-				A513A9322A0E800800EF8E95 /* TurnHelperProtocol.h */,
 				A5C224E42A24A91C00C4C7A0 /* TurnType.h */,
 			);
 			path = Turn;
@@ -410,6 +414,20 @@
 				03C132971976BD0600C19D03 /* WorldScreenViewController.m */,
 			);
 			path = WorldScreenViewController;
+			sourceTree = "<group>";
+		};
+		A5B06B222A3B3305002B1C8B /* TurnHelper */ = {
+			isa = PBXGroup;
+			children = (
+				A513A9322A0E800800EF8E95 /* TurnHelperProtocol.h */,
+				A59883D92A0ACC0F008B8763 /* TurnHelper.h */,
+				A59883DA2A0ACC0F008B8763 /* TurnHelper.m */,
+				A5B06B1F2A3B32FB002B1C8B /* FishTurnHelper.h */,
+				A5B06B202A3B32FB002B1C8B /* FishTurnHelper.m */,
+				A5B06B232A3B3328002B1C8B /* OrcaTurnHelper.h */,
+				A5B06B242A3B3328002B1C8B /* OrcaTurnHelper.m */,
+			);
+			path = TurnHelper;
 			sourceTree = "<group>";
 		};
 		A5C224E12A24A75300C4C7A0 /* Common */ = {
@@ -568,6 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A51F861F2A2F47E2002B3D8F /* Localizable.m in Sources */,
+				A5B06B252A3B3328002B1C8B /* OrcaTurnHelper.m in Sources */,
 				A5E1CC902A1F8893002CB927 /* AppDelegate.m in Sources */,
 				A57B18832A1A20B4006E1AE9 /* Utils.m in Sources */,
 				03C132901976BCFF00C19D03 /* WorldViewController.m in Sources */,
@@ -575,6 +594,7 @@
 				A53E54202A0EF3F5006E2B90 /* SliderView.m in Sources */,
 				A5BC10152A081AB8003618E2 /* NSValue+WorldPosition.m in Sources */,
 				A513A9302A0E79CE00EF8E95 /* CreatureTimer.m in Sources */,
+				A5B06B212A3B32FB002B1C8B /* FishTurnHelper.m in Sources */,
 				A51F86222A2F512D002B3D8F /* CreatureDeps.m in Sources */,
 				A56C6EA72A0C04A600C66D0A /* CreatureAnimator.m in Sources */,
 				A5BC10102A066B56003618E2 /* UIImage+Creature.m in Sources */,
