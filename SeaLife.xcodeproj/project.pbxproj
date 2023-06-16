@@ -33,6 +33,7 @@
 		A56C6EA72A0C04A600C66D0A /* CreatureAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A56C6EA62A0C04A600C66D0A /* CreatureAnimator.m */; };
 		A56C6EAD2A0C2CF700C66D0A /* WorldBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A56C6EAC2A0C2CF700C66D0A /* WorldBackgroundView.m */; };
 		A57B18832A1A20B4006E1AE9 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A57B18822A1A20B4006E1AE9 /* Utils.m */; };
+		A58D662C2A3C6876004B1E42 /* CreaturePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A58D662B2A3C6876004B1E42 /* CreaturePool.m */; };
 		A59883DB2A0ACC0F008B8763 /* TurnHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A59883DA2A0ACC0F008B8763 /* TurnHelper.m */; };
 		A59F3D9C2A1299160088A510 /* AnimationsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A59F3D9B2A1299160088A510 /* AnimationsFactory.m */; };
 		A59F3DA02A1391970088A510 /* CreaturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = A59F3D9F2A1391970088A510 /* CreaturesView.m */; };
@@ -111,6 +112,8 @@
 		A56C6EAC2A0C2CF700C66D0A /* WorldBackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldBackgroundView.m; sourceTree = "<group>"; };
 		A57B18812A1A20B4006E1AE9 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		A57B18822A1A20B4006E1AE9 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		A58D662A2A3C6876004B1E42 /* CreaturePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreaturePool.h; sourceTree = "<group>"; };
+		A58D662B2A3C6876004B1E42 /* CreaturePool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreaturePool.m; sourceTree = "<group>"; };
 		A59883D92A0ACC0F008B8763 /* TurnHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurnHelper.h; sourceTree = "<group>"; };
 		A59883DA2A0ACC0F008B8763 /* TurnHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TurnHelper.m; sourceTree = "<group>"; };
 		A59F3D9A2A1299160088A510 /* AnimationsFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationsFactory.h; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 			children = (
 				03AC82ED1974646000D4348C /* CreatureFactory.h */,
 				03AC82EE1974646000D4348C /* CreatureFactory.m */,
+				A58D662A2A3C6876004B1E42 /* CreaturePool.h */,
+				A58D662B2A3C6876004B1E42 /* CreaturePool.m */,
 			);
 			path = CreatureFactory;
 			sourceTree = "<group>";
@@ -601,6 +606,7 @@
 				03B818F0197795BE0096FB77 /* OrcaCreature.m in Sources */,
 				A56C6EAD2A0C2CF700C66D0A /* WorldBackgroundView.m in Sources */,
 				03C1328D1976BCFF00C19D03 /* Turn.m in Sources */,
+				A58D662C2A3C6876004B1E42 /* CreaturePool.m in Sources */,
 				A59F3DA02A1391970088A510 /* CreaturesView.m in Sources */,
 				03B818F1197795BE0096FB77 /* FishCreature.m in Sources */,
 				A59F3D9C2A1299160088A510 /* AnimationsFactory.m in Sources */,
