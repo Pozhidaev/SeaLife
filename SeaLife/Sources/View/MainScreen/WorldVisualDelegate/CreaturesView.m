@@ -94,8 +94,9 @@
                                          _cellSize.height * (position.y + 0.5));
     [self addSubview:visualComponent];
     
-    CreatureAnimator *animator = [[CreatureAnimator alloc] initWithVisualComponent:visualComponent];
-
+    CreatureAnimator *animator = [[CreatureAnimator alloc] init];
+    animator.visualComponent = visualComponent;
+    
     [self addAnimator:animator for:creature.uuid];
     
     creature.animator = animator;

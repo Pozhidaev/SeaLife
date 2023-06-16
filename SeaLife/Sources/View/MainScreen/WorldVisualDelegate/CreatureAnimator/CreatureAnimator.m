@@ -22,19 +22,15 @@
     void(^_completion)(void);
 }
 
-@property (nonatomic, readwrite) UIImageView *visualComponent;
-
 @end
 
 @implementation CreatureAnimator
 
-- (instancetype)initWithVisualComponent:(UIImageView *)visualComponent
+- (instancetype)init
 {
     self = [super init];
     if (self) {
         _animationsArray = [[NSMutableArray alloc] init];
-        self.visualComponent = visualComponent;
-        self.animationSpeed = 0;
     }
     return self;
 }
@@ -68,20 +64,25 @@
                   withCompletion:(void(^)(void))completion
                  completionQueue:(dispatch_queue_t)completionQueue
 {
-    [Utils performOnMainThread:^{
-        [self performAnimationsForTurn:turn
-                        withCompletion:^{
-            if (turn.direction != DirectionNone) {
-                turn.creature.direction = turn.direction;
+    void(^localCompletion)(void) = ^{
+        if (turn.direction != DirectionNone) {
+            turn.creature.direction = turn.direction;
+        }
+        
+        dispatch_async(completionQueue, ^{
+            if (completion) {
+                completion();
             }
-            
-            dispatch_async(completionQueue, ^{
-                if (completion) {
-                    completion();
-                }
-            });
+        });
+    };
+
+    if (self.visualComponent) {
+        [Utils performOnMainThread:^{
+            [self performAnimationsForTurn:turn withCompletion:localCompletion];
         }];
-    }];
+    } else {
+        localCompletion();
+    }
 }
 
 #pragma mark - CAAnimationDelegate

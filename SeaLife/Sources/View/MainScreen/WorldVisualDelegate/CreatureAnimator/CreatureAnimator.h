@@ -17,12 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CGSize cellSize;
 @property (nonatomic) float animationSpeed;
 
-@property (nonatomic, readonly) UIImageView *visualComponent;
+@property (nonatomic, weak) UIImageView *visualComponent;
 
 - (void)play;
 - (void)pause;
-
-- (instancetype)initWithVisualComponent:(UIImageView *)visualComponent;
 
 - (void)performAnimationsForTurn:(Turn *)turn
                   withCompletion:(void(^)(void))completion
