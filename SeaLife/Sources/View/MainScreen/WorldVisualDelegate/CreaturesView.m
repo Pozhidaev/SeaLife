@@ -36,19 +36,6 @@
     return self;
 }
 
-#pragma mark - Accessors
-
-- (void)setCellSize:(CGSize)cellSize
-{
-    if (CGSizeEqualToSize(_cellSize, cellSize)) { return; }
-
-    _cellSize = cellSize;
-
-    for (CreatureAnimator *animator in _animators.objectEnumerator) {
-        animator.cellSize = cellSize;
-    }
-}
-
 #pragma mark - WorldVisualDelegate
 
 - (void)reset
@@ -84,7 +71,11 @@
         view.center = center;
     }
     
-    [self setCellSize:toCellSize];
+    for (CreatureAnimator *animator in _animators.objectEnumerator) {
+        animator.cellSize = toCellSize;
+    }
+    
+    _cellSize = toCellSize;
 }
 
 - (void)addCreature:(id<CreatureProtocol>)creature at:(struct WorldPosition)position
@@ -134,5 +125,6 @@
     
     [_animators setObject:animator forKey:creatureUUID];
 }
+
 
 @end
