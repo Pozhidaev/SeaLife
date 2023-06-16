@@ -85,16 +85,16 @@
                                          _cellSize.height * (position.y + 0.5));
     [self addSubview:visualComponent];
     
-    CreatureAnimator *animator = [[CreatureAnimator alloc] init];
-    animator.visualComponent = visualComponent;
+    creature.animator.cellSize = _cellSize;
+    creature.animator.animationSpeed = _animationSpeed;
+    creature.animator.visualComponent = visualComponent;
     
-    [self addAnimator:animator for:creature.uuid];
-    
-    creature.animator = animator;
+    [_animators setObject:creature.animator forKey:creature.uuid];
 }
 
 - (void)removeCreature:(id<CreatureProtocol>)creature
 {
+    creature.animator.visualComponent.hidden = YES;
     [creature.animator.visualComponent removeFromSuperview];
     
     [_animators removeObjectForKey:creature.uuid];
@@ -117,14 +117,5 @@
     
     return imageView;
 }
-
-- (void)addAnimator:(CreatureAnimator *)animator for:(NSUUID *)creatureUUID
-{
-    animator.cellSize = _cellSize;
-    animator.animationSpeed = _animationSpeed;
-    
-    [_animators setObject:animator forKey:creatureUUID];
-}
-
 
 @end

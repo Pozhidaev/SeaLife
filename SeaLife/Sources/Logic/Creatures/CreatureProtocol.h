@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) struct WorldPosition position;
 @property (nonatomic) Direction direction;
 
-@property (nonatomic) CreatureAnimator *animator;
+@property (nonatomic, readonly) CreatureAnimator *animator;
 
 - (void)setSpeed:(float)speed;
 - (void)start;

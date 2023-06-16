@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) dispatch_queue_t timersParentQueue;
 @property (nonatomic, weak) dispatch_queue_t creaturesParentQueue;
 
+@property (nonatomic) CreatureAnimator *animator;
+
 @end
 
 NS_ASSUME_NONNULL_END

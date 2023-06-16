@@ -33,6 +33,7 @@
     __weak id<WorldProtocol> _world;
 }
 @property (nonatomic, readwrite) NSUUID *uuid;
+@property (nonatomic, readwrite) CreatureAnimator *animator;
 
 @end
 
@@ -47,13 +48,14 @@
     self = [super init];
     if (self) {
         self.uuid = [NSUUID UUID];
-        
+        self.busy = NO;
+        self.animator = deps.animator;
+
         _queue = dispatch_queue_create("creature_private_queue", DISPATCH_QUEUE_SERIAL_INACTIVE);
         dispatch_set_target_queue(_queue, deps.creaturesParentQueue);
         dispatch_activate(_queue);
         
         _turnHelperClass = deps.turnHelperClass;
-        
         _world = deps.world;
         
         __weak typeof(self) weakSelf = self;

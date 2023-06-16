@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setAnimationSpeed:(float)animationSpeed;
 - (void)redrawToCellSize:(CGSize)toCellSize;
 
+- (void)animatorForCreature:(id<CreatureProtocol>)creature;
+
 - (void)addCreature:(id<CreatureProtocol>)creature at:(struct WorldPosition)position;
 - (void)removeCreature:(id<CreatureProtocol>)creature;
 

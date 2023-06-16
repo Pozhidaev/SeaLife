@@ -9,6 +9,7 @@
 #import "CreatureFactory.h"
 
 #import "CreatureDeps.h"
+#import "CreatureAnimator.h"
 
 #import "CreatureProtocol.h"
 #import "FishCreature.h"
@@ -40,6 +41,7 @@
     static dispatch_queue_t creaturesQueue;
     
     static dispatch_once_t onceToken;
+    
     dispatch_once(&onceToken, ^{
         timersQueue = dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0);
         creaturesQueue = dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0);
@@ -47,9 +49,9 @@
     
     deps.creaturesParentQueue = creaturesQueue;
     deps.timersParentQueue = timersQueue;
-    
     deps.turnHelperClass = [self turnHelperClassForCreatureClass:creatureClass];
-    
+    deps.animator = [[CreatureAnimator alloc] init];
+
     id<CreatureProtocol> creature = [[creatureClass.self alloc] initWithDeps:deps];
 
     return creature;
