@@ -30,7 +30,7 @@
 #define kWorldBackgroundViewBorderLineWidth   2.0
 #define kWorldBackgroundViewCellLineWidth     1.0
 #define kWorldBackgroundViewMaxVerticalSizeForDrawingGridIphone   15
-#define kWorldBackgroundViewMaxVerticalSizeForDrawingGridIpad     50
+#define kWorldBackgroundViewMaxVerticalSizeForDrawingGridIpad     30
 
 #define kCreatureImageViewMinSizeForReducing  40.0
 #define kCreatureImageViewReducingCoeficient  0.1
