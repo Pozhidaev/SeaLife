@@ -81,7 +81,7 @@
 + (MoveRuleFunction)eatingRuleFunction
 {
     return ^BOOL(WorldCell *cell){
-        return cell.creature.class == FishCreature.class;
+        return cell.creature.class == FishCreature.class && cell.creature.live == YES;
     };
 }
 

@@ -205,7 +205,7 @@
     [_creatures removeObject:creature];
     [_creaturesLock unlock];
 
-    if (cell) {
+    if (cell && cell.creature == creature) {
         [_cellsLock lock];
         cell.creature = nil;
         [_cellsLock unlock];

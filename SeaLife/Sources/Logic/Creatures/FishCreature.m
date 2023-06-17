@@ -31,6 +31,7 @@
     self = [super initWithDeps: deps];
     if (self) {
         _reproductivePoints = 0;
+        self.live = YES;
         self.direction = DirectionRight;
     }
     return self;
@@ -52,8 +53,18 @@
 - (Turn *)decideTurnForCurrentCell:(WorldCell *)currentCell
                       posibleCells:( NSSet<WorldCell *> *)possibleCells
 {
-    Turn *turn = nil;
+    if (self.live == NO) {
+        return [Turn dieTurnWithCreature:self
+                             currentCell:currentCell];
+    }
     
+    if (!currentCell) {
+        return [Turn emptyTurnWithCreature:self
+                               currentCell:nil];
+    }
+
+    Turn *turn = nil;
+
     //try reproduce
     if (!turn) {
         if (_reproductivePoints >= kFishReproductionPeriod) {

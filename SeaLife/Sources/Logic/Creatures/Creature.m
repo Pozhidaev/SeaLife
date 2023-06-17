@@ -49,6 +49,7 @@
     if (self) {
         self.uuid = [NSUUID UUID];
         self.busy = NO;
+        self.live = YES;
         self.animator = deps.animator;
 
         _queue = dispatch_queue_create("creature_private_queue", DISPATCH_QUEUE_SERIAL_INACTIVE);
@@ -97,6 +98,15 @@
 {
     self.busy = YES;
     [_timer stop];
+}
+
+- (void)setLive:(BOOL)live
+{
+    _live = live;
+    
+    if (live == NO) {
+        [_animator completeCurrent];
+    }
 }
 
 #pragma mark - Private
@@ -170,8 +180,6 @@
                          withCompletion:^{
         [self->_world removeFromVisualCreature:turn.creature];
         [self->_world removeCreature:turn.creature atCell:turn.cell];
-        [self->_world unlockCell:turn.cell];
-        
         completion();
     } completionQueue:_queue];
 }
@@ -188,7 +196,6 @@
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
         [self->_world unlockCell:turn.targetCell];
-        
         completion();
     } completionQueue:_queue];
 }
@@ -227,7 +234,7 @@
 {
     id<CreatureProtocol> targetCreature = [turn.otherCreatures anyObject];
     
-    [targetCreature stop];
+    targetCreature.live = NO;
     
     [_world moveCreature:self
                 fromCell:turn.cell
@@ -238,15 +245,7 @@
     [_animator performAnimationsForTurn:turn
                          withCompletion:^{
         [self->_world unlockCell:turn.targetCell];
-        
-        Turn *nextTurn = [Turn dieTurnWithCreature:targetCreature
-                                       currentCell:turn.targetCell];
         completion();
-        [targetCreature.animator performAnimationsForTurn:nextTurn
-                                           withCompletion:^{
-            [self->_world removeFromVisualCreature:targetCreature];
-            [self->_world removeCreature:targetCreature atCell:nil];
-        } completionQueue:self->_queue];
     } completionQueue:_queue];
 }
 

@@ -183,7 +183,7 @@
         case TurnTypeCreatureBorn:
             return [NSSet setWithObject:self.cell];
         case TurnTypeCreatureDie:
-            return [NSSet setWithObject:self.cell];
+            return [NSSet set];
     }
 }
 

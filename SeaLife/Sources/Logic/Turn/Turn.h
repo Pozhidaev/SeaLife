@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
                          currentCell:(WorldCell *)currentCell;
 
 + (instancetype)dieTurnWithCreature:(id<CreatureProtocol>)creture
-                        currentCell:(WorldCell *)currentCell;
+                        currentCell:(WorldCell *_Nullable)currentCell;
 
 + (instancetype)moveTurnWithCreature:(id<CreatureProtocol>)creture
                           currentCell:(WorldCell *)currentCell

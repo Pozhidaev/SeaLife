@@ -44,6 +44,10 @@
 {
     _reproductivePoints += 1;
     _hungerPoints -= 1;
+    
+    if (_hungerPoints < 0) {
+        self.live = NO;
+    }
 }
 - (void)afterEveryTurn
 {
@@ -55,18 +59,18 @@
 - (Turn *)decideTurnForCurrentCell:(WorldCell *)currentCell
                       posibleCells:(NSSet<WorldCell *> *)possibleCells
 {
+    if (self.live == NO) {
+        return [Turn dieTurnWithCreature:self
+                             currentCell:currentCell];
+    }
+
     if (!currentCell) {
         return [Turn emptyTurnWithCreature:self
                                currentCell:nil];
     }
     
     Turn *turn = nil;
-    
-    //check live
-    if (_hungerPoints < 0) {
-        turn = [Turn dieTurnWithCreature:self
-                             currentCell:currentCell];
-    }
+
     //try reproduce
     if (!turn) {
         if (_reproductivePoints >= kOrcaReproductionPeriod) {

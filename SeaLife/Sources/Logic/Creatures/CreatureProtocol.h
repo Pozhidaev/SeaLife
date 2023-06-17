@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSUUID *uuid;
 @property (nonatomic) BOOL busy;
+@property (nonatomic) BOOL live;
 @property (nonatomic) struct WorldPosition position;
 @property (nonatomic) Direction direction;
 
