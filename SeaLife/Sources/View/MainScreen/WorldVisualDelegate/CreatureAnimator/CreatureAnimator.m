@@ -60,6 +60,14 @@
     }];
 }
 
+- (void)completeCurrent
+{
+    [Utils performOnMainThread:^{
+        [self->_animationsArray removeAllObjects];
+        [self.visualComponent.layer removeAllAnimations];
+    }];
+}
+
 - (void)performAnimationsForTurn:(Turn *)turn
                   withCompletion:(void(^)(void))completion
                  completionQueue:(dispatch_queue_t)completionQueue

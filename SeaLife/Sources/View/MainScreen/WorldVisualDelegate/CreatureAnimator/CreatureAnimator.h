@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)play;
 - (void)pause;
+- (void)completeCurrent;
 
 - (void)performAnimationsForTurn:(Turn *)turn
                   withCompletion:(void(^)(void))completion
