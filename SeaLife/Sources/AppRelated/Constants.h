@@ -40,23 +40,23 @@
 
 #define kHorizontalWorldSizeMin            1
 #define kHorizontalWorldSizeMax            50
-#define kHorizontalWorldSizeDefault        10
+#define kHorizontalWorldSizeDefault        12
 
 #define kVerticalWorldSizeMin              1
 #define kVerticalWorldSizeMax              50
-#define kVerticalWorldSizeDefault          15
+#define kVerticalWorldSizeDefault          18
 
-#define kDefaultfishCount                  50
-#define kDefaultOrcaCount                  10
+#define kDefaultfishCount                  190
+#define kDefaultOrcaCount                  20
 
 //Speed
 #define kSlowestCreatureSpeed              4.0f
 #define kFastestCreatureSpeed              0.1f
-#define kDefaultCreatureSpeed              0.5f
+#define kDefaultCreatureSpeed              0.1f
 
 #define kSlowestAnimationSpeed             2.0f
 #define kFastestAnimationSpeed             0.1f
-#define kDefaultAnimationSpeed             0.5f
+#define kDefaultAnimationSpeed             0.4f
 
 //Creature
 
