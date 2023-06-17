@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)menuXSizeTitle;
 /// Vertical Size
 + (NSString*)menuYSizeTitle;
+/// sec
++ (NSString*)timeSeconds;
 /// Localizable.strings
 ///   SeaLife
 /// 

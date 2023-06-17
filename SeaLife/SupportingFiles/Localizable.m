@@ -62,6 +62,9 @@ static NSString* tr(NSString *tableName, NSString *key, NSString *value, ...) {
 + (NSString*)menuYSizeTitle {
     return tr(@"Localizable", @"Menu.YSize.Title", @"Vertical Size");
 }
++ (NSString*)timeSeconds {
+    return tr(@"Localizable", @"Time.Seconds", @"sec");
+}
 + (NSString*)worldFinishEmpty {
     return tr(@"Localizable", @"World.Finish.Empty", @"World become empty");
 }

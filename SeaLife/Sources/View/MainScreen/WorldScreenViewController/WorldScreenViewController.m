@@ -115,14 +115,18 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 - (void)animationSpeedSliderChanged:(UISlider *)sender
 {
     float speed = kSlowestAnimationSpeed - (sender.value - kFastestAnimationSpeed);
-    self.animationSpeedValueLabel.text = [NSString stringWithFormat:@"%.1fs", speed];
+    NSString *secondsString = [NSString stringWithFormat:@"%.2f", speed];
+    NSString *secondsAbbreviation = Localizable.timeSeconds;
+    self.animationSpeedValueLabel.text = [NSString stringWithFormat:@"%@%@", secondsString, secondsAbbreviation];
     [self.worldViewController setAnimationSpeed:speed];
 }
 
 - (void)creatureSpeedSliderChanged:(UISlider *)sender
 {
     float speed = kSlowestCreatureSpeed - (sender.value - kFastestCreatureSpeed);
-    self.creatureSpeedValueLabel.text = [NSString stringWithFormat:@"%.1fs", speed];
+    NSString *secondsString = [NSString stringWithFormat:@"%.2f", speed];
+    NSString *secondsAbbreviation = Localizable.timeSeconds;
+    self.creatureSpeedValueLabel.text = [NSString stringWithFormat:@"%@%@", secondsString, secondsAbbreviation];
     self.worldViewController.creaturesSpeed = speed;
 }
 
@@ -198,17 +202,21 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 
     self.creatureSpeedValueLabel = [[UILabel alloc] init];
     self.creatureSpeedValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.creatureSpeedValueLabel.text = [NSString stringWithFormat:@"%.1fs", kDefaultCreatureSpeed];
+    NSString *secondsString = [NSString stringWithFormat:@"%.2f", kDefaultCreatureSpeed];
+    NSString *secondsAbbreviation = Localizable.timeSeconds;
+    self.creatureSpeedValueLabel.text = [NSString stringWithFormat:@"%@%@", secondsString, secondsAbbreviation];
     self.creatureSpeedValueLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
     
     UILabel *creatureSpeedMinLabel = [[UILabel alloc] init];
     creatureSpeedMinLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    creatureSpeedMinLabel.text = [NSString stringWithFormat:@"%.1fs", kSlowestCreatureSpeed];
+    NSString *slowSpeedString = [NSString stringWithFormat:@"%.2f", kSlowestCreatureSpeed];
+    creatureSpeedMinLabel.text = [NSString stringWithFormat:@"%@%@", slowSpeedString, secondsAbbreviation];
     creatureSpeedMinLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
     
     UILabel *creatureSpeedMaxLabel = [[UILabel alloc] init];
     creatureSpeedMaxLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    creatureSpeedMaxLabel.text = [NSString stringWithFormat:@"%.1fs", kFastestCreatureSpeed];
+    NSString *fastSpeedString = [NSString stringWithFormat:@"%.2f", kFastestCreatureSpeed];
+    creatureSpeedMaxLabel.text = [NSString stringWithFormat:@"%@%@", fastSpeedString, secondsAbbreviation];
     creatureSpeedMaxLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
 
     self.creatureSpeedSlider = [[UISlider alloc] init];
@@ -240,17 +248,21 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     
     self.animationSpeedValueLabel = [[UILabel alloc] init];
     self.animationSpeedValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.animationSpeedValueLabel.text = [NSString stringWithFormat:@"%.1fs", kDefaultAnimationSpeed];
+    NSString *secondsString = [NSString stringWithFormat:@"%.2f", kDefaultAnimationSpeed];
+    NSString *secondsAbbreviation = Localizable.timeSeconds;
+    self.animationSpeedValueLabel.text = [NSString stringWithFormat:@"%@%@", secondsString, secondsAbbreviation];
     self.animationSpeedValueLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
     
     UILabel *animationSpeedMinLabel = [[UILabel alloc] init];
     animationSpeedMinLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    animationSpeedMinLabel.text = [NSString stringWithFormat:@"%.1fs", kSlowestAnimationSpeed];
+    NSString *slowSpeedString = [NSString stringWithFormat:@"%.2f", kSlowestAnimationSpeed];
+    animationSpeedMinLabel.text = [NSString stringWithFormat:@"%@%@", slowSpeedString, secondsAbbreviation];
     animationSpeedMinLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
 
     UILabel *animationSpeedMaxLabel = [[UILabel alloc] init];
     animationSpeedMaxLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    animationSpeedMaxLabel.text = [NSString stringWithFormat:@"%.1fs", kFastestAnimationSpeed];
+    NSString *fastSpeedString = [NSString stringWithFormat:@"%.2f", kFastestAnimationSpeed];
+    animationSpeedMaxLabel.text = [NSString stringWithFormat:@"%@%@", fastSpeedString, secondsAbbreviation];
     animationSpeedMaxLabel.textColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Text"];
 
     self.animationSpeedSlider = [[UISlider alloc] init];

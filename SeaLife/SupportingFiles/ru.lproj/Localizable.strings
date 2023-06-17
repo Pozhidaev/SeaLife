@@ -24,3 +24,5 @@
 "Menu.XSize.Title" = "Горизонтальный размер";
 "Menu.YSize.Title" = "Вертикальный размер";
 
+"Time.Seconds" = "сек";
+

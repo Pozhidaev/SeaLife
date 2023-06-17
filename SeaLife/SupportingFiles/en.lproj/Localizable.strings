@@ -23,3 +23,5 @@
 "Menu.OrcaCount.Title" = "Orca count";
 "Menu.XSize.Title" = "Horizontal size";
 "Menu.YSize.Title" = "Vertical Size";
+
+"Time.Seconds" = "sec";
