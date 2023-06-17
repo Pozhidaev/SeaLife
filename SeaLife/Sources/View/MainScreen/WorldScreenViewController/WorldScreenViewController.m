@@ -291,6 +291,14 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
     self.resetButton.layer.cornerRadius = kDefaultCornerRadius;
     self.menuButton.layer.cornerRadius = kDefaultCornerRadius;
     
+    self.playButton.layer.borderWidth = kDefaultBorderWidth;
+    self.resetButton.layer.borderWidth = kDefaultBorderWidth;
+    self.menuButton.layer.borderWidth = kDefaultBorderWidth;
+
+    self.playButton.layer.borderColor = [[UIColor colorNamed:@"MainScreen/ControlPanel/ButtonsFrame"] CGColor];
+    self.resetButton.layer.borderColor = [[UIColor colorNamed:@"MainScreen/ControlPanel/ButtonsFrame"] CGColor];
+    self.menuButton.layer.borderColor = [[UIColor colorNamed:@"MainScreen/ControlPanel/ButtonsFrame"] CGColor];
+    
     self.resetButton.backgroundColor = [UIColor colorNamed:@"MainScreen/ControlPanel/ResetButtonBackground"];
     self.menuButton.backgroundColor = [UIColor colorNamed:@"MainScreen/ControlPanel/MenuButtonBackground"];
     self.playButton.backgroundColor = [UIColor colorNamed:@"MainScreen/ControlPanel/PlayButtonBackground"];
@@ -356,11 +364,16 @@ NSString * const kSegueIdWorldViewContainer = @"kSegueIdWorldViewContainer";
 
 #pragma mark - UIContentContainer
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+              withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     
     self.controlPanel.layer.borderColor = [UIColor colorNamed:@"MainScreen/ControlPanel/Frame"].CGColor;
+    
+    self.playButton.layer.borderColor = [[UIColor colorNamed:@"MainScreen/ControlPanel/ButtonsFrame"] CGColor];
+    self.resetButton.layer.borderColor = [[UIColor colorNamed:@"MainScreen/ControlPanel/ButtonsFrame"] CGColor];
+    self.menuButton.layer.borderColor = [[UIColor colorNamed:@"MainScreen/ControlPanel/ButtonsFrame"] CGColor];
 }
 
 @end
